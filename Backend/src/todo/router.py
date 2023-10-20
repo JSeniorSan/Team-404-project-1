@@ -1,11 +1,11 @@
 from fastapi import Depends, Form, Request, APIRouter
 from fastapi.responses import RedirectResponse
-from fastapi.staticfiles import StaticFiles
 from sqlalchemy.orm import Session
 from src.database import get_db
 from src.todo.models import ToDo
 from src.config import templates
 from starlette.status import HTTP_302_FOUND, HTTP_303_SEE_OTHER
+from src.todo.schemas import ToDoSchema
 
 
 router = APIRouter(prefix="")
@@ -49,3 +49,9 @@ def delete_todo(todo_id: int, db_session: Session = Depends(get_db)):
 
     url = router.url_path_for("main_page")
     return RedirectResponse(url=url, status_code=HTTP_302_FOUND)
+
+
+@router.get("/vova")
+def get_all_todos(db_session: Session = Depends(get_db)) -> list[ToDoSchema]: 
+    todos = db_session.query(ToDo).all()
+    return todos
