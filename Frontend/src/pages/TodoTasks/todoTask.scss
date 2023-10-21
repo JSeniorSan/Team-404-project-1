@@ -1,0 +1,7 @@
+.wrapper {
+  @apply w-full h-screen flex items-center flex-col gap-3;
+
+  .hi {
+    @apply text-slate-700 w-9/12 border border-gray-400 flex p-3 flex-wrap gap-4;
+  }
+}
