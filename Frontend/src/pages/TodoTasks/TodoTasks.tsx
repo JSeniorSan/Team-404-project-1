@@ -2,15 +2,12 @@ import CardUi from "../../shared/ui/card/Card";
 import "../../app/index.scss";
 import { Input } from "antd";
 import { useEffect, useState } from "react";
-import {
-  GetTodosAsync,
-  MakeTodo,
-} from "../../entities/todos/store/todo/todoSlice";
-import { useAppDispatch } from "../../entities/todos/store/redux-hooks";
+import { GetTodosAsync, MakeTodo } from "../../shared/api/todo/todoSlice";
+import { useAppDispatch } from "../../shared/api/redux-hooks";
 import {
   selectStatus,
   selectAllTodos,
-} from "../../entities/todos/store/todo/todoSelectors";
+} from "../../shared/api/todo/todoSelectors";
 import { useSelector } from "react-redux";
 import BtnDone from "../../shared/ui/btns/btn-done/Btn-done";
 function TodoTasks() {
