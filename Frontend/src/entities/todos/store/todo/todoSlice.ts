@@ -22,10 +22,6 @@ export const GetTodosAsync = createAsyncThunk<ITodo[]>(
 export const MakeTodo = createAsyncThunk(
   "@@todos/makeTodo",
   async (value: string) => {
-    // const newTodo = {
-    //   title: value,
-    //   description: null,
-    // };
     try {
       const data = await axios.post<IPost>("http://127.0.0.1:8000/addtodo", {
         title: value,

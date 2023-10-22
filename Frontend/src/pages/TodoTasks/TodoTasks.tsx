@@ -1,8 +1,7 @@
-import CardUi from "../../shared/card/ui/Card";
+import CardUi from "../../shared/ui/card/Card";
 import "../../app/index.scss";
 import { Input } from "antd";
 import { useEffect, useState } from "react";
-import { Button } from "antd/es/radio";
 import {
   GetTodosAsync,
   MakeTodo,
@@ -13,6 +12,7 @@ import {
   selectAllTodos,
 } from "../../entities/todos/store/todo/todoSelectors";
 import { useSelector } from "react-redux";
+import BtnDone from "../../shared/ui/btns/btn-done/Btn-done";
 function TodoTasks() {
   const dispatch = useAppDispatch();
   const status = useSelector(selectStatus);
@@ -41,9 +41,7 @@ function TodoTasks() {
         onChange={onChange}
         className="w-36 h-6"
       />
-      <Button type="primary" className="w-36 h-8" onClick={handleClick}>
-        Add todo
-      </Button>
+      <BtnDone color="green" description="Add todo" onClick={handleClick} />
 
       <div className="hi">
         {status === "loading" && <h1>Loading...</h1>}
