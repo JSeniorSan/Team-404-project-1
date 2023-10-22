@@ -56,7 +56,7 @@ def delete_todo(todo_id: int, db_session: Session = Depends(get_db)):
     return RedirectResponse(url=url, status_code=HTTP_302_FOUND)
 
 
-@router.get("/vova")
+@router.get("/getdata")
 def get_all_todos(db_session: Session = Depends(get_db)) -> list[ToDoReturn]: 
     todos = db_session.query(ToDo).all()
     return todos
@@ -68,5 +68,5 @@ def add_one_todo(todo: ToDoCreate, db_session: Session = Depends(get_db)):
     db_session.execute(stmt)
     db_session.commit()
     return {
-        "status": HTTP_201_CREATED
+        "data": get_all_todos()
     }
