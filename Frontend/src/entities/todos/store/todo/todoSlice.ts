@@ -21,17 +21,15 @@ export const GetTodosAsync = createAsyncThunk<ITodo[]>(
 
 export const MakeTodo = createAsyncThunk(
   "@@todos/makeTodo",
-  async (value: string, { getState }) => {
-    const newTodo = {
-      id: getState.length,
-      title: value,
-      description: null,
-      status: true,
-      created_at: new Date().toISOString(),
-    };
+  async (value: string) => {
+    // const newTodo = {
+    //   title: value,
+    //   description: null,
+    // };
     try {
-      const data = await axios.post<IPost>("http://127.0.0.1:8000/add", {
-        newTodo: newTodo,
+      const data = await axios.post<IPost>("http://127.0.0.1:8000/addtodo", {
+        title: value,
+        description: null,
       });
       return data;
     } catch (err) {

@@ -22,11 +22,13 @@ function TodoTasks() {
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setValue(e.target.value);
   };
-  // const handleClick = () => {
-  //   if (value) {
-  //     dispatch(MakeTodo(value));
-  //   }
-  // };
+  const handleClick = () => {
+    if (value) {
+      console.log("yes");
+
+      dispatch(MakeTodo(value));
+    }
+  };
 
   useEffect(() => {
     dispatch(GetTodosAsync());
@@ -39,7 +41,7 @@ function TodoTasks() {
         onChange={onChange}
         className="w-36 h-6"
       />
-      <Button type="primary" className="w-36 h-8">
+      <Button type="primary" className="w-36 h-8" onClick={handleClick}>
         Add todo
       </Button>
 
