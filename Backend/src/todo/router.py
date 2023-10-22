@@ -1,6 +1,6 @@
 from fastapi import Depends, Form, Request, APIRouter
 from fastapi.responses import RedirectResponse
-from sqlalchemy import insert
+from sqlalchemy import delete, insert
 from sqlalchemy.orm import Session
 from src.database import get_db
 from src.todo.models import ToDo
@@ -56,18 +56,35 @@ def delete_todo(todo_id: int, db_session: Session = Depends(get_db)):
     return RedirectResponse(url=url, status_code=HTTP_302_FOUND)
 
 
-@router.get("/getdata")
-def get_all_todos(db_session: Session = Depends(get_db)) -> list[ToDoReturn]: 
+def get_all_todos_dependancy(db_session: Session = Depends(get_db)) -> list[ToDoReturn]:
     todos = db_session.query(ToDo).all()
     return todos
 
 
+@router.get("/getdata")
+def get_all_todos(todos: list[ToDoReturn] = Depends(get_all_todos_dependancy)) -> list[ToDoReturn]: 
+    return todos
+
+
 @router.post("/addtodo")
-def add_one_todo(todo: ToDoCreate, db_session: Session = Depends(get_db)) -> dict[str, list[ToDoReturn]]:
+def add_one_todo(
+    todo: ToDoCreate, 
+    db_session: Session = Depends(get_db), 
+    ) -> list[ToDoReturn]:
     stmt = insert(ToDo).values(**todo.model_dump())
     db_session.execute(stmt)
     db_session.commit()
     todos = db_session.query(ToDo).all()
-    return {
-        "data": todos
-    }
+    return todos
+
+
+@router.delete("/deletetodo")
+def delete_one_todo(
+    todo_id: int, 
+    db_session: Session = Depends(get_db),
+    ) -> list[ToDoReturn]: 
+    stmt = delete(ToDo).where(ToDo.id == todo_id)
+    db_session.execute(stmt)
+    db_session.commit()
+    todos = db_session.query(ToDo).all()
+    return todos
