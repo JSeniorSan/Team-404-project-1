@@ -2,13 +2,15 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { ITodo, ITodos } from "./todoInterfaces";
 import axios from "axios";
 import { IPost } from "./todoInterfaces";
-const URL = "http://127.0.0.1:8000/vova";
-
+const URL_GET = "http://127.0.0.1:8000/getdata";
+const URL_POST = "http://127.0.0.1:8000/addtodo";
 export const GetTodosAsync = createAsyncThunk<ITodo[]>(
   "@todos/getData",
   async (_, { rejectWithValue }) => {
     try {
-      const { data } = await axios.get(URL);
+      const { data } = await axios.get(URL_GET);
+      console.log(data);
+
       return data;
     } catch (err) {
       if (err instanceof Error) {
@@ -23,11 +25,17 @@ export const MakeTodo = createAsyncThunk(
   "@@todos/makeTodo",
   async (value: string) => {
     try {
-      const data = await axios.post<IPost>("http://127.0.0.1:8000/addtodo", {
-        title: value,
-        description: null,
-      });
-      return data;
+      const { data } = await axios.post<IPost>(
+        URL_POST,
+
+        {
+          title: value,
+          description: null,
+        }
+      );
+      console.log(data);
+
+      return data.data;
     } catch (err) {
       if (err instanceof Error) {
         return err.message;
@@ -61,7 +69,9 @@ export const TodoSlice = createSlice({
         state.intities = [...action.payload];
       })
       .addCase(MakeTodo.fulfilled, (state, action) => {
-        console.log(action.payload);
+        state.errors = null;
+        state.status = "idle";
+        state.intities = [...action.payload];
       })
       .addMatcher(
         (action) => action.type.endsWith("/pending"),

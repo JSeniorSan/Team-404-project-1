@@ -13,6 +13,5 @@ export interface ITodos {
 }
 
 export interface IPost {
-  status: string;
-  data: ITodos;
+  data: ITodo[];
 }
