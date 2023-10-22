@@ -1,4 +1,3 @@
-import CardUi from "../../shared/ui/card/Card";
 import "../../app/index.scss";
 import { Input } from "antd";
 import { useEffect, useState } from "react";
@@ -10,6 +9,9 @@ import {
 } from "../../shared/api/todo/todoSelectors";
 import { useSelector } from "react-redux";
 import BtnDone from "../../shared/ui/btns/btn-done/Btn-done";
+import CardVisual from "../../entities/CardVisual/ui/CardVisual";
+import TodosContainer from "../../shared/ui/todosContainer/TodosContainer";
+import Wrapper from "../../shared/ui/wrapper/Wrapper";
 function TodoTasks() {
   const dispatch = useAppDispatch();
   const status = useSelector(selectStatus);
@@ -32,7 +34,7 @@ function TodoTasks() {
     dispatch(GetTodosAsync());
   }, []);
   return (
-    <section className="wrapper">
+    <Wrapper>
       <Input
         showCount
         maxLength={20}
@@ -42,20 +44,21 @@ function TodoTasks() {
       <BtnDone color="default" description="Add todo" onClick={handleClick}>
         Click
       </BtnDone>
-
-      <div className="hi">
+      <TodosContainer>
         {status === "loading" && <h1>Loading...</h1>}
         {status === "rejected" && <h1>error</h1>}
         {status === "idle" &&
           todos.map((el) => {
             return (
-              <CardUi key={Math.random()} title={el.title}>
-                Description
-              </CardUi>
+              <CardVisual
+                key={Math.random()}
+                title={el.title}
+                description={el.descrption}
+              />
             );
           })}
-      </div>
-    </section>
+      </TodosContainer>
+    </Wrapper>
   );
 }
 

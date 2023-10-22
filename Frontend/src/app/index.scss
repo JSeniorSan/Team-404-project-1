@@ -5,8 +5,9 @@
 @import "../shared/ui/card/index.scss";
 @import "../pages/TodoTasks/todoTask.scss";
 @import "../shared/ui/wrapper/index.scss";
-@import "../shared/ui/wrapper/index.scss";
 @import "../shared/ui/btns/btn-done/index.scss";
+@import "../entities/CardVisual/ui/index.scss";
+@import "../shared/ui/todosContainer/index.scss";
 * {
   font-family: "IBM Plex Sans", Arial, Helvetica, sans-serif;
   font-size: 16px;
