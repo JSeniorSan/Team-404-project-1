@@ -63,10 +63,11 @@ def get_all_todos(db_session: Session = Depends(get_db)) -> list[ToDoReturn]:
 
 
 @router.post("/addtodo")
-def add_one_todo(todo: ToDoCreate, db_session: Session = Depends(get_db)):
+def add_one_todo(todo: ToDoCreate, db_session: Session = Depends(get_db)) -> dict[str, list[ToDoReturn]]:
     stmt = insert(ToDo).values(**todo.model_dump())
     db_session.execute(stmt)
     db_session.commit()
+    todos = db_session.query(ToDo).all()
     return {
-        "data": get_all_todos()
+        "data": todos
     }
