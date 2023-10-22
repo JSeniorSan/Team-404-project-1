@@ -15,11 +15,12 @@ function TodoTasks() {
   const status = useSelector(selectStatus);
   const todos = useSelector(selectAllTodos);
 
-  const [value, setValue] = useState<string>();
+  const [value, setValue] = useState<string>("");
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setValue(e.target.value);
   };
   const handleClick = () => {
+    console.log("no");
     if (value) {
       console.log("yes");
 
@@ -38,7 +39,9 @@ function TodoTasks() {
         onChange={onChange}
         className="w-36 h-6"
       />
-      <BtnDone color="green" description="Add todo" onClick={handleClick} />
+      <BtnDone color="default" description="Add todo" onClick={handleClick}>
+        Click
+      </BtnDone>
 
       <div className="hi">
         {status === "loading" && <h1>Loading...</h1>}

@@ -1,7 +1,7 @@
 import { IButtonDone } from "./Btn-done.interfaces";
 import "./index.scss";
 import cn from "classnames";
-const BtnDone: React.FC<IButtonDone> = ({ description, color }) => {
+const BtnDone: React.FC<IButtonDone> = ({ description, color, ...props }) => {
   return (
     <button
       className={cn("btn__done", {
@@ -10,6 +10,7 @@ const BtnDone: React.FC<IButtonDone> = ({ description, color }) => {
         ["yellow"]: color === "yellow",
         ["default"]: color === "default",
       })}
+      {...props}
     >
       {description}
     </button>
