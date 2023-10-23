@@ -1,6 +1,5 @@
 import time
 from fastapi import FastAPI, Request
-from fastapi.staticfiles import StaticFiles
 from src.todo.router import router as router_todo
 from fastapi.middleware.cors import CORSMiddleware
 
@@ -29,8 +28,3 @@ async def add_process_time_header(request: Request, call_next):
     process_time = time.time() - start_time
     response.headers["X-Process-Time"] = str(process_time)
     return response
-
-
-app.mount("/static", StaticFiles(directory="src/static"), name="static")
-
-
