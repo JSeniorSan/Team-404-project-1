@@ -1,3 +1,14 @@
 .card {
-  @apply w-36 h-fit border-black shadow-md;
+  @apply w-full h-fit border shadow-md border-l-4 border-l-slate-300 rounded-md p-3 transition-all pl-4;
+  &:hover {
+    @apply border-l-8 pl-2;
+  }
+
+  .card__title {
+    @apply text-lg font-semibold;
+  }
+
+  .card__box {
+    @apply flex w-full;
+  }
 }
