@@ -1,46 +1,56 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { ITodo, ITodos } from "./todoInterfaces";
 import axios from "axios";
-import { IPost } from "./todoInterfaces";
-const URL_GET = "http://127.0.0.1:8000/getdata";
-const URL_POST = "http://127.0.0.1:8000/addtodo";
+const URL = "http://127.0.0.1:8000/todo";
+
 export const GetTodosAsync = createAsyncThunk<ITodo[]>(
   "@todos/getData",
   async (_, { rejectWithValue }) => {
     try {
-      const { data } = await axios.get(URL_GET);
-      console.log(data);
-
+      const { data } = await axios.get(URL);
       return data;
     } catch (err) {
-      if (err instanceof Error) {
-        return err.message;
-      }
-      return rejectWithValue("Error was received");
+      return rejectWithValue("error");
     }
   }
 );
 
 export const MakeTodo = createAsyncThunk(
   "@@todos/makeTodo",
-  async (value: string) => {
+  async (value: string, { rejectWithValue }) => {
     try {
-      const { data } = await axios.post<IPost>(
-        URL_POST,
-
-        {
-          title: value,
-          description: null,
-        }
-      );
-      console.log(data);
-
-      return data.data;
+      const { data } = await axios.post(URL, {
+        title: value,
+        description: null,
+      });
+      return data;
     } catch (err) {
-      if (err instanceof Error) {
-        return err.message;
-      }
-      return "error";
+      return rejectWithValue("errors");
+    }
+  }
+);
+
+export const DeleteTodo = createAsyncThunk(
+  "@@todos/deleteTodo",
+
+  async (id: number, { rejectWithValue }) => {
+    try {
+      const { data } = await axios.delete(URL, { data: id });
+      return data;
+    } catch (err) {
+      return rejectWithValue("errorss");
+    }
+  }
+);
+
+export const ToggleTodo = createAsyncThunk(
+  "@@todos/toggleTodo",
+  async (id: number, { rejectWithValue }) => {
+    try {
+      const { data } = await axios.patch(URL, { id: id });
+      return data;
+    } catch (err) {
+      return rejectWithValue("errrororororor");
     }
   }
 );
@@ -57,27 +67,34 @@ export const TodoSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(GetTodosAsync.pending, (state) => {
-        (state.status = "loading"), (state.errors = null);
-      })
-      .addCase(GetTodosAsync.rejected, (state, action) => {
-        (state.status = "rejected"), (state.errors = action.payload);
-      })
       .addCase(GetTodosAsync.fulfilled, (state, action) => {
         state.errors = null;
         state.status = "idle";
         state.intities = [...action.payload];
       })
-      .addCase(MakeTodo.fulfilled, (state, action) => {
-        state.errors = null;
-        state.status = "idle";
-        state.intities = [...action.payload];
-      })
-      .addMatcher(
-        (action) => action.type.endsWith("/pending"),
-        (state) => {
-          state.status = "loading";
+
+      .addCase(
+        MakeTodo.fulfilled,
+        (state, action: PayloadAction<{ status: number }>) => {
           state.errors = null;
+          state.status = "idle";
+          console.log(action.payload);
+        }
+      )
+      .addCase(
+        DeleteTodo.fulfilled,
+        (state, action: PayloadAction<{ status: number }>) => {
+          state.errors = null;
+          state.status = "idle";
+          console.log(action.payload);
+        }
+      )
+      .addCase(
+        ToggleTodo.fulfilled,
+        (state, action: PayloadAction<{ status: number }>) => {
+          state.errors = null;
+          state.status = "idle";
+          console.log(action.payload);
         }
       )
       .addMatcher(
@@ -85,13 +102,6 @@ export const TodoSlice = createSlice({
         (state) => {
           state.errors = "some Error";
           state.status = "rejected";
-        }
-      )
-      .addMatcher(
-        (action) => action.type.endsWith("/fulfilled"),
-        (state) => {
-          state.status = "idle";
-          state.errors = null;
         }
       );
   },
