@@ -8,7 +8,11 @@
 @import "../shared/ui/btns/btn-done/index.scss";
 @import "../entities/CardVisual/ui/index.scss";
 @import "../shared/ui/todosContainer/index.scss";
+@import "../shared/ui/p/index.scss";
+@import "../shared/ui/btns/btn-modal/index.scss";
+@import "../shared/ui/modalFormInput/index.scss";
 * {
-  font-family: "IBM Plex Sans", Arial, Helvetica, sans-serif;
+  font-family: "IBM Plex Sans";
   font-size: 16px;
 }
+// , Arial, Helvetica, sans-serif;

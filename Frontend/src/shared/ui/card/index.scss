@@ -1,5 +1,5 @@
 .card {
-  @apply w-full h-fit border shadow-md border-l-4 border-l-slate-300 rounded-md p-3 transition-all pl-4;
+  @apply w-full h-fit border shadow-md border-l-4 border-l-blue-400 rounded-md p-3 transition-all pl-4;
   &:hover {
     @apply border-l-8 pl-2;
   }

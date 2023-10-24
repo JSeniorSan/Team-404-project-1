@@ -34,7 +34,7 @@ function TodoTasks() {
     dispatch(GetTodosAsync());
   }, []);
   return (
-    <Wrapper>
+    <Wrapper className="todo__wrapper">
       <Input
         showCount
         maxLength={20}
