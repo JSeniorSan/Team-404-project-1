@@ -15,9 +15,9 @@ class Base(DeclarativeBase):
     pass
 
 
-def get_db() -> AsyncGenerator[AsyncSession, None]:
+async def get_db() -> AsyncGenerator[AsyncSession, None]:
     db = SessionLocal()
     try:
         yield db
     finally:
-        db.close()
+        await db.close()

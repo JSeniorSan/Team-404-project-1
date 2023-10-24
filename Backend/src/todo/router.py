@@ -1,4 +1,5 @@
 from fastapi import Depends, APIRouter
+from fastapi.encoders import jsonable_encoder
 from sqlalchemy import delete, insert, select, update
 from sqlalchemy.ext.asyncio import AsyncSession
 from src.database import get_db
@@ -22,12 +23,14 @@ async def get_all_todos(db_session: AsyncSession = Depends(get_db)) -> list[ToDo
 
 
 @router.post("/")
-async def create_new_todo(todo: ToDoCreate, db_session: AsyncSession = Depends(get_db)) -> ToDoCreate:
+async def create_new_todo(todo: ToDoCreate, db_session: AsyncSession = Depends(get_db)) -> ToDoReturn:
     '''Создать новую ТуДу'''
-    stmt = insert(ToDo).values(**todo.model_dump())
-    await db_session.execute(stmt)
+    todo_in_db = jsonable_encoder(todo)
+    todo_obj = ToDo(**todo_in_db)
+    db_session.add(todo_obj)
     await db_session.commit()
-    return todo
+    await db_session.refresh(todo_obj)
+    return todo_obj
 
 
 @router.delete("/{id}")
