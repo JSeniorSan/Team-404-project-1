@@ -33,8 +33,7 @@ class CRUDBase(Generic[ModelType, CreateSchemaType, UpdateSchemaType]):
         return db_obj
 
     async def read_one(self, db_session: AsyncSession, id: Any) -> ModelType:
-        query = select(self.model).where(self.model.id == id)
-        obj = await db_session.execute(query)
+        obj = await db_session.get(self.model, id)
         return obj
     
     async def read_all(self, db_session: AsyncSession) -> list[ModelType]:

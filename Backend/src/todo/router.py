@@ -19,52 +19,51 @@ router = APIRouter(
 @router.get("/", response_model=list[ToDoInDB])
 async def get_all_todos(db_session: AsyncSession = Depends(get_db)) -> Any:
     '''
-    Get all todos.
+    Get all **todos**.
     '''
     todos = await crud.todo.read_all(db_session=db_session)
     return todos
 
 
-@router.post("/")
-async def create_new_todo(todo: ToDoCreate, db_session: AsyncSession = Depends(get_db)) -> ToDoInDB:
-    '''Создать новую ТуДу'''
-    todo_in_db = jsonable_encoder(todo)
-    todo_obj = ToDo(**todo_in_db)
-    db_session.add(todo_obj)
-    await db_session.commit()
-    await db_session.refresh(todo_obj)
-    return todo_obj
+@router.post("/", response_model=ToDoInDB)
+async def create_new_todo(todo_in: ToDoCreate, db_session: AsyncSession = Depends(get_db)) -> Any:
+    '''
+    Create new **todo**.
+    '''
+    todo = await crud.todo.create(db_session=db_session, obj_in=todo_in)
+    return todo
 
 
 @router.delete("/{id}", response_model=ToDoInDB)
 async def delete_one_todo(id: int, db_session: AsyncSession = Depends(get_db)) -> Any:
     '''
-    Delete a todo by ID.
+    Delete a **todo** by **ID**.
     '''
     todo = await crud.todo.delete(db_session=db_session, id=id)
     return todo
 
 
+@router.get("/{id}", response_model=ToDoInDB)
+async def get_one_todo(id: int, db_session: AsyncSession = Depends(get_db)) -> Any:
+    '''
+    Get one **todo** by **ID**.
+    '''
+    todo = await crud.todo.read_one(db_session=db_session, id=id)
+    return todo
 
-@router.get("/{id}")
-async def get_one_todo(id: int, db_session: AsyncSession = Depends(get_db)) -> ToDoInDB:
-    '''Получить конкретную ТуДу по ID'''
-    query = select(ToDo).where(ToDo.id == id)
-    result = await db_session.execute(query)
-    return result.scalar_one()
 
-
-@router.patch("/{id}")
+@router.patch("/{id}", response_model=ToDoInDB)
 async def update_todo_status(
     id: int, 
     db_session: AsyncSession = Depends(get_db), 
     todo: ToDoInDB = Depends(get_one_todo)
-):
-    '''Меняет статус у конкретной ТуДу (по ID) на противоположный'''
+) -> Any:
+    '''
+    Reverse the status of **todo**.
+    '''
     current_status = todo.status
     stmt = update(ToDo).where(ToDo.id == id).values(status = not current_status)
     await db_session.execute(stmt)
     await db_session.commit()
-    return {
-        "status": HTTP_204_NO_CONTENT
-    }
+    await db_session.refresh(todo)
+    return todo
