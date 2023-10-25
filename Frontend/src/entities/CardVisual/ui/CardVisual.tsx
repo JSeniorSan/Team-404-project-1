@@ -2,20 +2,17 @@ import CardUi from "../../../shared/ui/card/Card";
 import { ICardVisual } from "./cardVisual.interfaces";
 import "./index.scss";
 import BtnDone from "../../../shared/ui/btns/btn-done/Btn-done";
-import { useAppDispatch } from "../../../shared/api/redux-hooks";
-import { DeleteTodo, ToggleTodo } from "../../../shared/api/todo/todoSlice";
 import Wrapper from "../../../shared/ui/wrapper/Wrapper";
+import { todoApi } from "../../../shared/api/todoQueryApi/TodoServise";
 
 const CardVisual: React.FC<ICardVisual> = ({ title, description, id }) => {
-  const dispatch = useAppDispatch();
+  const [deleteTodo, {}] = todoApi.useRemoveTodoMutation();
 
   const deleteHandler = () => {
-    dispatch(DeleteTodo(id));
+    deleteTodo(id);
   };
 
-  const doneHandler = () => {
-    dispatch(ToggleTodo(id));
-  };
+  const doneHandler = () => {};
 
   return (
     <CardUi title={title}>

@@ -1,8 +1,16 @@
-import { configureStore } from "@reduxjs/toolkit";
-import { TodoSlice } from "./todo/todoSlice";
+import { configureStore, combineReducers } from "@reduxjs/toolkit";
+import { todoApi } from "./todoQueryApi/TodoServise";
+
+// import { TodoSlice } from "./todo/todoSlice";
+
+const rootReducer = combineReducers({
+  [todoApi.reducerPath]: todoApi.reducer,
+});
 
 export const store = configureStore({
-  reducer: TodoSlice.reducer,
+  reducer: rootReducer,
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware().concat(todoApi.middleware),
   devTools: true,
 });
 
