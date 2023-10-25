@@ -1,3 +1,4 @@
+from typing import Any
 from fastapi import Depends, APIRouter
 from fastapi.encoders import jsonable_encoder
 from sqlalchemy import delete, insert, select, update
@@ -5,7 +6,8 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from src.database import get_db
 from src.todo.models import ToDo
 from starlette.status import HTTP_201_CREATED, HTTP_200_OK, HTTP_204_NO_CONTENT
-from src.todo.schemas import ToDoReturn, ToDoCreate
+from src.todo.schemas import ToDoInDB, ToDoCreate
+import crud
 
 
 router = APIRouter(
@@ -14,16 +16,17 @@ router = APIRouter(
 )
 
 
-@router.get("/")
-async def get_all_todos(db_session: AsyncSession = Depends(get_db)) -> list[ToDoReturn]:
-    '''Получить список всех ТуДу'''
-    query = select(ToDo)
-    todos = await db_session.execute(query)
-    return todos.scalars()
+@router.get("/", response_model=list[ToDoInDB])
+async def get_all_todos(db_session: AsyncSession = Depends(get_db)) -> Any:
+    '''
+    Get all todos.
+    '''
+    todos = await crud.todo.read_all(db_session=db_session)
+    return todos
 
 
 @router.post("/")
-async def create_new_todo(todo: ToDoCreate, db_session: AsyncSession = Depends(get_db)) -> ToDoReturn:
+async def create_new_todo(todo: ToDoCreate, db_session: AsyncSession = Depends(get_db)) -> ToDoInDB:
     '''Создать новую ТуДу'''
     todo_in_db = jsonable_encoder(todo)
     todo_obj = ToDo(**todo_in_db)
@@ -33,30 +36,29 @@ async def create_new_todo(todo: ToDoCreate, db_session: AsyncSession = Depends(g
     return todo_obj
 
 
-@router.delete("/{id}")
-async def delete_one_todo(id: int, db_session: AsyncSession = Depends(get_db)):
-    '''Удалить одну ТуДу по ID'''
-    stmt = delete(ToDo).where(ToDo.id == id)
-    await db_session.execute(stmt)
-    await db_session.commit()
-    return {
-        "status": HTTP_200_OK
-    }
+@router.delete("/{id}", response_model=ToDoInDB)
+async def delete_one_todo(id: int, db_session: AsyncSession = Depends(get_db)) -> Any:
+    '''
+    Delete a todo by ID.
+    '''
+    todo = await crud.todo.delete(db_session=db_session, id=id)
+    return todo
+
 
 
 @router.get("/{id}")
-async def get_one_todo(id: int, db_session: AsyncSession = Depends(get_db)) -> ToDoReturn:
+async def get_one_todo(id: int, db_session: AsyncSession = Depends(get_db)) -> ToDoInDB:
     '''Получить конкретную ТуДу по ID'''
     query = select(ToDo).where(ToDo.id == id)
     result = await db_session.execute(query)
     return result.scalar_one()
 
 
-@router.patch("/{id}/status")
+@router.patch("/{id}")
 async def update_todo_status(
     id: int, 
     db_session: AsyncSession = Depends(get_db), 
-    todo: ToDoReturn = Depends(get_one_todo)
+    todo: ToDoInDB = Depends(get_one_todo)
 ):
     '''Меняет статус у конкретной ТуДу (по ID) на противоположный'''
     current_status = todo.status
