@@ -8,7 +8,7 @@ SQLALCHEMY_DATABASE_URL = f"postgresql+asyncpg://{DB_USER}:{DB_PASS}@{DB_HOST}:{
 
 engine = create_async_engine(SQLALCHEMY_DATABASE_URL, echo=True)
 
-SessionLocal = async_sessionmaker(autoflush=False, autocommit=False, bind=engine)
+SessionLocal = async_sessionmaker(autoflush=False, autocommit=False, bind=engine, expire_on_commit=False)
 
 
 class Base(DeclarativeBase):
