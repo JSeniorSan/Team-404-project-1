@@ -1,5 +1,65 @@
-const FormCard: React.FC<> = () => {
-  return <div></div>;
+import { useSelector } from "react-redux";
+import { useAppDispatch } from "../../../shared/api/redux-hooks";
+import { todoApi } from "../../../shared/api/todoQueryApi/TodoServise";
+import { IForm, ITodoTask } from "./formTask.interfaces";
+import "./index.scss";
+import cn from "classnames";
+import { modalWindowSelector } from "../../../shared/api/todo/todoSelectors";
+import { switchModalWindow } from "../../../shared/api/todo/todoSlice";
+import BtnDone from "../../../shared/ui/btns/btn-done/Btn-done";
+import { useForm, SubmitHandler } from "react-hook-form";
+const FormCard: React.FC<ITodoTask> = ({ className, ...props }) => {
+  const [createTodo] = todoApi.useCreateTodoMutation();
+
+  const dispatch = useAppDispatch();
+
+  const { handleSubmit, register, reset, watch } = useForm<IForm>();
+
+  const onSubmit: SubmitHandler<IForm> = async (data) => {
+    await createTodo(data);
+    reset();
+    dispatch(switchModalWindow(false));
+  };
+
+  const modalStatus = useSelector(modalWindowSelector);
+
+  const modalWindowHandler = (event: React.MouseEvent) => {
+    event.stopPropagation();
+    dispatch(switchModalWindow(!modalStatus));
+  };
+
+  const stopHandler = (e: React.MouseEvent) => {
+    e.stopPropagation();
+  };
+
+  console.log(watch("title"));
+
+  return (
+    <div
+      className={cn(className, {
+        ["active"]: modalStatus,
+      })}
+      onClick={modalWindowHandler}
+      {...props}
+    >
+      <form
+        className="modalWrapper__form"
+        onClick={stopHandler}
+        onSubmit={handleSubmit(onSubmit)}
+      >
+        <label>Title</label>
+        <input
+          type="string"
+          placeholder="Введите заголовок задачи"
+          style={{ color: "black" }}
+          {...register("title", { required: true })}
+        />
+        <label>Description</label>
+        <textarea className="textarea" {...register("description")} />
+        <BtnDone color="green" description="Submit" />
+      </form>
+    </div>
+  );
 };
 
 export default FormCard;

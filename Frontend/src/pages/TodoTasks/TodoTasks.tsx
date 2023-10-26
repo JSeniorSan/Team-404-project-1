@@ -1,11 +1,12 @@
 import "../../app/index.scss";
-import { Input } from "antd";
-import { useState } from "react";
-import BtnDone from "../../shared/ui/btns/btn-done/Btn-done";
 import CardVisual from "../../entities/CardVisual/ui/CardVisual";
 import TodosContainer from "../../shared/ui/todosContainer/TodosContainer";
-import Wrapper from "../../shared/ui/wrapper/Wrapper";
 import { todoApi } from "../../shared/api/todoQueryApi/TodoServise";
+import Template from "../../features/Template/ui/Template";
+import Wrapper from "../../shared/ui/wrapper/Wrapper";
+import { Footer, Header } from "antd/es/layout/layout";
+import FormCard from "../../entities/FormTask/ui/FormTask";
+
 function TodoTasks() {
   const {
     data: todos,
@@ -13,43 +14,47 @@ function TodoTasks() {
     isError,
     isSuccess,
   } = todoApi.useFetchAllTodosQuery("");
-
-  const [createTodo, {}] = todoApi.useCreateTodoMutation();
-
-  const [value, setValue] = useState<string>("");
-  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setValue(e.target.value);
-  };
-  const handleClick = async () => {
-    await createTodo({ title: value, description: null });
-  };
+  console.log(todos);
 
   return (
-    <Wrapper className="todo__wrapper">
-      <Input
-        showCount
-        maxLength={20}
-        onChange={onChange}
-        className="w-36 h-6"
-      />
-      <BtnDone color="default" description="Add todo" onClick={handleClick}>
-        Click
-      </BtnDone>
-      <TodosContainer>
-        {isLoading && <h1>Loading...</h1>}
-        {isError && <h1>error</h1>}
-        {isSuccess &&
-          todos.map((el) => {
-            return (
-              <CardVisual
-                id={el.id}
-                key={Math.random()}
-                title={el.title}
-                description={el.descrption}
-              />
-            );
-          })}
-      </TodosContainer>
+    <Wrapper className="wrapper">
+      <Header className="text-white text-2xl flex justify-between items-center">
+        <h1>Home</h1>
+        <h1>Menu</h1>
+      </Header>
+      <Wrapper className="flex gap-5">
+        <Template className="template">
+          <TodosContainer>
+            {isLoading && <h1>Loading...</h1>}
+            {isError && <h1>error</h1>}
+            {isSuccess &&
+              todos.map((el) => {
+                return (
+                  <CardVisual
+                    idElem={el.id}
+                    key={Math.random()}
+                    title={el.title}
+                    description={el.description}
+                  />
+                );
+              })}
+          </TodosContainer>
+        </Template>
+        <div>
+          <h1 className="text-4xl">
+            Привет, это твой личный веб помощник с твоими делами!
+          </h1>
+          <h2 className="text-2xl">Давай начинать планировать 😎</h2>
+          <br />
+          <br />
+          <br />
+          <div>
+            <hr />
+          </div>
+        </div>
+      </Wrapper>
+      <Footer />
+      <FormCard className="modalWrapper" />
     </Wrapper>
   );
 }

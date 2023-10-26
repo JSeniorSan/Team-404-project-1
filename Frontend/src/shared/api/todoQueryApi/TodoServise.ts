@@ -3,7 +3,7 @@ import { ITodo } from "../todo/todoInterfaces";
 
 export interface ITodoPost {
   title: string;
-  description: null;
+  description: string | null;
 }
 const URL = "http://127.0.0.1:8000";
 

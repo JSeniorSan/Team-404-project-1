@@ -11,9 +11,11 @@
 @import "../shared/ui/p/index.scss";
 @import "../shared/ui/btns/btn-modal/index.scss";
 @import "../shared/ui/modalFormInput/index.scss";
-@import "../entities/Template/ui/index.scss";
+@import "../features/Template/ui/index.scss";
 @import "../entities/Header/ui/index.scss";
 @import "../entities/Footer/ui/index.scss";
+@import "../entities/FormTask/ui/index.scss";
+@import "../shared/ui/modalFormInput/index.scss";
 * {
   font-family: "IBM Plex Sans";
   font-size: 16px;

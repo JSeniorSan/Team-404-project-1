@@ -1,0 +1,7 @@
+.template {
+  @apply flex gap-9 h-screen w-7/12 justify-center items-start bg-slate-200 ml-20;
+
+  .template__todo {
+    @apply h-fit w-full  p-10 flex flex-col gap-5;
+  }
+}

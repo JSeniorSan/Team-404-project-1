@@ -1,0 +1,18 @@
+.modalWrapper {
+  @apply backdrop-blur-sm w-full h-screen fixed opacity-0 top-0 left-0 flex justify-center items-center pointer-events-none transition-all;
+  background-color: rgba(0, 0, 0, 0.404);
+
+  .modalWrapper__form {
+    @apply flex flex-col gap-4 p-10  w-3/6 h-4/6 rounded-md;
+    background-color: rgba(0, 0, 0, 0.562);
+    color: white;
+
+    .textarea {
+      @apply text-black;
+    }
+  }
+}
+
+.active {
+  @apply opacity-100 pointer-events-auto;
+}

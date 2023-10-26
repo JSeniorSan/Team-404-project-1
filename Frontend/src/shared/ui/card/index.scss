@@ -1,7 +1,8 @@
 .card {
-  @apply w-5/12 h-fit border shadow-md border-l-4 border-l-blue-400 rounded-md p-3 transition-all pl-4;
+  @apply w-full h-fit border shadow-md  border-l-4 border-l-red-400 rounded-md p-3 transition-all pl-4;
+  background-color: rgb(250, 235, 215);
   &:hover {
-    @apply border-l-8 pl-4;
+    @apply border-l-8 pl-4 border-l-green-400;
   }
 
   .card__title {
@@ -9,6 +10,6 @@
   }
 
   .card__box {
-    @apply flex w-full;
+    @apply flex justify-between items-center;
   }
 }
