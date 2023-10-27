@@ -6,6 +6,7 @@ import Template from "../../features/Template/ui/Template";
 import Wrapper from "../../shared/ui/wrapper/Wrapper";
 import { Footer, Header } from "antd/es/layout/layout";
 import FormCard from "../../entities/FormTask/ui/FormTask";
+import { Link } from "react-router-dom";
 
 function TodoTasks() {
   const {
@@ -19,7 +20,9 @@ function TodoTasks() {
   return (
     <Wrapper className="wrapper">
       <Header className="text-white text-2xl flex justify-between items-center">
-        <h1>Home</h1>
+        <Link to={"/"}>
+          <h1>Home</h1>
+        </Link>
         <h1>Menu</h1>
       </Header>
       <Wrapper className="flex gap-5">
