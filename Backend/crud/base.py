@@ -1,6 +1,6 @@
 from typing import Any, Generic, TypeVar, Type
 from pydantic import BaseModel
-from sqlalchemy import select
+from sqlalchemy import select, update
 from src.database import Base
 from sqlalchemy.ext.asyncio import AsyncSession
 from fastapi.encoders import jsonable_encoder
@@ -41,19 +41,30 @@ class CRUDBase(Generic[ModelType, CreateSchemaType, UpdateSchemaType]):
         objs = await db_session.execute(query) # objs is like objects
         return objs.scalars()
 
-    async def update(self, db_session: AsyncSession, db_obj: ModelType, obj_in: UpdateSchemaType | dict[str, Any]) -> ModelType:
-        db_obj_data = jsonable_encoder(db_obj)
-        if isinstance(obj_in, dict):
-            update_data = obj_in
-        else:
-            update_data = obj_in.model_dump(exclude_unset=True)
-        for field in db_obj_data:
-            if field in update_data:
-                setattr(db_obj, field, update_data[field])
-        db_session.add(db_obj)
+    # async def update(self, db_session: AsyncSession, db_obj: ModelType, obj_in: UpdateSchemaType | dict[str, Any]) -> ModelType:
+    #     db_obj_data = jsonable_encoder(db_obj)
+    #     if isinstance(obj_in, dict):
+    #         update_data = obj_in
+    #     else:
+    #         update_data = obj_in.model_dump(exclude_unset=True)
+    #     for field in db_obj_data:
+    #         if field in update_data:
+    #             setattr(db_obj, field, update_data[field])
+    #     db_session.add(db_obj)
+    #     await db_session.commit()
+    #     await db_session.refresh(db_obj)
+    #     return db_obj
+
+
+    async def update(self, db_session: AsyncSession, id: Any, obj_in: UpdateSchemaType) -> ModelType:
+        
+        new_data = obj_in.model_dump(exclude_unset=True)
+        stmt = update(self.model).where(self.model.id == id).values(new_data)
+        await db_session.execute(stmt)
         await db_session.commit()
-        await db_session.refresh(db_obj)
+        db_obj = await db_session.get(self.model, id)
         return db_obj
+    
 
     async def delete(self, db_session: AsyncSession, id: Any) -> ModelType:
         obj = await db_session.get(self.model, id)

@@ -12,3 +12,5 @@ class ToDo(Base):
     description: Mapped[str | None] = mapped_column(String(150), default=None, nullable=True)
     status: Mapped[bool] = mapped_column(default=False)
     created_at: Mapped[date] = mapped_column(default=date.today())
+    # created_at: Mapped[DateTime] = mapped_column(server_default=func.now())
+    # updated_at: Mapped[DateTime] = mapped_column(onupdate=func.now())
