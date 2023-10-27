@@ -6,7 +6,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from src.database import get_db
 from src.todo.models import ToDo
 from starlette.status import HTTP_201_CREATED, HTTP_200_OK, HTTP_204_NO_CONTENT
-from src.todo.schemas import ToDoInDB, ToDoCreate
+from src.todo.schemas import ToDoInDB, ToDoCreate, ToDoUpdate
 import crud
 
 
@@ -66,4 +66,10 @@ async def update_todo_status(
     await db_session.execute(stmt)
     await db_session.commit()
     await db_session.refresh(todo)
+    return todo
+
+
+@router.put("/{id}", response_model=ToDoInDB)
+async def update_todo(id: int, new_data: ToDoUpdate, db_session: AsyncSession = Depends(get_db)):
+    todo = await crud.todo.update(db_session=db_session, id=id, obj_in=new_data)
     return todo
