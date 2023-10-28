@@ -2,10 +2,12 @@ from typing import Any
 import uuid
 from fastapi import Depends, Request, Response
 from fastapi_users import BaseUserManager, InvalidPasswordException, UUIDIDMixin
+from fastapi_users_db_sqlalchemy import SQLAlchemyUserDatabase
+from src.auth.deps import get_user_db
 from src.auth.schemas import UserCreate
 from src.config import AUTH_SECRET
-from src.database import get_db
 from src.auth.models import User
+from src.auth.common_passwords.list_of_passwords import passwords_list
 
 
 class UserManager(UUIDIDMixin, BaseUserManager[User, uuid.UUID]):
@@ -29,10 +31,8 @@ class UserManager(UUIDIDMixin, BaseUserManager[User, uuid.UUID]):
             raise InvalidPasswordException(
                 reason="Password should not contain username"
             )
-        with open("common_passwords/list_of_passwords.txt") as file:
-            common_passwords = file.read()
-            if password in common_passwords:
-                raise InvalidPasswordException(
+        if user.username in passwords_list:
+            raise InvalidPasswordException(
                 reason="Your password is found in the list of easy passwords"
             )
 
@@ -80,5 +80,5 @@ class UserManager(UUIDIDMixin, BaseUserManager[User, uuid.UUID]):
         print(f"User {user.id} is successfully deleted")
     
 
-async def get_user_manager(user_db=Depends(get_db)):
+async def get_user_manager(user_db: SQLAlchemyUserDatabase = Depends(get_user_db)):
     yield UserManager(user_db)
