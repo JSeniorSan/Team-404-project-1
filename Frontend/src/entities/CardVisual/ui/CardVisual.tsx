@@ -6,8 +6,8 @@ import Wrapper from "../../../shared/ui/wrapper/Wrapper";
 import { todoApi } from "../../../shared/api/todoQueryApi/TodoServise";
 import { useAppDispatch } from "../../../shared/api/redux-hooks";
 import { useSelector } from "react-redux";
-import { modalWindowSelector } from "../../../shared/api/todo/todoSelectors";
-import { switchModalWindow } from "../../../shared/api/todo/todoSlice";
+import { modalWindowSelector } from "../../../shared/api/todo/modalSelectors";
+import { switchModalWindow } from "../../../shared/api/todo/modalSlice";
 
 const CardVisual: React.FC<ICardVisual> = ({
   title,

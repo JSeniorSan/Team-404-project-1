@@ -1,11 +1,33 @@
 .page {
-  @apply text-base font-normal p-1;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: 0.2px;
 }
 
-.white {
-  @apply text-white;
+.black {
+  color: var(--titlePage);
 }
-
-.large {
-  @apply text-xl;
+.gray {
+  color: var(--navPage);
+}
+.s {
+  @apply text-xs;
+}
+.m {
+  @apply text-sm;
+}
+.l {
+  @apply text-base;
+}
+.norm {
+  @apply font-normal;
+}
+.medium {
+  @apply font-medium;
+}
+.semi {
+  @apply font-semibold;
+}
+.bold {
+  @apply font-bold;
 }

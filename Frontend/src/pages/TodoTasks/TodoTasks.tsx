@@ -19,12 +19,6 @@ function TodoTasks() {
 
   return (
     <Wrapper className="wrapper">
-      <Header className="text-white text-2xl flex justify-between items-center">
-        <Link to={"/"}>
-          <h1>Home</h1>
-        </Link>
-        <h1>Menu</h1>
-      </Header>
       <Wrapper className="flex gap-5">
         <Template className="template">
           <TodosContainer>
@@ -48,12 +42,17 @@ function TodoTasks() {
             Привет, это твой личный веб помощник с твоими делами!
           </h1>
           <h2 className="text-2xl">Давай начинать планировать 😎</h2>
-          <br />
-          <br />
-          <br />
+
           <div>
             <hr />
           </div>
+          <iframe
+            width="550"
+            height="400"
+            src="https://www.youtube.com/embed/ULQhvIGG27Q"
+            title="Halloween lofi radio  🎃 - spooky beats to get chills to"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          ></iframe>
         </div>
       </Wrapper>
       <Footer />

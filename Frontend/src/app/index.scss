@@ -17,8 +17,10 @@
 @import "../entities/FormTask/ui/index.scss";
 @import "../shared/ui/modalFormInput/index.scss";
 @import "../pages/Account/index.scss";
+@import "../entities/NavPanel/ui/index.scss";
+@import "../pages/index.scss";
 * {
-  font-family: "IBM Plex Sans";
+  font-family: "Roboto";
   font-size: 16px;
   box-sizing: border-box;
   margin: 0;

@@ -1,5 +1,6 @@
 export interface IP {
-  size?: "large";
+  size: "12px" | "14px" | "16px";
   children: React.ReactNode;
-  color?: "white";
+  color: "black" | "gray";
+  weight: "400" | "500" | "600" | "700";
 }

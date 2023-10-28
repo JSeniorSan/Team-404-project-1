@@ -1,0 +1,15 @@
+.layout {
+  @apply grid;
+
+  grid-template-columns: 250px auto;
+  grid-template-rows: 88px 232px auto;
+
+  .nav {
+    grid-column: 1 / 2;
+    grid-row: 1 / 5;
+  }
+  .head {
+    grid-column: 2 / span;
+    grid-row: 1 / 2;
+  }
+}
