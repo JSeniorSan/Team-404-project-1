@@ -1,3 +1,6 @@
 .header {
-  @apply h-10 w-full bg-slate-400;
+  @apply w-full px-5 flex justify-between py-6 items-center;
+  height: 88px;
+  background-color: var(--base);
+  border-bottom: 1px solid gray;
 }

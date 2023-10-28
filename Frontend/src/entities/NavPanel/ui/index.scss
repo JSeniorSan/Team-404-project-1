@@ -1,0 +1,9 @@
+.navPanel {
+  @apply h-screen flex flex-col gap-4;
+  width: 250px;
+  border-right: 1px solid gray;
+  .mainTitle {
+    height: 88px;
+    border-bottom: 1px solid gray;
+  }
+}

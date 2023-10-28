@@ -2,12 +2,19 @@ import React from "react";
 import cn from "classnames";
 import "./index.scss";
 import { IP } from "./Page.interfaces";
-const Page: React.FC<IP> = ({ size, color, children, ...props }) => {
+const Page: React.FC<IP> = ({ size, color, weight, children, ...props }) => {
   return (
     <div
       className={cn("page", {
-        ["white"]: color === "white",
-        ["large"]: size === "large",
+        ["black"]: color === "black",
+        ["gray"]: color === "gray",
+        ["s"]: size === "12px",
+        ["m"]: size === "14px",
+        ["l"]: size === "16px",
+        ["norm"]: weight === "400",
+        ["medium"]: weight === "500",
+        ["semi"]: weight === "600",
+        ["bold"]: weight === "700",
       })}
       {...props}
     >

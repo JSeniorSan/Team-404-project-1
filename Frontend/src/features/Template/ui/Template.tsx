@@ -3,8 +3,8 @@ import { useAppDispatch } from "../../../shared/api/redux-hooks";
 import Wrapper from "../../../shared/ui/wrapper/Wrapper";
 import "./index.scss";
 import { ITemplate } from "./template.interfaces";
-import { modalWindowSelector } from "../../../shared/api/todo/todoSelectors";
-import { switchModalWindow } from "../../../shared/api/todo/todoSlice";
+import { modalWindowSelector } from "../../../shared/api/todo/modalSelectors";
+import { switchModalWindow } from "../../../shared/api/todo/modalSlice";
 import BtnDone from "../../../shared/ui/btns/btn-done/Btn-done";
 
 const Template: React.FC<ITemplate> = ({ className, children, ...props }) => {
@@ -19,10 +19,10 @@ const Template: React.FC<ITemplate> = ({ className, children, ...props }) => {
 
   return (
     <Wrapper className={className} {...props}>
-      <div className="template__todo">
+      <main className="template__todo">
         <BtnDone color="default" description="Create" onClick={createHandler} />
         {children}
-      </div>
+      </main>
     </Wrapper>
   );
 };
