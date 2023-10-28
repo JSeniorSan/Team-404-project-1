@@ -30,7 +30,9 @@ const Account = () => {
           <Page size="14px" color="gray" weight="500">
             Register with your personal details to use all of site features
           </Page>
-          <BtnDone description="SIGN UP" color="default" />
+          <Link to={"/account/register"}>
+            <BtnDone description="SIGN UP" color="default" />
+          </Link>
         </div>
       </Wrapper>
     </Wrapper>

@@ -3,6 +3,7 @@ import TodoTasks from "./TodoTasks/TodoTasks";
 import Home from "./Home/Home";
 import Account from "./Account/Account";
 import Layout from "./Layout";
+import AuthForm from "../processes/auth/AuthForm/AuthForm";
 
 export const Routing = () => {
   return (
@@ -23,6 +24,7 @@ export const Routing = () => {
       </Route> */}
 
       <Route path="/account" element={<Account />} />
+      <Route path="/account/register" element={<AuthForm />} />
       <Route path="*" element={<Navigate to="/" />} />
     </Routes>
   );
