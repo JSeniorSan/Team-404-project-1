@@ -7,12 +7,11 @@ from fastapi_users_db_sqlalchemy.access_token import SQLAlchemyAccessTokenDataba
 from fastapi_users.authentication.strategy.db import AccessTokenDatabase, DatabaseStrategy
 
 
-
 async def get_user_db(db_session: AsyncSession = Depends(get_db)):
-    yield SQLAlchemyUserDatabase(session=db_session, user_table=User)
+    yield SQLAlchemyUserDatabase(db_session, User)
 
 
-async def get_access_token_db(db_session: AsyncSession = Depends(get_db),):  
+async def get_access_token_db(db_session: AsyncSession = Depends(get_db)):  
     yield SQLAlchemyAccessTokenDatabase(session=db_session, access_token_table=AccessToken)
 
 
