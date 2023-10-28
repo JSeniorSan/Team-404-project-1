@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { ITodo } from "../todo/modalInterfaces";
+import { ITodo } from "./todoInterfaces";
 
 export interface ITodoPost {
   title: string;

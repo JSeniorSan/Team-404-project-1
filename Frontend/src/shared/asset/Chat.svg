@@ -1,0 +1,30 @@
+<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect width="20" height="20" fill="#E5E5E5"/>
+<g id="Dashboard" clip-path="url(#clip0_902_418)">
+<rect width="1440" height="931" transform="translate(-1254 -34)" fill="#FBFBFB"/>
+<g id="Content" clip-path="url(#clip1_902_418)">
+<rect width="1190" height="931" transform="translate(-1004 -34)" fill="white"/>
+<g id="header">
+<g id="Frame 14">
+<g id="Iconly/Light/Chat">
+<g id="Chat">
+<path id="Stroke 4" fill-rule="evenodd" clip-rule="evenodd" d="M16.4821 16.4807C13.6806 19.2825 9.53227 19.8878 6.13753 18.3179C5.63638 18.1161 5.22551 17.953 4.8349 17.953C3.74693 17.9595 2.39271 19.0144 1.68889 18.3114C0.98507 17.6075 2.0408 16.2522 2.0408 15.1577C2.0408 14.767 1.88419 14.3635 1.68244 13.8614C0.111741 10.4672 0.717913 6.31747 3.51938 3.51662C7.09561 -0.0609272 12.9058 -0.060927 16.4821 3.51569C20.0647 7.09877 20.0583 12.9041 16.4821 16.4807Z" stroke="#94A3B8" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="Stroke 11" d="M13.6111 10.3786H13.6193" stroke="#94A3B8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="Stroke 13" d="M9.9362 10.3786H9.94445" stroke="#94A3B8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="Stroke 15" d="M6.26128 10.3786H6.26953" stroke="#94A3B8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<circle id="Ellipse 6" cx="18" cy="4" r="3.5" fill="#EF5DA8" stroke="white"/>
+</g>
+</g>
+</g>
+</g>
+</g>
+<defs>
+<clipPath id="clip0_902_418">
+<rect width="1440" height="931" fill="white" transform="translate(-1254 -34)"/>
+</clipPath>
+<clipPath id="clip1_902_418">
+<rect width="1190" height="931" fill="white" transform="translate(-1004 -34)"/>
+</clipPath>
+</defs>
+</svg>

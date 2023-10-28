@@ -1,9 +1,25 @@
 .navPanel {
-  @apply h-screen flex flex-col gap-4;
+  @apply h-screen grid bg-white;
+
+  grid-template-rows: 88px 232px auto;
   width: 250px;
   border-right: 1px solid gray;
+  border-bottom: 1px solid gray;
+
   .mainTitle {
-    height: 88px;
+    grid-row: 1 / 2;
+    border-bottom: 1px solid gray;
+  }
+  .navig {
+    grid-row: 2 / 3;
+    border-bottom: 1px solid gray;
+  }
+  .theme {
+    grid-row: 4 / 5;
+    border-bottom: 1px solid gray;
+  }
+  .spaces {
+    grid-row: 3 / 4;
     border-bottom: 1px solid gray;
   }
 }

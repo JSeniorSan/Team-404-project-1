@@ -12,4 +12,17 @@
     grid-column: 2 / span;
     grid-row: 1 / 2;
   }
+  .content {
+    grid-template-columns: 2 / 3;
+    grid-template-rows: 2 / 5;
+
+    // & > svg {
+    //   position: fixed;
+    //   bottom: 0;
+    //   right: 0;
+    // }
+    // & > button {
+    //   position: fixed
+    // }
+  }
 }

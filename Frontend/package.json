@@ -26,6 +26,7 @@
     "sass": "^1.69.4"
   },
   "devDependencies": {
+    "@svgr/webpack": "^8.1.0",
     "@types/compose-function": "^0.0.32",
     "@types/react": "^18.2.15",
     "@types/react-dom": "^18.2.7",
@@ -41,6 +42,7 @@
     "postcss": "^8.4.31",
     "tailwindcss": "^3.3.3",
     "typescript": "^5.2.2",
-    "vite": "^4.4.5"
+    "vite": "^4.4.5",
+    "vite-plugin-svgr": "^4.1.0"
   }
 }

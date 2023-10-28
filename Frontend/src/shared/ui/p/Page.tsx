@@ -8,6 +8,7 @@ const Page: React.FC<IP> = ({ size, color, weight, children, ...props }) => {
       className={cn("page", {
         ["black"]: color === "black",
         ["gray"]: color === "gray",
+        ["white"]: color === "white",
         ["s"]: size === "12px",
         ["m"]: size === "14px",
         ["l"]: size === "16px",

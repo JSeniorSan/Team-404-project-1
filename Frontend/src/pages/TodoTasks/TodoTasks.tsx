@@ -4,9 +4,7 @@ import TodosContainer from "../../shared/ui/todosContainer/TodosContainer";
 import { todoApi } from "../../shared/api/todoQueryApi/TodoServise";
 import Template from "../../features/Template/ui/Template";
 import Wrapper from "../../shared/ui/wrapper/Wrapper";
-import { Footer, Header } from "antd/es/layout/layout";
 import FormCard from "../../entities/FormTask/ui/FormTask";
-import { Link } from "react-router-dom";
 
 function TodoTasks() {
   const {
@@ -46,16 +44,8 @@ function TodoTasks() {
           <div>
             <hr />
           </div>
-          <iframe
-            width="550"
-            height="400"
-            src="https://www.youtube.com/embed/ULQhvIGG27Q"
-            title="Halloween lofi radio  🎃 - spooky beats to get chills to"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-          ></iframe>
         </div>
       </Wrapper>
-      <Footer />
       <FormCard className="modalWrapper" />
     </Wrapper>
   );

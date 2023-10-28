@@ -8,9 +8,9 @@ const NavPanel: React.FC<INavPanel> = ({ className, ...props }) => {
   return (
     <aside className={cn("navPanel", className)} {...props}>
       <div className="mainTitle">Title</div>
-      <div>Nav</div>
-      <div>Spaces</div>
-      <div>Theme</div>
+      <div className="navig">Nav</div>
+      <div className="spaces">Spaces</div>
+      <div className="theme">Theme</div>
     </aside>
   );
 };
