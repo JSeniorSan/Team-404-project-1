@@ -60,5 +60,29 @@ export const todoApi = createApi({
         body: user,
       }),
     }),
+    getMe: build.query<IResponseAuth, string>({
+      query: () => ({
+        url: `/users/me`,
+      }),
+    }),
+    login: build.mutation<string, { username: string; password: string }>({
+      query: (login) => {
+        const formD = new FormData();
+        formD.append("username", login.username);
+        formD.append("password", login.password);
+        console.log(login);
+        console.log(formD);
+
+        return {
+          url: "/auth/login",
+          method: "POST",
+          body: formD,
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+          formData: true,
+        };
+      },
+    }),
   }),
 });

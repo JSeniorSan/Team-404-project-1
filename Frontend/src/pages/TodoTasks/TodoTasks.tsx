@@ -5,7 +5,8 @@ import { todoApi } from "../../shared/api/todoQueryApi/TodoServise";
 import Template from "../../features/Template/ui/Template";
 import Wrapper from "../../shared/ui/wrapper/Wrapper";
 import FormCard from "../../entities/FormTask/ui/FormTask";
-
+import NewTodo from "../../shared/ui/newTodo/NewTodo";
+import LogoColors from "../../shared/asset/Frame 45.svg?react";
 function TodoTasks() {
   const {
     data: todos,
@@ -47,6 +48,10 @@ function TodoTasks() {
         </div>
       </Wrapper>
       <FormCard className="modalWrapper" />
+      <div className="fixed right-5 bottom-5 flex gap-2 items-center">
+        <NewTodo />
+        <LogoColors />
+      </div>
     </Wrapper>
   );
 }
