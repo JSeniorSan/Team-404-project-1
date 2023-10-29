@@ -28,7 +28,7 @@ if config.config_file_name is not None:
 # from myapp import mymodel
 # target_metadata = mymodel.Base.metadata
 from src.database import Base
-from src.todo.models import *
+from src.task.models import *
 from src.auth.models import *
 
 target_metadata = Base.metadata
