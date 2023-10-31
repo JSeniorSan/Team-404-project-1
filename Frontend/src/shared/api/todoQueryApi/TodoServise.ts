@@ -32,23 +32,23 @@ export const todoApi = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: URL, credentials: "include" }),
   tagTypes: ["Post", "Delete"],
   endpoints: (build) => ({
-    fetchAllTodos: build.query<ITodo[], string>({
+    fetchAllTask: build.query<ITodo[], string>({
       query: () => ({
-        url: "/todo",
+        url: "/task",
       }),
       providesTags: () => ["Post", "Delete"],
     }),
-    createTodo: build.mutation<ITodo, ITodoPost>({
+    createTask: build.mutation<ITodo, ITodoPost>({
       query: (obj) => ({
-        url: "/todo",
+        url: "/task",
         method: "POST",
         body: obj,
       }),
       invalidatesTags: ["Post"],
     }),
-    removeTodo: build.mutation<ITodo, number>({
+    removeTask: build.mutation<ITodo, number>({
       query: (id) => ({
-        url: `/todo/${id}`,
+        url: `/task/${id}`,
         method: "DELETE",
       }),
       invalidatesTags: ["Delete"],

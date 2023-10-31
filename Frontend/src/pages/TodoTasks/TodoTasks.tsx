@@ -18,11 +18,8 @@ function TodoTasks() {
     isLoading,
     isError,
     isSuccess,
-  } = todoApi.useFetchAllTodosQuery("");
+  } = todoApi.useFetchAllTaskQuery("");
   console.log(todos);
-  const { data: me } = todoApi.useGetMeQuery("");
-
-  console.log(me);
 
   const dispatch = useAppDispatch();
 

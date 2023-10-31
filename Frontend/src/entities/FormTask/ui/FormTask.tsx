@@ -9,7 +9,7 @@ import { switchModalWindow } from "../../../shared/api/todo/modalSlice";
 import BtnDone from "../../../shared/ui/btns/btn-done/Btn-done";
 import { useForm, SubmitHandler } from "react-hook-form";
 const FormCard: React.FC<ITodoTask> = ({ className, ...props }) => {
-  const [createTodo] = todoApi.useCreateTodoMutation();
+  const [createTodo] = todoApi.useCreateTaskMutation();
 
   const dispatch = useAppDispatch();
 

@@ -3,8 +3,7 @@ import { todoApi } from "../../../shared/api/todoQueryApi/TodoServise";
 import { useForm, SubmitHandler } from "react-hook-form";
 import Page from "../../../shared/ui/p/Page";
 import BtnDone from "../../../shared/ui/btns/btn-done/Btn-done";
-import axios from "axios";
-import { useState } from "react";
+import { useEffect } from "react";
 export interface IInputs {
   username: string;
   password: string;
@@ -12,38 +11,21 @@ export interface IInputs {
 
 const Login: React.FC = () => {
   const navigate = useNavigate();
-  //   const [login, { isSuccess: done }] = todoApi.useLoginMutation();
-
-  //   console.log(`login: ${done}`);
+  const [login, { isSuccess: done }] = todoApi.useLoginMutation();
+  const { data: userObj } = todoApi.useGetMeQuery("");
+  console.log(`login: ${done}`);
 
   const { handleSubmit, register } = useForm<IInputs>();
-  const [stat, setStat] = useState<boolean>(false);
 
   const onSubmit: SubmitHandler<IInputs> = async (data) => {
-    const stringData = `grant_type=&username=${data.username}&password=${data.password}&scope=&client_id=&client_secret=`;
-    const { data: value, status } = await axios.post(
-      "http://127.0.0.1:8000/auth/login",
-      JSON.stringify(stringData),
-      {
-        withCredentials: true,
-        headers: {
-          "Content-Type": "application/x-www-form-urlencoded",
-        },
-      }
+    await login(
+      `grant_type=&username=${data.username}&password=${data.password}&scope=&client_id=&client_secret=`
     );
-    if (status === 204) {
-      setStat(true);
-    }
-    console.log(status);
-    console.log(value);
-
-    // await login(
-    //   `grant_type=&username=${data.username}&password=${data.password}&scope=&client_id=&client_secret=`
-    // );
   };
-  if (stat) {
+
+  useEffect(() => {
     navigate("/todos/template");
-  }
+  }, [done, navigate]);
 
   return (
     <form

@@ -19,7 +19,7 @@ const CardVisual: React.FC<ICardVisual> = ({
 
   const modalWindowState = useSelector(modalWindowSelector);
 
-  const [deleteTodo] = todoApi.useRemoveTodoMutation();
+  const [deleteTodo] = todoApi.useRemoveTaskMutation();
 
   const deleteHandler = () => {
     deleteTodo(idElem);
