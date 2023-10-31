@@ -20,8 +20,8 @@ router = APIRouter(
 current_user = fastapi_users.current_user()
 
 
-@router.get("/")
-async def get_all_tasks(db_session: AsyncSession = Depends(get_db), user: User = Depends(current_user)):
+@router.get("/", response_model=list[TaskInDb])
+async def get_all_tasks(db_session: AsyncSession = Depends(get_db), user: User = Depends(current_user)) -> Any:
     '''
     Get all **tasks** of current user.
     '''
@@ -29,16 +29,18 @@ async def get_all_tasks(db_session: AsyncSession = Depends(get_db), user: User =
     return list(tasks)
 
 
-@router.post("/")
+@router.post("/", response_model=TaskInDb)
 async def create_new_task(task_in: TaskCreate, db_session: AsyncSession = Depends(get_db), user: User = Depends(current_user)) -> Any:
     '''
     Create new **task**.
     '''
-    task_in_data = jsonable_encoder(task_in)
-    task = Task(**task_in_data, user_id=user.id)
-    db_session.add(task)
-    await db_session.commit()
-    await db_session.refresh(task)
+    # task_in_data = jsonable_encoder(task_in)
+    # task = Task(**task_in_data, user_id=user.id)
+    # db_session.add(task)
+    # await db_session.commit()
+    # await db_session.refresh(task)
+    task = await crud.task.create(db_session=db_session, obj_in=task_in, user=user)
+    return task
 
 
 @router.delete("/{id}", response_model=TaskInDb, dependencies=[Depends(current_user)])
