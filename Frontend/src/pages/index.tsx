@@ -4,15 +4,25 @@ import Home from "./Home/Home";
 import Account from "./Account/Account";
 import Layout from "./Layout";
 import AuthForm from "../processes/auth/AuthForm/AuthForm";
+import AuthHocPrivat from "../processes/auth/Hoc/AuthHocPrivat";
 
 export const Routing = () => {
   return (
     <Routes>
-      <Route path="/todo" element={<Layout />}>
-        <Route index path="home" element={<Home />} />
-        <Route index path="template" element={<TodoTasks />} />
-        <Route />
+      <Route path="/" element={<Home />} />
+      <Route path="/account" element={<Account />} />
+      <Route path="/account/register" element={<AuthForm />} />
+      <Route path="/todos/*" element={<Layout />}>
+        <Route
+          path="template"
+          element={
+            <AuthHocPrivat>
+              <TodoTasks />
+            </AuthHocPrivat>
+          }
+        />
       </Route>
+      <Route />
 
       {/* <Route path="/todo" element={<Layout />}>
         <Route path="workspace/:title/board" element={<TodosList />} />
@@ -22,9 +32,6 @@ export const Routing = () => {
         <Route path="goals" element={<Goals />} />
         <Route path="members" element={<Members />} />
       </Route> */}
-
-      <Route path="/account" element={<Account />} />
-      <Route path="/account/register" element={<AuthForm />} />
       <Route path="*" element={<Navigate to="/" />} />
     </Routes>
   );

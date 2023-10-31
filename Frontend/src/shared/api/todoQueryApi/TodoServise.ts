@@ -29,7 +29,7 @@ const URL = "http://127.0.0.1:8000";
 
 export const todoApi = createApi({
   reducerPath: "todoApi",
-  baseQuery: fetchBaseQuery({ baseUrl: URL }),
+  baseQuery: fetchBaseQuery({ baseUrl: URL, credentials: "include" }),
   tagTypes: ["Post", "Delete"],
   endpoints: (build) => ({
     fetchAllTodos: build.query<ITodo[], string>({
@@ -58,6 +58,31 @@ export const todoApi = createApi({
         url: "/auth/register",
         method: "POST",
         body: user,
+      }),
+    }),
+    getMe: build.query<IResponseAuth, string>({
+      query: () => ({
+        url: `/users/me`,
+      }),
+    }),
+    login: build.mutation<string, string>({
+      query: (login) => {
+        console.log(login);
+
+        return {
+          url: "/auth/login",
+          method: "POST",
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
+          body: JSON.stringify(login),
+        };
+      },
+    }),
+    logout: build.mutation<string, null>({
+      query: () => ({
+        url: "/auth/logout",
+        method: "POST",
       }),
     }),
   }),

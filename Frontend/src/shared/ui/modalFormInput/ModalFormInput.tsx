@@ -1,10 +1,15 @@
 import { IInput } from "./modal.interfaces";
 import "./index.scss";
-import Glass from "../../asset/search-normal.svg?react";
-const ModalFormInput: React.FC<IInput> = ({ type, placeholder }) => {
+
+const ModalFormInput: React.FC<IInput> = ({
+  type,
+  placeholder,
+  children,
+  ...props
+}) => {
   return (
-    <div className="inputClass">
-      <Glass />
+    <div className="inputClass" {...props}>
+      {children}
       <input type={type} placeholder={placeholder} className="input" />
     </div>
   );
