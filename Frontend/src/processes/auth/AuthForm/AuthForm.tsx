@@ -15,7 +15,7 @@ const AuthForm = () => {
 
   const navigate = useNavigate();
 
-  const [createAuth, { isSuccess: sucsess, data: authInfo }] =
+  const [createAuth, { isSuccess: sucsess }] =
     todoApi.useRegistrationUserMutation();
 
   const isSucessRegister = (value: boolean) => {
@@ -29,11 +29,7 @@ const AuthForm = () => {
 
   const { register, handleSubmit } = useForm<IAuth>();
   const onSubmit: SubmitHandler<IAuth> = async (data) => {
-    console.log(data);
     await createAuth(data);
-    console.log(sucsess);
-    console.log(authInfo);
-
     isSucessRegister(sucsess);
   };
   return (

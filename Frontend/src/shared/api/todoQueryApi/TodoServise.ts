@@ -67,8 +67,6 @@ export const todoApi = createApi({
     }),
     login: build.mutation<string, string>({
       query: (login) => {
-        console.log(login);
-
         return {
           url: "/auth/login",
           method: "POST",

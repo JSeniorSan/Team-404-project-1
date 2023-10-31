@@ -14,6 +14,7 @@ export const Routing = () => {
       <Route path="/account/register" element={<AuthForm />} />
       <Route path="/todos/*" element={<Layout />}>
         <Route
+          index
           path="template"
           element={
             <AuthHocPrivat>
@@ -23,15 +24,6 @@ export const Routing = () => {
         />
       </Route>
       <Route />
-
-      {/* <Route path="/todo" element={<Layout />}>
-        <Route path="workspace/:title/board" element={<TodosList />} />
-        <Route path="workspace/:title/list" element={<TodoTasks />} />
-        <Route path="home" element={<TodoHome />} />
-        <Route path="my" element={<MyTask></MyTask>} />
-        <Route path="goals" element={<Goals />} />
-        <Route path="members" element={<Members />} />
-      </Route> */}
       <Route path="*" element={<Navigate to="/" />} />
     </Routes>
   );
