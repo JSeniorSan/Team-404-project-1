@@ -6,7 +6,7 @@ from src.auth.models import User
 import uuid
 
 
-cookie_transport = CookieTransport(cookie_max_age=43200) # 12 hours 
+cookie_transport = CookieTransport(cookie_max_age=43200, cookie_samesite='none') # 12 hours 
 
 auth_backend = AuthenticationBackend(
     name="database_cookie",
