@@ -29,7 +29,7 @@ const URL = "http://127.0.0.1:8000";
 
 export const todoApi = createApi({
   reducerPath: "todoApi",
-  baseQuery: fetchBaseQuery({ baseUrl: URL }),
+  baseQuery: fetchBaseQuery({ baseUrl: URL, credentials: "include" }),
   tagTypes: ["Post", "Delete"],
   endpoints: (build) => ({
     fetchAllTodos: build.query<ITodo[], string>({
@@ -65,24 +65,25 @@ export const todoApi = createApi({
         url: `/users/me`,
       }),
     }),
-    login: build.mutation<string, { username: string; password: string }>({
+    login: build.mutation<string, string>({
       query: (login) => {
-        const formD = new FormData();
-        formD.append("username", login.username);
-        formD.append("password", login.password);
         console.log(login);
-        console.log(formD);
 
         return {
           url: "/auth/login",
           method: "POST",
-          body: formD,
           headers: {
-            "Content-Type": "multipart/form-data",
+            "Content-Type": "application/x-www-form-urlencoded",
           },
-          formData: true,
+          body: JSON.stringify(login),
         };
       },
+    }),
+    logout: build.mutation<string, null>({
+      query: () => ({
+        url: "/auth/logout",
+        method: "POST",
+      }),
     }),
   }),
 });

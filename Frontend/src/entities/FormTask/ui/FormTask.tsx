@@ -13,7 +13,7 @@ const FormCard: React.FC<ITodoTask> = ({ className, ...props }) => {
 
   const dispatch = useAppDispatch();
 
-  const { handleSubmit, register, reset, watch } = useForm<IForm>();
+  const { handleSubmit, register, reset } = useForm<IForm>();
 
   const onSubmit: SubmitHandler<IForm> = async (data) => {
     await createTodo(data);
@@ -31,8 +31,6 @@ const FormCard: React.FC<ITodoTask> = ({ className, ...props }) => {
   const stopHandler = (e: React.MouseEvent) => {
     e.stopPropagation();
   };
-
-  console.log(watch("title"));
 
   return (
     <div

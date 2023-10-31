@@ -7,6 +7,11 @@ import Wrapper from "../../shared/ui/wrapper/Wrapper";
 import FormCard from "../../entities/FormTask/ui/FormTask";
 import NewTodo from "../../shared/ui/newTodo/NewTodo";
 import LogoColors from "../../shared/asset/Frame 45.svg?react";
+import { useAppDispatch } from "../../shared/api/redux-hooks";
+import { useSelector } from "react-redux";
+import { modalWindowSelector } from "../../shared/api/todo/modalSelectors";
+import { switchModalWindow } from "../../shared/api/todo/modalSlice";
+
 function TodoTasks() {
   const {
     data: todos,
@@ -15,6 +20,18 @@ function TodoTasks() {
     isSuccess,
   } = todoApi.useFetchAllTodosQuery("");
   console.log(todos);
+  const { data: me } = todoApi.useGetMeQuery("");
+
+  console.log(me);
+
+  const dispatch = useAppDispatch();
+
+  const modalStatus = useSelector(modalWindowSelector);
+
+  const createHandler = (event: React.MouseEvent) => {
+    event.stopPropagation();
+    dispatch(switchModalWindow(!modalStatus));
+  };
 
   return (
     <Wrapper className="wrapper">
@@ -49,7 +66,7 @@ function TodoTasks() {
       </Wrapper>
       <FormCard className="modalWrapper" />
       <div className="fixed right-5 bottom-5 flex gap-2 items-center">
-        <NewTodo />
+        <NewTodo onClick={createHandler} />
         <LogoColors />
       </div>
     </Wrapper>
