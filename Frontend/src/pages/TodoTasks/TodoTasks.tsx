@@ -30,11 +30,21 @@ function TodoTasks() {
     dispatch(switchModalWindow(!modalStatus));
   };
 
+  const [unlogout] = todoApi.useLogoutMutation();
+
   return (
     <Wrapper className="wrapper">
       <Wrapper className="flex gap-5">
         <Template className="template">
           <TodosContainer>
+            <button
+              className="border w-20 bg-slate-400"
+              onClick={async () => {
+                await unlogout(null);
+              }}
+            >
+              Unlogin
+            </button>
             {isLoading && <h1>Loading...</h1>}
             {isError && <h1>error</h1>}
             {isSuccess &&
@@ -50,17 +60,8 @@ function TodoTasks() {
               })}
           </TodosContainer>
         </Template>
-        <div>
-          <h1 className="text-4xl">
-            Привет, это твой личный веб помощник с твоими делами!
-          </h1>
-          <h2 className="text-2xl">Давай начинать планировать 😎</h2>
-
-          <div>
-            <hr />
-          </div>
-        </div>
       </Wrapper>
+
       <FormCard className="modalWrapper" />
       <div className="fixed right-5 bottom-5 flex gap-2 items-center">
         <NewTodo onClick={createHandler} />

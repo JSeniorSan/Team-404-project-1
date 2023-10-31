@@ -10,6 +10,6 @@
   }
 
   .card__box {
-    @apply flex justify-between items-center;
+    @apply flex flex-col gap-3;
   }
 }

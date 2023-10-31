@@ -32,7 +32,7 @@ const CardVisual: React.FC<ICardVisual> = ({
   };
 
   return (
-    <CardUi title={title} {...props}>
+    <CardUi title={title} {...props} className="flex flex-col ">
       <h2>{description}</h2>
       <Wrapper className="box__controll">
         <BtnDone color="green" description="Done" onClick={doneHandler} />

@@ -1,9 +1,8 @@
-import { Navigate, redirect } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import { todoApi } from "../../../shared/api/todoQueryApi/TodoServise";
 import { useForm, SubmitHandler } from "react-hook-form";
 import Page from "../../../shared/ui/p/Page";
 import BtnDone from "../../../shared/ui/btns/btn-done/Btn-done";
-
 export interface IInputs {
   username: string;
   password: string;
@@ -11,7 +10,7 @@ export interface IInputs {
 
 const Login: React.FC = () => {
   const [login, { isSuccess: done }] = todoApi.useLoginMutation();
-
+  // const { data: userEntity } = todoApi.useGetMeQuery("");
   const { handleSubmit, register } = useForm<IInputs>();
 
   const onSubmit: SubmitHandler<IInputs> = async (data) => {
@@ -19,10 +18,10 @@ const Login: React.FC = () => {
       `grant_type=&username=${data.username}&password=${data.password}&scope=&client_id=&client_secret=`
     );
   };
+
   if (done) {
     return <Navigate to={"/todos/template"} />;
   }
-  console.log(done);
 
   return (
     <form
