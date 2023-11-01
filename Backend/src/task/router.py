@@ -34,11 +34,6 @@ async def create_new_task(task_in: TaskCreate, db_session: AsyncSession = Depend
     '''
     Create new **task**.
     '''
-    # task_in_data = jsonable_encoder(task_in)
-    # task = Task(**task_in_data, user_id=user.id)
-    # db_session.add(task)
-    # await db_session.commit()
-    # await db_session.refresh(task)
     task = await crud.task.create(db_session=db_session, obj_in=task_in, user=user)
     return task
 
