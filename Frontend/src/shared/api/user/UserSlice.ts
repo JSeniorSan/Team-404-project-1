@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { IResponseAuth } from "../todoQueryApi/TodoServise";
 
 const initialState = {
-  user: {},
+  currentUser: {},
 };
 
 const UserSlice = createSlice({
@@ -10,9 +10,12 @@ const UserSlice = createSlice({
   initialState,
   reducers: {
     saveUser: (state, action: PayloadAction<IResponseAuth>) => {
-      state.user = action.payload;
+      state.currentUser = action.payload;
+    },
+    deleteCurrentUser: (state) => {
+      state.currentUser = {};
     },
   },
 });
 export default UserSlice.reducer;
-export const { saveUser } = UserSlice.actions;
+export const { saveUser, deleteCurrentUser } = UserSlice.actions;

@@ -9,13 +9,18 @@ import Members from "../../../shared/asset/profile-2user.svg?react";
 import Plus from "../../../shared/asset/Plus.svg?react";
 
 import TodosMode from "../../../shared/ui/todosModeContainer/TodosMode";
+import { useNavigate } from "react-router-dom";
 export interface INavPanel
   extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> {}
 
 const NavPanel: React.FC<INavPanel> = ({ className, ...props }) => {
+  const navigate = useNavigate();
+  const handleClickHome = () => {
+    return navigate("/Home");
+  };
   return (
     <aside className={cn("navPanel", className)} {...props}>
-      <div className="mainTitle">
+      <div className="mainTitle" onClick={handleClickHome}>
         <Logo height={50} width={50} />
         Canban
       </div>

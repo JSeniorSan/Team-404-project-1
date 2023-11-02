@@ -6,14 +6,14 @@ export interface IAuthHoc {
   children: React.ReactNode;
 }
 
-const AuthHocPrivat: React.FC<IAuthHoc> = React.memo(({ children }) => {
+const AuthHocPrivat: React.FC<IAuthHoc> = ({ children }) => {
   const { data: userObj } = todoApi.useGetMeQuery("");
-  console.log(`user: ${userObj}`);
+  console.log(userObj);
 
   if (!userObj) {
     return <Navigate to={"/account"} />;
   }
   return children;
-});
+};
 
 export default AuthHocPrivat;

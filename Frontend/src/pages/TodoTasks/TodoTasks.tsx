@@ -1,7 +1,10 @@
 import "../../app/index.scss";
 import CardVisual from "../../entities/CardVisual/ui/CardVisual";
 import TodosContainer from "../../shared/ui/todosContainer/TodosContainer";
-import { todoApi } from "../../shared/api/todoQueryApi/TodoServise";
+import {
+  IResponseAuth,
+  todoApi,
+} from "../../shared/api/todoQueryApi/TodoServise";
 import Template from "../../features/Template/ui/Template";
 import Wrapper from "../../shared/ui/wrapper/Wrapper";
 import FormCard from "../../entities/FormTask/ui/FormTask";
@@ -11,26 +14,41 @@ import { useAppDispatch } from "../../shared/api/redux-hooks";
 import { useSelector } from "react-redux";
 import { modalWindowSelector } from "../../shared/api/todo/modalSelectors";
 import { switchModalWindow } from "../../shared/api/todo/modalSlice";
+import { Navigate } from "react-router-dom";
+import { deleteCurrentUser } from "../../shared/api/user/UserSlice";
+import { selectUser } from "../../shared/api/user/userSelectors";
+export interface ICurrentUser extends IResponseAuth {}
 
 function TodoTasks() {
+  const dispatch = useAppDispatch();
+  const currentUser = useSelector(selectUser);
+  const modalStatus = useSelector(modalWindowSelector);
+  const user = {
+    id: "",
+    ...currentUser,
+  };
+  console.log(user);
+
   const {
     data: todos,
     isLoading,
     isError,
     isSuccess,
   } = todoApi.useFetchAllTaskQuery("");
-  console.log(todos);
 
-  const dispatch = useAppDispatch();
+  const [deleteMeById] = todoApi.useDeleteMeByIdMutation();
 
-  const modalStatus = useSelector(modalWindowSelector);
+  const [logout] = todoApi.useLogoutMutation();
 
   const createHandler = (event: React.MouseEvent) => {
     event.stopPropagation();
     dispatch(switchModalWindow(!modalStatus));
   };
 
-  const [unlogout] = todoApi.useLogoutMutation();
+  if (!Object.keys(currentUser).length) {
+    return <Navigate to={"/account"} />;
+  }
+  console.log(user.id);
 
   return (
     <Wrapper className="wrapper">
@@ -40,7 +58,12 @@ function TodoTasks() {
             <button
               className="border w-20 bg-slate-400"
               onClick={async () => {
-                await unlogout(null);
+                if (Object.keys(currentUser).length) {
+                  await deleteMeById(user.id);
+                }
+                await logout(null);
+
+                dispatch(deleteCurrentUser());
               }}
             >
               Unlogin

@@ -16,7 +16,7 @@ export interface IResponseAuth {
   is_active: boolean;
   is_superuser: boolean;
   is_verified: boolean;
-  id: string;
+  id?: string;
   email: string;
   username: string;
 }
@@ -81,6 +81,11 @@ export const todoApi = createApi({
       query: () => ({
         url: "/auth/logout",
         method: "POST",
+      }),
+    }),
+    deleteMeById: build.mutation<string, string>({
+      query: (id) => ({
+        url: `/users/${id}`,
       }),
     }),
   }),
