@@ -14,7 +14,7 @@
   .navig {
     grid-row: 2 / 3;
     border-bottom: 1px solid gray;
-    @apply flex items-start flex-col pl-6 font-medium text-base gap-7 justify-center;
+    @apply flex items-start flex-col pl-6 font-medium text-base  justify-center;
   }
   .theme {
     grid-row: 4 / 5;

@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import {
-  IResponseAuth,
+  // IResponseAuth,
   todoApi,
 } from "../../../shared/api/todoQueryApi/TodoServise";
 import { useForm, SubmitHandler } from "react-hook-form";
@@ -14,32 +14,33 @@ export interface IInputs {
   password: string;
 }
 
-export interface ICurrentUser {
-  userEntityAlredy: IResponseAuth | undefined;
-}
+// export interface ICurrentUser {
+//   userEntityAlredy: IResponseAuth | undefined;
+// }
 
-const Login: React.FC<ICurrentUser> = (props) => {
+const Login: React.FC = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
   const [login, { isSuccess: done }] = todoApi.useLoginMutation();
 
+  const [getMe, { data: meData }] = todoApi.useLazyGetMeQuery();
+
   const { handleSubmit, register } = useForm<IInputs>();
 
   const onSubmit: SubmitHandler<IInputs> = async (data) => {
-    console.log(data);
-
     await login(
       `grant_type=&username=${data.username}&password=${data.password}&scope=&client_id=&client_secret=`
     );
+    await getMe("");
   };
 
   useEffect(() => {
-    if (done && props.userEntityAlredy) {
-      dispatch(saveUser(props.userEntityAlredy));
+    if (done && meData) {
+      dispatch(saveUser(meData));
       navigate("/todos/template", { replace: true });
     }
-  }, [props.userEntityAlredy, dispatch, navigate, done]);
+  }, [dispatch, navigate, done, getMe, meData]);
 
   return (
     <form
