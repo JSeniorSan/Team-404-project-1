@@ -1,4 +1,4 @@
-import { Navigate } from "react-router-dom";
+import { Navigate, useLocation } from "react-router-dom";
 import { todoApi } from "../../../shared/api/todoQueryApi/TodoServise";
 import React from "react";
 
@@ -7,11 +7,14 @@ export interface IAuthHoc {
 }
 
 const AuthHocPrivat: React.FC<IAuthHoc> = ({ children }) => {
+  const location = useLocation();
   const { data: userObj } = todoApi.useGetMeQuery("");
   console.log(userObj);
 
   if (!userObj) {
-    return <Navigate to={"/account"} />;
+    console.log(location);
+
+    return <Navigate to={"/account"} state={{ from: location }} replace />;
   }
   return children;
 };

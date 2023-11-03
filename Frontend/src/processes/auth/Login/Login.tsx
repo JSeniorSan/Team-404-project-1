@@ -1,4 +1,4 @@
-import { Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import {
   IResponseAuth,
   todoApi,
@@ -8,6 +8,7 @@ import Page from "../../../shared/ui/p/Page";
 import BtnDone from "../../../shared/ui/btns/btn-done/Btn-done";
 import { useAppDispatch } from "../../../shared/api/redux-hooks";
 import { saveUser } from "../../../shared/api/user/UserSlice";
+import { useEffect } from "react";
 export interface IInputs {
   username: string;
   password: string;
@@ -18,6 +19,7 @@ export interface ICurrentUser {
 }
 
 const Login: React.FC<ICurrentUser> = (props) => {
+  const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
   const [login, { isSuccess: done }] = todoApi.useLoginMutation();
@@ -25,15 +27,19 @@ const Login: React.FC<ICurrentUser> = (props) => {
   const { handleSubmit, register } = useForm<IInputs>();
 
   const onSubmit: SubmitHandler<IInputs> = async (data) => {
+    console.log(data);
+
     await login(
       `grant_type=&username=${data.username}&password=${data.password}&scope=&client_id=&client_secret=`
     );
   };
 
-  if (done && props.userEntityAlredy) {
-    dispatch(saveUser(props.userEntityAlredy));
-    return <Navigate to={"/todos/template"} />;
-  }
+  useEffect(() => {
+    if (done && props.userEntityAlredy) {
+      dispatch(saveUser(props.userEntityAlredy));
+      navigate("/todos/template", { replace: true });
+    }
+  }, [props.userEntityAlredy, dispatch, navigate, done]);
 
   return (
     <form

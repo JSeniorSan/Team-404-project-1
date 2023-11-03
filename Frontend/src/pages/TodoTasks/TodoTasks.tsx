@@ -17,24 +17,26 @@ import { switchModalWindow } from "../../shared/api/todo/modalSlice";
 import { Navigate } from "react-router-dom";
 import { deleteCurrentUser } from "../../shared/api/user/UserSlice";
 import { selectUser } from "../../shared/api/user/userSelectors";
+import { useEffect } from "react";
 export interface ICurrentUser extends IResponseAuth {}
 
 function TodoTasks() {
   const dispatch = useAppDispatch();
   const currentUser = useSelector(selectUser);
   const modalStatus = useSelector(modalWindowSelector);
+  // const [skip, setSkip] = useState<boolean>(true);
+
+  const [getData, { data: todos, isFetching: isTodosFetching }] =
+    todoApi.useLazyFetchAllTaskQuery();
+
   const user = {
     id: "",
     ...currentUser,
   };
   console.log(user);
-
-  const {
-    data: todos,
-    isLoading,
-    isError,
-    isSuccess,
-  } = todoApi.useFetchAllTaskQuery("");
+  useEffect(() => {
+    getData("");
+  }, [getData]);
 
   const [deleteMeById] = todoApi.useDeleteMeByIdMutation();
 
@@ -68,10 +70,10 @@ function TodoTasks() {
             >
               Unlogin
             </button>
-            {isLoading && <h1>Loading...</h1>}
-            {isError && <h1>error</h1>}
-            {isSuccess &&
-              todos.map((el) => {
+            {isTodosFetching && <h1>Loading...</h1>}
+            {/* {isError && <h1>error</h1>} */}
+            {!isTodosFetching &&
+              todos?.map((el) => {
                 return (
                   <CardVisual
                     idElem={el.id}

@@ -1,13 +1,15 @@
 import Wrapper from "../../shared/ui/wrapper/Wrapper";
 import Page from "../../shared/ui/p/Page";
-// import ModalFormInput from "../../shared/ui/modalFormInput/ModalFormInput";
 import BtnDone from "../../shared/ui/btns/btn-done/Btn-done";
 import "./index.scss";
 import { Link } from "react-router-dom";
 import Login from "../../processes/auth/Login/Login";
 import { todoApi } from "../../shared/api/todoQueryApi/TodoServise";
+// import { useSelector } from "react-redux";
+// import { selectUser } from "../../shared/api/user/userSelectors";
 
 const Account = () => {
+  // const user = useSelector(selectUser);
   const { data: userEntityAlredy } = todoApi.useGetMeQuery("");
 
   return (
