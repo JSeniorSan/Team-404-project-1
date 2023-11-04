@@ -1,2 +1,4 @@
-*.tsx linguist-vendored=false
-*.ts linguist-vendored=false
+*.ts linguist-detectable=true
+*.tsx linguist-detectable=true
+*.ts linguist-language=TypeScript
+*.tsx linguist-language=TypeScript
