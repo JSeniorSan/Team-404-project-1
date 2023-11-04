@@ -3,6 +3,7 @@ import { IResponseAuth } from "../todoQueryApi/TodoServise";
 
 const initialState = {
   currentUser: {},
+  currentUserTodos: [],
 };
 
 const UserSlice = createSlice({

@@ -1,8 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import {
-  // IResponseAuth,
-  todoApi,
-} from "../../../shared/api/todoQueryApi/TodoServise";
+import { todoApi } from "../../../shared/api/todoQueryApi/TodoServise";
 import { useForm, SubmitHandler } from "react-hook-form";
 import Page from "../../../shared/ui/p/Page";
 import BtnDone from "../../../shared/ui/btns/btn-done/Btn-done";
@@ -13,10 +10,6 @@ export interface IInputs {
   username: string;
   password: string;
 }
-
-// export interface ICurrentUser {
-//   userEntityAlredy: IResponseAuth | undefined;
-// }
 
 const Login: React.FC = () => {
   const navigate = useNavigate();
@@ -38,7 +31,7 @@ const Login: React.FC = () => {
   useEffect(() => {
     if (done && meData) {
       dispatch(saveUser(meData));
-      navigate("/todos/template", { replace: true });
+      navigate("/dashboard/todos/list", { replace: true });
     }
   }, [dispatch, navigate, done, getMe, meData]);
 

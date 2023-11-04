@@ -4,24 +4,13 @@ import BtnDone from "../../shared/ui/btns/btn-done/Btn-done";
 import "./index.scss";
 import { Link } from "react-router-dom";
 import Login from "../../processes/auth/Login/Login";
-// import { todoApi } from "../../shared/api/todoQueryApi/TodoServise";
-// import { useEffect } from "react";
 
 const Account = () => {
-  // const [data, { isFetching: isMe, data: me }] = todoApi.useLazyGetMeQuery();
-
-  // useEffect(() => {
-  //   data("");
-  // }, []);
-
   return (
     <>
-      {/* {isMe && <h1>Loading</h1>} */}
-      {/* {!isMe && ( */}
       <Wrapper className="w-full h-screen flex justify-center items-center">
         <Wrapper className="flex rounded-3xl h-fit border w-fit shadow-lg">
           <Login />
-
           <div className="register">
             <div className="text-white text-5xl font-bold">Hello, friend!</div>
             <Page size="14px" color="gray" weight="500">
@@ -33,7 +22,6 @@ const Account = () => {
           </div>
         </Wrapper>
       </Wrapper>
-      {/* )} */}
     </>
   );
 };

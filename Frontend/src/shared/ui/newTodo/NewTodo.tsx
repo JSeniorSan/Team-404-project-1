@@ -1,6 +1,6 @@
 import Page from "../p/Page";
 import "./index.scss";
-import Plus from "../../asset/Plus.svg?react";
+import Plus from "../../asset/PlusNewTodo.svg?react";
 import { DetailedHTMLProps, HTMLAttributes } from "react";
 
 export interface INewTodo

@@ -1,8 +1,8 @@
 .template {
-  @apply flex gap-9 max-h-screen w-5/6 justify-center items-start ml-5;
+  @apply flex gap-9 max-h-screen  justify-center items-start px-12 w-fit;
   height: calc(100vh - 88px);
 
   .template__todo {
-    @apply h-fit w-5/6 p-10 flex flex-col gap-5;
+    @apply h-fit w-full  flex flex-col gap-5;
   }
 }

@@ -12,6 +12,7 @@ const Page: React.FC<IP> = ({ size, color, weight, children, ...props }) => {
         ["s"]: size === "12px",
         ["m"]: size === "14px",
         ["l"]: size === "16px",
+        ["title"]: size === "40px",
         ["norm"]: weight === "400",
         ["medium"]: weight === "500",
         ["semi"]: weight === "600",

@@ -3,31 +3,29 @@
 
   grid-template-rows: 88px 232px auto;
   width: 250px;
-  border-right: 1px solid gray;
-  border-bottom: 1px solid gray;
+  border-right: 1px solid var(--lineColor);
+  border-bottom: 1px solid var(--lineColor);
 
   .mainTitle {
     grid-row: 1 / 2;
-    border-bottom: 1px solid gray;
+    border-bottom: 1px solid var(--lineColor);
     @apply flex justify-center items-center text-5xl font-bold text-gray-600 cursor-pointer;
   }
   .navig {
     grid-row: 2 / 3;
-    border-bottom: 1px solid gray;
+    border-bottom: 1px solid var(--lineColor);
     @apply flex items-start flex-col pl-6 font-medium text-base  justify-center;
   }
   .theme {
     grid-row: 4 / 5;
-    border-bottom: 1px solid gray;
+    border-bottom: 1px solid var(--lineColor);
   }
   .spaces {
     grid-row: 3 / 4;
-    border-bottom: 1px solid gray;
+    border-bottom: 1px solid var(--lineColor);
     @apply flex flex-col;
     .spaces__title {
-      @apply flex justify-between p-6 items-center text-xs bg-slate-200;
-    }
-    .spaces__list {
+      @apply flex justify-between p-6 items-center text-xs;
     }
   }
 }
