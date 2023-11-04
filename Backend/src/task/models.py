@@ -15,3 +15,4 @@ class Task(Base):
     created_at: Mapped[datetime | None] = mapped_column(server_default=func.now(), nullable=True)
     updated_at: Mapped[datetime | None] = mapped_column(onupdate=func.now(), nullable=True)
     user_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("user.id"))
+    
