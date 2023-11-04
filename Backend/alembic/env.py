@@ -30,6 +30,8 @@ if config.config_file_name is not None:
 from src.database import Base
 from src.task.models import *
 from src.auth.models import *
+from src.panel.models import *
+from src.workspace.models import *
 
 target_metadata = Base.metadata
 

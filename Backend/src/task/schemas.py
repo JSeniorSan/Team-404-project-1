@@ -1,5 +1,4 @@
-from datetime import date, datetime
-import uuid
+from datetime import datetime
 from pydantic import BaseModel, ConfigDict
 
 
@@ -15,7 +14,7 @@ class TaskInDb(TaskBase):
     is_completed: bool
     created_at: datetime | None
     updated_at: datetime | None
-    user_id: uuid.UUID
+    panel_id: int
 
     
 

@@ -1,12 +1,10 @@
 from typing import Any
 from fastapi import Depends, APIRouter
-from fastapi.encoders import jsonable_encoder
-from sqlalchemy import delete, insert, select, update
+from sqlalchemy import update
 from sqlalchemy.ext.asyncio import AsyncSession
 from src.auth.models import User
 from src.database import get_db
 from src.task.models import Task
-from starlette.status import HTTP_201_CREATED, HTTP_200_OK, HTTP_204_NO_CONTENT
 from src.task.schemas import TaskInDb, TaskCreate, TaskUpdate
 import crud
 from src.auth.config import fastapi_users

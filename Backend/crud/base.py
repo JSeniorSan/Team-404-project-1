@@ -13,8 +13,6 @@ ModelType = TypeVar("ModelType", bound=Base)
 CreateSchemaType = TypeVar("CreateSchemaType", bound=BaseModel)
 UpdateSchemaType = TypeVar("UpdateSchemaType", bound=BaseModel)
 
-current_user = fastapi_users.current_user()
-
 
 class CRUDBase(Generic[ModelType, CreateSchemaType, UpdateSchemaType]):
 
@@ -56,7 +54,7 @@ class CRUDBase(Generic[ModelType, CreateSchemaType, UpdateSchemaType]):
             user: User
             ) -> list[ModelType]:
         query = select(self.model).where(self.model.user_id == user.id)
-        objs = await db_session.execute(query) # objs is like objects
+        objs = await db_session.execute(query)
         return objs.scalars()
 
     async def update(self, db_session: AsyncSession, id: Any, obj_in: UpdateSchemaType) -> ModelType:
