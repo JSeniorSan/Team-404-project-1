@@ -1,14 +1,16 @@
 import time
 from fastapi import FastAPI, Request
-from src.task.router import router as router_todo
+from src.task.router import router as router_task
 from fastapi.middleware.cors import CORSMiddleware
 from src.auth.config import auth_backend, fastapi_users
 from src.auth.schemas import UserRead, UserCreate, UserUpdate
+from src.workspace.router import router as router_workspace
+from src.panel.router import router as router_panel
+from src.kanban.router import router as router_kanban
 
 
-app = FastAPI(title="ToDo App")
+app = FastAPI(title="Kanban App")
 
-app.include_router(router_todo)
 
 app.include_router(
     fastapi_users.get_auth_router(auth_backend),
@@ -27,6 +29,11 @@ app.include_router(
     prefix="/users",
     tags=["users"],
 )
+
+app.include_router(router_workspace)
+app.include_router(router_panel)
+app.include_router(router_task)
+app.include_router(router_kanban)
 
 
 origins = [

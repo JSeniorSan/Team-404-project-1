@@ -1,12 +1,11 @@
 from fastapi_users.db import SQLAlchemyBaseUserTableUUID
 from sqlalchemy import Boolean, DateTime, String, func
-from src.task.models import Task
+from src.workspace.models import Workspace
 from src.database import Base
-from sqlalchemy.orm import Mapped, mapped_column
+from sqlalchemy.orm import Mapped, mapped_column, relationship
 import uuid
 from fastapi_users_db_sqlalchemy.access_token import SQLAlchemyBaseAccessTokenTableUUID
 from fastapi_users_db_sqlalchemy.generics import GUID
-from sqlalchemy.orm import relationship
 
 
 class User(SQLAlchemyBaseUserTableUUID, Base):
@@ -21,7 +20,7 @@ class User(SQLAlchemyBaseUserTableUUID, Base):
     created_at: Mapped[DateTime] = mapped_column(DateTime, server_default=func.now(), nullable=False)
     updated_at: Mapped[DateTime] = mapped_column(DateTime, onupdate=func.now(), nullable=True)
     username: Mapped[str] = mapped_column(String(length=24), unique=True, nullable=False)
-    tasks: Mapped[list[Task]] = relationship()
+    workspaces: Mapped[list[Workspace]] = relationship()
 
 
 class AccessToken(SQLAlchemyBaseAccessTokenTableUUID, Base):  

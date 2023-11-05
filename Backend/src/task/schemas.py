@@ -1,6 +1,7 @@
-from datetime import date, datetime
-import uuid
+from datetime import datetime
 from pydantic import BaseModel, ConfigDict
+from marshmallow_sqlalchemy import SQLAlchemyAutoSchema
+from src.task.models import Task
 
 
 class TaskBase(BaseModel):
@@ -15,7 +16,7 @@ class TaskInDb(TaskBase):
     is_completed: bool
     created_at: datetime | None
     updated_at: datetime | None
-    user_id: uuid.UUID
+    panel_id: int
 
     
 
