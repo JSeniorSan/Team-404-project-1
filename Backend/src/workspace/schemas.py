@@ -1,7 +1,10 @@
 import uuid
 from pydantic import BaseModel, ConfigDict
 from marshmallow_sqlalchemy import SQLAlchemyAutoSchema
+# from src.panel.schemas import PanelAll
 from src.workspace.models import Workspace
+from marshmallow_sqlalchemy.fields import Nested
+
 
 
 class WorkspaceBase(BaseModel):
@@ -21,13 +24,3 @@ class WorkspaceCreate(WorkspaceBase):
 
 class WorkspaceUpdate(WorkspaceBase):
     pass
-
-
-
-class WorkspaceAll(SQLAlchemyAutoSchema):
-    class Meta:
-        model = Workspace
-        include_relationships = True
-        load_instance = True
-
-workspace_all = WorkspaceAll()

@@ -23,10 +23,8 @@ router = APIRouter(
 @router.post("/{panel_id}", response_model=TaskInDb)
 async def create_new_task(panel_id: int, task_in: TaskCreate, db: AsyncSession = Depends(get_db)) -> Any:
     '''
-    Create new **task**.
+    Create new **task** in panel.
     '''
-    # task = await crud.task.create(db_session=db_session, obj_in=task_in, user=user)
-    # return task
     task = Task(**task_in.model_dump(), panel_id=panel_id)
     db.add(task)
     await db.commit()
@@ -39,8 +37,6 @@ async def get_all_tasks(panel_id: int, db: AsyncSession = Depends(get_db)) -> An
     '''
     Get all **tasks** in panel.
     '''
-    # tasks = await crud.task.read_all(db_session=db_session, user=user)
-    # return list(tasks)
     query = select(Task).where(Task.panel_id==panel_id)
     tasks = await db.execute(query)
     result = tasks.scalars().all()

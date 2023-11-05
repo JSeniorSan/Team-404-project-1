@@ -6,6 +6,7 @@ from src.auth.config import auth_backend, fastapi_users
 from src.auth.schemas import UserRead, UserCreate, UserUpdate
 from src.workspace.router import router as router_workspace
 from src.panel.router import router as router_panel
+from src.kanban.router import router as router_kanban
 
 
 app = FastAPI(title="Kanban App")
@@ -32,6 +33,7 @@ app.include_router(
 app.include_router(router_workspace)
 app.include_router(router_panel)
 app.include_router(router_task)
+app.include_router(router_kanban)
 
 
 origins = [
