@@ -5,11 +5,11 @@ from fastapi.middleware.cors import CORSMiddleware
 from src.auth.config import auth_backend, fastapi_users
 from src.auth.schemas import UserRead, UserCreate, UserUpdate
 from src.workspace.router import router as router_workspace
+from src.panel.router import router as router_panel
 
 
-app = FastAPI(title="ToDo App")
+app = FastAPI(title="Kanban App")
 
-app.include_router(router_task)
 
 app.include_router(
     fastapi_users.get_auth_router(auth_backend),
@@ -30,6 +30,8 @@ app.include_router(
 )
 
 app.include_router(router_workspace)
+app.include_router(router_panel)
+app.include_router(router_task)
 
 
 origins = [

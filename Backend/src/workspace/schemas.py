@@ -1,5 +1,7 @@
 import uuid
 from pydantic import BaseModel, ConfigDict
+from marshmallow_sqlalchemy import SQLAlchemyAutoSchema
+from src.workspace.models import Workspace
 
 
 class WorkspaceBase(BaseModel):
@@ -19,3 +21,13 @@ class WorkspaceCreate(WorkspaceBase):
 
 class WorkspaceUpdate(WorkspaceBase):
     pass
+
+
+
+class WorkspaceAll(SQLAlchemyAutoSchema):
+    class Meta:
+        model = Workspace
+        include_relationships = True
+        load_instance = True
+
+workspace_all = WorkspaceAll()

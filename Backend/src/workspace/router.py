@@ -3,7 +3,7 @@ from fastapi import APIRouter, Depends
 from sqlalchemy import insert, select, update
 from src.workspace.models import Workspace
 from src.auth.models import User
-from src.workspace.schemas import WorkspaceCreate, WorkspaceInDb, WorkspaceUpdate
+from src.workspace.schemas import WorkspaceCreate, WorkspaceInDb, WorkspaceUpdate, workspace_all
 from src.database import get_db
 from src.auth.config import fastapi_users
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -74,3 +74,13 @@ async def update_workspace(
     await db.commit()
     workspace = await db.get(Workspace, id)
     return workspace
+
+
+@router.get("/{id}")
+async def get_everything_in_workspace(id: int, db: AsyncSession = Depends(get_db)):
+    '''
+    Get all info wrom **workspace**.
+    '''
+    workspace = await db.get(Workspace, id)
+    dump_data = workspace_all.dump(workspace)
+    return dump_data

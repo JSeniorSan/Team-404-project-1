@@ -1,8 +1,7 @@
 from datetime import datetime
-import uuid
 from sqlalchemy import ForeignKey, String, func, DateTime
 from src.database import Base
-from sqlalchemy.orm import Mapped, mapped_column
+from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 
 class Task(Base):
@@ -12,7 +11,8 @@ class Task(Base):
     title: Mapped[str] = mapped_column(String(40), nullable=False)
     description: Mapped[str | None] = mapped_column(String(150), default=None, nullable=True)
     is_completed: Mapped[bool] = mapped_column(default=False)
-    created_at: Mapped[DateTime] = mapped_column(DateTime, server_default=func.now(), nullable=False)
-    updated_at: Mapped[datetime | None] = mapped_column(onupdate=func.now(), nullable=True)
+    created_at: Mapped[DateTime] = mapped_column(DateTime, default=func.now(), nullable=False)
+    updated_at: Mapped[datetime | None] = mapped_column(default=func.now(), onupdate=func.now(), nullable=True)
     panel_id: Mapped[int] = mapped_column(ForeignKey("panels.id"))
+    panel: Mapped["Panel"] = relationship(back_populates="tasks")
     
