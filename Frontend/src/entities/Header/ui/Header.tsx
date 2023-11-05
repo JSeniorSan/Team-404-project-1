@@ -10,17 +10,45 @@ import TodosMode from "../../../shared/ui/todosModeContainer/TodosMode";
 import BoardLogo from "../../../shared/asset/kanban.svg?react";
 import Calendar from "../../../shared/asset/calendar.svg?react";
 import Glass from "../../../shared/asset/search-normal.svg?react";
+import { useSelector } from "react-redux";
+import { selectView } from "../../../shared/api/view/viewSliceSelector";
+import { useAppDispatch } from "../../../shared/api/redux-hooks";
+import { switchWidget } from "../../../shared/api/view/ViewSlice";
+import { useNavigate } from "react-router-dom";
 export interface IHeader
   extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> {}
 
 const Header: React.FC<IHeader> = ({ className, ...props }) => {
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+  const viewState = useSelector(selectView);
+
+  const handleListClick = () => {
+    dispatch(switchWidget("List"));
+    navigate("/dashboard/todos/list");
+  };
+  const handleBoardClick = () => {
+    dispatch(switchWidget("Board"));
+    navigate("/dashboard/todos/kanban");
+  };
+
   return (
     <header className={cn("header", className)} {...props}>
       <div className="flex gap-4 items-center">
-        <TodosMode title="List">
+        <TodosMode
+          title="List"
+          className={cn({
+            ["activeBlue"]: viewState === "List",
+          })}
+          onClick={handleListClick}
+        >
           <ListLogo />
         </TodosMode>
-        <TodosMode title="Board">
+        <TodosMode
+          title="Board"
+          className={cn({ ["activeBlue"]: viewState === "Board" })}
+          onClick={handleBoardClick}
+        >
           <BoardLogo className="fill-gray-50" />
         </TodosMode>
         <TodosMode title="Calendar">

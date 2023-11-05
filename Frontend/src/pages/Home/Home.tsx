@@ -7,7 +7,7 @@ const Home = () => {
       <div className="transition-all text-2xl">Давай перейдем к задачам!😁</div>
       <div className="flex gap-3">
         <button className="border rounded-md bg-slate-200 p-2 flex items-center">
-          <Link to={"/todos/template"}>Move</Link>
+          <Link to={"/dashboard/todos/list"}>Go to dashboard!🌱</Link>
         </button>
       </div>
     </div>

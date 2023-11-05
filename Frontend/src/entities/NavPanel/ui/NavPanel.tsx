@@ -22,7 +22,7 @@ const NavPanel: React.FC<INavPanel> = ({ className, ...props }) => {
     <aside className={cn("navPanel", className)} {...props}>
       <div className="mainTitle" onClick={handleClickHome}>
         <Logo height={50} width={50} />
-        Canban
+        Kanban
       </div>
       <div className="navig">
         <TodosMode title="Home">

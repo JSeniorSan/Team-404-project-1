@@ -3,7 +3,7 @@
 @tailwind utilities;
 @import "./styles/index.scss";
 @import "../shared/ui/card/index.scss";
-@import "../pages/TodoTasks/todoTask.scss";
+@import "../widgets/todosList/index.scss";
 @import "../shared/ui/wrapper/index.scss";
 @import "../shared/ui/btns/btn-done/index.scss";
 @import "../entities/CardVisual/ui/index.scss";
@@ -21,11 +21,12 @@
 @import "../pages/index.scss";
 @import "../shared/ui/newTodo/index.scss";
 @import "../shared/ui/todosModeContainer/index.scss";
+@import "../entities/NewTodo/index.scss";
+@import "../pages/TodoPages/TodosPageList/index.scss";
 * {
-  font-family: "Roboto";
+  font-family: "Roboto", Arial, Helvetica, sans-serif;
   font-size: 16px;
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
-// , Arial, Helvetica, sans-serif;

@@ -2,5 +2,14 @@
   @apply w-full px-5 flex justify-between items-center;
   height: 88px;
   background-color: var(--base);
-  border-bottom: 1px solid gray;
+  border-bottom: 1px solid var(--lineColor);
+}
+
+.activeBlue {
+  @apply text-blue-600;
+  background-color: var(--base);
+
+  svg {
+    fill: var(--primaryActive);
+  }
 }
