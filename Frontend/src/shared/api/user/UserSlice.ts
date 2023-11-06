@@ -24,7 +24,9 @@ export interface ITask {
 
 const initialState = {
   currentUser: {},
-  currentUserWorkspace: {},
+  currentUserWorkspace: {
+    id: 1,
+  },
 };
 
 const UserSlice = createSlice({
@@ -37,8 +39,8 @@ const UserSlice = createSlice({
     deleteCurrentUser: (state) => {
       state.currentUser = {};
     },
-    addWorkspace: (state, action: PayloadAction<IWorkspace>) => {
-      state.currentUserWorkspace = action.payload;
+    addWorkspace: (state, action: PayloadAction<number>) => {
+      state.currentUserWorkspace.id = action.payload;
     },
   },
 });

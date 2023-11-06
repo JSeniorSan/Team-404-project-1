@@ -2,7 +2,6 @@ import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   widget: "List",
-  colums: { TODO: [], INWORK: [], COMPLITED: [] },
 };
 
 const ViewSlice = createSlice({

@@ -4,11 +4,15 @@ import Page from "../../../../shared/ui/p/Page";
 import CreateNew from "./createNew/CreateNew";
 import { useAppDispatch } from "../../../../shared/api/redux-hooks";
 import { addWorkspace } from "../../../../shared/api/user/UserSlice";
+import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { selectView } from "../../../../shared/api/view/viewSliceSelector";
+import { switchWidget } from "../../../../shared/api/view/ViewSlice";
 const Worspaces = () => {
   const dispatch = useAppDispatch();
+  const template = useSelector(selectView);
+  const navigate = useNavigate();
 
-  const [getKanban, { isFetching: isKanbanFetch, data: kanbanData }] =
-    todoApi.useLazyGetKanbanQuery();
   const [
     getWorkspaces,
     { isFetching: isWorkspacesFetching, data: allWorkspaces },
@@ -16,7 +20,7 @@ const Worspaces = () => {
 
   useEffect(() => {
     getWorkspaces("");
-  }, [getWorkspaces]);
+  }, [getWorkspaces, template]);
 
   if (!isWorkspacesFetching) {
     console.log(allWorkspaces);
@@ -25,15 +29,18 @@ const Worspaces = () => {
   const [newWorkspace, setNewWorkspace] = useState<boolean>(false);
 
   const handleClickToWorkspace = async (id: number) => {
-    await getKanban(id);
-  };
-
-  useEffect(() => {
-    if (kanbanData) {
-      dispatch(addWorkspace(kanbanData));
-      console.log(kanbanData);
+    dispatch(addWorkspace(id));
+    if (template === "List") {
+      navigate(`/dashboard/list/${id}`);
     }
-  }, [isKanbanFetch, kanbanData, dispatch]);
+    if (template === "Board") {
+      navigate(`/dashboard/kanban/${id}`);
+    }
+    if (template === "none") {
+      dispatch(switchWidget("List"));
+      navigate(`/dashboard/list/${id}`);
+    }
+  };
 
   return (
     <div className="spaces">

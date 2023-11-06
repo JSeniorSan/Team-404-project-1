@@ -33,9 +33,6 @@ const Header: React.FC<IHeader> = ({ className, ...props }) => {
   };
   useEffect(() => {
     dispatch(switchWidget("none"));
-    return () => {
-      dispatch(switchWidget("none"));
-    };
   }, [dispatch]);
 
   return (
