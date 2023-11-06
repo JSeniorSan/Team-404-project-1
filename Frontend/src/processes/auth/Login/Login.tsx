@@ -31,7 +31,7 @@ const Login: React.FC = () => {
   useEffect(() => {
     if (done && meData) {
       dispatch(saveUser(meData));
-      navigate("/dashboard/todos/list", { replace: true });
+      navigate("/dashboard/home", { replace: true });
     }
   }, [dispatch, navigate, done, getMe, meData]);
 

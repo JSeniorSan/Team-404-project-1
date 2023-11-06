@@ -27,5 +27,11 @@
     .spaces__title {
       @apply flex justify-between p-6 items-center text-xs;
     }
+    .spaces__list {
+      @apply flex flex-col  items-start ml-6 mt-7;
+      & > li {
+        @apply cursor-pointer hover:bg-slate-50 p-3;
+      }
+    }
   }
 }

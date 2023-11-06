@@ -6,6 +6,8 @@ import AuthForm from "../processes/auth/AuthForm/AuthForm";
 import AuthHocPrivat from "../processes/auth/Hoc/AuthHocPrivat";
 import TodosList from "../widgets/todosList/TodosList";
 import TodosPageList from "./TodoPages/TodosPageList/TodosPageList";
+import DashboardHome from "./DashboardHome/DashboardHome";
+import TodosPageBoard from "./TodoPages/TodosPageBoard/TodosPageBoard";
 
 export const Routing = () => {
   return (
@@ -13,24 +15,29 @@ export const Routing = () => {
       <Route path="/" element={<Home />} />
       <Route path="/account" element={<Account />} />
       <Route path="/account/register" element={<AuthForm />} />
-      <Route path="/dashboard/todos/*" element={<Layout />}>
+
+      <Route path="/dashboard/*" element={<Layout />}>
+        <Route path={"home"} element={<DashboardHome />} />
         <Route
-          index
-          path="list"
+          path="list/"
           element={
             <AuthHocPrivat>
               <TodosPageList />
             </AuthHocPrivat>
           }
-        />
+        >
+          <Route path=":workspaceName" />
+        </Route>
         <Route
-          path="kanban"
+          path="kanban/"
           element={
             <AuthHocPrivat>
-              <Home />
+              <TodosPageBoard />
             </AuthHocPrivat>
           }
-        />
+        >
+          <Route path=":workspaceName" />
+        </Route>
         <Route
           path="calendar"
           element={

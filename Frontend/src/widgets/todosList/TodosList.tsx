@@ -22,18 +22,12 @@ function TodosList() {
   const dispatch = useAppDispatch();
   const currentUser = useSelector(selectUser);
 
-  const [getData, { data: todos, isFetching: isTodosFetching }] =
-    todoApi.useLazyFetchAllTaskQuery();
-
   const user = {
     id: "",
     ...currentUser,
   };
 
-  useEffect(() => {
-    getData("");
-  }, [getData, dispatch]);
-  console.log(todos);
+  useEffect(() => {}, []);
 
   const [deleteMeById] = todoApi.useDeleteMeByIdMutation();
 

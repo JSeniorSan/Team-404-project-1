@@ -1,5 +1,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { ITodo } from "./todoInterfaces";
+import { IWorkspace } from "../user/UserSlice";
 
 export interface ITodoPost {
   title: string;
@@ -25,12 +26,22 @@ export interface IErrorAuth {
   detail: string;
 }
 
+export interface IWorkspaceData {
+  name: string;
+  id: number;
+  user_id: string;
+}
+
+export interface INewWorkspacePost {
+  name: string | undefined;
+}
+
 const URL = "http://127.0.0.1:8000";
 
 export const todoApi = createApi({
   reducerPath: "todoApi",
   baseQuery: fetchBaseQuery({ baseUrl: URL, credentials: "include" }),
-  tagTypes: ["Post", "Delete"],
+  tagTypes: ["Post", "Delete", "NewWorkspace"],
   endpoints: (build) => ({
     fetchAllTask: build.query<ITodo[], string>({
       query: () => ({
@@ -86,6 +97,25 @@ export const todoApi = createApi({
     deleteMeById: build.mutation<string, string>({
       query: (id) => ({
         url: `/users/${id}`,
+      }),
+    }),
+    getAllWorkspaces: build.query<IWorkspaceData[], string>({
+      query: () => ({
+        url: "/workspace/",
+      }),
+      providesTags: () => ["NewWorkspace"],
+    }),
+    createNewWorkspace: build.mutation<IWorkspace, INewWorkspacePost>({
+      query: (obj) => ({
+        url: "/workspace/",
+        method: "POST",
+        body: obj,
+      }),
+      invalidatesTags: ["NewWorkspace"],
+    }),
+    getKanban: build.query<IWorkspace, number>({
+      query: (id) => ({
+        url: `/kanban/${id}`,
       }),
     }),
   }),

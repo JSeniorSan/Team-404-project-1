@@ -1,7 +1,7 @@
 import "./index.scss";
 import cn from "classnames";
 import ModalFormInput from "../../../shared/ui/modalFormInput/ModalFormInput";
-import { DetailedHTMLProps, HTMLAttributes } from "react";
+import { DetailedHTMLProps, HTMLAttributes, useEffect } from "react";
 import Notification from "../../../shared/asset/notification.svg?react";
 import Message from "../../../shared/asset/Chat.svg?react";
 import UserIcon from "../../../shared/asset/Group 3.svg?react";
@@ -25,12 +25,18 @@ const Header: React.FC<IHeader> = ({ className, ...props }) => {
 
   const handleListClick = () => {
     dispatch(switchWidget("List"));
-    navigate("/dashboard/todos/list");
+    navigate("/dashboard/list");
   };
   const handleBoardClick = () => {
     dispatch(switchWidget("Board"));
-    navigate("/dashboard/todos/kanban");
+    navigate("/dashboard/kanban");
   };
+  useEffect(() => {
+    dispatch(switchWidget("none"));
+    return () => {
+      dispatch(switchWidget("none"));
+    };
+  }, [dispatch]);
 
   return (
     <header className={cn("header", className)} {...props}>
