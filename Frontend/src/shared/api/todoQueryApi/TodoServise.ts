@@ -7,6 +7,11 @@ export interface ITodoPost {
   description: string | null;
 }
 
+export interface ITaskData {
+  infoData: ITodoPost;
+  id: string | undefined;
+}
+
 export interface IAuthNewUser {
   username: string;
   password: string;
@@ -41,7 +46,7 @@ const URL = "http://127.0.0.1:8000";
 export const todoApi = createApi({
   reducerPath: "todoApi",
   baseQuery: fetchBaseQuery({ baseUrl: URL, credentials: "include" }),
-  tagTypes: ["Post", "Delete", "NewWorkspace"],
+  tagTypes: ["Post", "Delete", "NewWorkspace", "NewTask"],
   endpoints: (build) => ({
     fetchAllTask: build.query<ITodo[], string>({
       query: () => ({
@@ -49,13 +54,13 @@ export const todoApi = createApi({
       }),
       providesTags: () => ["Post", "Delete"],
     }),
-    createTask: build.mutation<ITodo, ITodoPost>({
+    createTask: build.mutation<ITodo, ITaskData>({
       query: (obj) => ({
-        url: "/task",
+        url: `/task/${obj.id}`,
         method: "POST",
-        body: obj,
+        body: obj.infoData,
       }),
-      invalidatesTags: ["Post"],
+      invalidatesTags: ["NewTask"],
     }),
     removeTask: build.mutation<ITodo, number>({
       query: (id) => ({
@@ -117,6 +122,7 @@ export const todoApi = createApi({
       query: (id) => ({
         url: `/kanban/${id}`,
       }),
+      providesTags: () => ["NewTask"],
     }),
   }),
 });

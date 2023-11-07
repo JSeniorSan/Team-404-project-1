@@ -1,0 +1,4 @@
+.list {
+  @apply overflow-scroll;
+  height: calc(100vh - 88px);
+}

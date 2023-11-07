@@ -54,7 +54,7 @@ const Worspaces = () => {
           {allWorkspaces?.map((name) => {
             return (
               <li key={name.id} onClick={() => handleClickToWorkspace(name.id)}>
-                <Page color="black" size="16px" weight="700">
+                <Page color="black" size="16px" weight="500">
                   {name.name + " " + `id: ${name.id}`}
                 </Page>
               </li>

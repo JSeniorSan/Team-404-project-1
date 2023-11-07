@@ -8,6 +8,7 @@ import { modalWindowSelector } from "../../../shared/api/todo/modalSelectors";
 import { switchModalWindow } from "../../../shared/api/todo/modalSlice";
 import BtnDone from "../../../shared/ui/btns/btn-done/Btn-done";
 import { useForm, SubmitHandler } from "react-hook-form";
+
 const FormCard: React.FC<ITodoTask> = ({ className, ...props }) => {
   const [createTodo] = todoApi.useCreateTaskMutation();
 
@@ -16,7 +17,13 @@ const FormCard: React.FC<ITodoTask> = ({ className, ...props }) => {
   const { handleSubmit, register, reset } = useForm<IForm>();
 
   const onSubmit: SubmitHandler<IForm> = async (data) => {
-    await createTodo(data);
+    const createNewObjectData = {
+      infoData: data,
+      id: `${2}`,
+    };
+
+    await createTodo(createNewObjectData);
+
     reset();
     dispatch(switchModalWindow(false));
   };
@@ -45,14 +52,14 @@ const FormCard: React.FC<ITodoTask> = ({ className, ...props }) => {
         onClick={stopHandler}
         onSubmit={handleSubmit(onSubmit)}
       >
-        <label>Title</label>
+        <label>Task title</label>
         <input
           type="string"
           placeholder="Введите заголовок задачи"
           style={{ color: "black" }}
           {...register("title", { required: true })}
         />
-        <label>Description</label>
+        <label>Task</label>
         <textarea className="textarea" {...register("description")} />
         <BtnDone color="green" description="Submit" />
       </form>
