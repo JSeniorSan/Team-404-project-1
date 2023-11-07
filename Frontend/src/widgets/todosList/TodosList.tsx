@@ -8,7 +8,6 @@ import FormCard from "../../entities/FormTask/ui/FormTask";
 
 import { useAppDispatch } from "../../shared/api/redux-hooks";
 import { useSelector } from "react-redux";
-import { Navigate } from "react-router-dom";
 import { deleteCurrentUser } from "../../shared/api/user/UserSlice";
 import { selectUser } from "../../shared/api/user/userSelectors";
 
@@ -27,11 +26,6 @@ const TodosList: React.FC<IProps> = ({ ...props }) => {
   const [deleteMeById] = todoApi.useDeleteMeByIdMutation();
 
   const [logout] = todoApi.useLogoutMutation();
-
-  if (!Object.keys(currentUser).length) {
-    return <Navigate to={"/account"} />;
-  }
-  console.log(props.kanbanData.panels);
 
   return (
     <Wrapper className="wrapper">

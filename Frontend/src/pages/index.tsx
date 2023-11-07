@@ -18,14 +18,21 @@ export const Routing = () => {
       <Route path="/dashboard/*" element={<Layout />}>
         <Route path={"home"} element={<DashboardHome />} />
         <Route
-          path="list/"
+          path="list/*"
           element={
             <AuthHocPrivat>
               <TodosPageList />
             </AuthHocPrivat>
           }
         >
-          <Route path=":workspaceName" element={<TodosPageList />} />
+          <Route
+            path=":workspaceName"
+            element={
+              <AuthHocPrivat>
+                <TodosPageList />
+              </AuthHocPrivat>
+            }
+          />
         </Route>
         <Route
           path="kanban/"
