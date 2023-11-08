@@ -12,7 +12,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from src.workspace.models import Workspace
 from src.panel.models import Panel
 from src.task.models import Task
-from src.database import SessionLocal
+from src.database import Session
 
 
 class UserManager(UUIDIDMixin, BaseUserManager[User, uuid.UUID]):
@@ -50,7 +50,7 @@ class UserManager(UUIDIDMixin, BaseUserManager[User, uuid.UUID]):
         Creates welcome **workspace**.
         '''
         
-        db: AsyncSession = SessionLocal()
+        db: AsyncSession = Session()
 
         workspace = Workspace(name="Привет, это твой первый проект!", user_id=user.id)
         db.add(workspace)
