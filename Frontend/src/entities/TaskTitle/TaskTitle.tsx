@@ -21,7 +21,7 @@ const TaskTitle: React.FC<ITaksTitle> = ({ panelTitle, todosCount }) => {
 
   return (
     <div
-      className="flex justify-between pb-5 border-b-2 rounded-sm border-white items-center gap-10 relative"
+      className="flex justify-between pb-5 border-b-2 rounded-sm border-gray items-center gap-10 relative "
       onMouseLeave={handleLeaveMouse}
     >
       <div className="flex gap-2 items-center">

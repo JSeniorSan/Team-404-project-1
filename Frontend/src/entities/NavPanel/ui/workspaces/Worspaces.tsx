@@ -28,17 +28,18 @@ const Worspaces = () => {
 
   const [newWorkspace, setNewWorkspace] = useState<boolean>(false);
 
-  const handleClickToWorkspace = async (id: number) => {
+  const handleClickToWorkspace = async (id: number, name: string) => {
+    const optimizationString = name.split(" ").join("");
     dispatch(addWorkspace(id));
     if (template === "List") {
-      navigate(`/dashboard/list/${id}`);
+      navigate(`/dashboard/list/${optimizationString}`);
     }
     if (template === "Board") {
-      navigate(`/dashboard/kanban/${id}`);
+      navigate(`/dashboard/kanban/${optimizationString}`);
     }
     if (template === "none") {
       dispatch(switchWidget("List"));
-      navigate(`/dashboard/list/${id}`);
+      navigate(`/dashboard/list/${optimizationString}`);
     }
   };
 
@@ -53,7 +54,10 @@ const Worspaces = () => {
         <ul className="spaces__list">
           {allWorkspaces?.map((name) => {
             return (
-              <li key={name.id} onClick={() => handleClickToWorkspace(name.id)}>
+              <li
+                key={name.id}
+                onClick={() => handleClickToWorkspace(name.id, name.name)}
+              >
                 <Page color="black" size="16px" weight="500">
                   {name.name + " " + `id: ${name.id}`}
                 </Page>

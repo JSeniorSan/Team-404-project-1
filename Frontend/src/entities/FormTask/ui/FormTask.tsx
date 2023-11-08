@@ -19,7 +19,7 @@ const FormCard: React.FC<ITodoTask> = ({ className, ...props }) => {
   const onSubmit: SubmitHandler<IForm> = async (data) => {
     const createNewObjectData = {
       infoData: data,
-      id: `${2}`,
+      id: `${props.id}`,
     };
 
     await createTodo(createNewObjectData);

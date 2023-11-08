@@ -26,10 +26,6 @@ function TodosPageList() {
     }
   }, [getKanban, workspaceId, navigate, currentUser]);
 
-  if (isKanbanFetch) {
-    console.log(kanbanData);
-  }
-
   return (
     <>
       {isKanbanFetch && <div>Loading...</div>}

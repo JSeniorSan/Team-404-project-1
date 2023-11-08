@@ -1,0 +1,6 @@
+.userMenu {
+  @apply absolute right-0 top-12 bg-slate-400 p-5 rounded-sm hidden;
+}
+.activeUserMenu {
+  @apply block;
+}

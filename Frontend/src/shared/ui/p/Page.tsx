@@ -2,6 +2,7 @@ import React from "react";
 import cn from "classnames";
 import "./index.scss";
 import { IP } from "./Page.interfaces";
+
 const Page: React.FC<IP> = ({ size, color, weight, children, ...props }) => {
   return (
     <div

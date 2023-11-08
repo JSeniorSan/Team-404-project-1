@@ -1,5 +1,5 @@
 .menu {
-  @apply absolute right-0 top-10 bg-slate-200 p-2 z-50 w-28 hidden rounded-md bg-opacity-90;
+  @apply absolute right-0 top-10 bg-slate-200 p-2 z-50 w-28 hidden rounded-md bg-opacity-70 backdrop-blur-sm;
 }
 .activeMenu {
   @apply block;

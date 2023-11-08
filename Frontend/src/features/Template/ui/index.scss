@@ -1,5 +1,5 @@
 .template {
-  @apply flex gap-9 max-h-screen  justify-center items-start px-12 w-fit h-fit;
+  @apply flex gap-9 max-h-screen  justify-center items-start px-12 w-96 h-fit mb-4;
 
   .template__todo {
     @apply h-fit w-full  flex flex-col gap-5;

@@ -41,12 +41,26 @@ export interface INewWorkspacePost {
   name: string | undefined;
 }
 
+export interface IPanel {
+  name: string;
+  id: number;
+  workspace_id: number;
+}
+
+export interface IPanelTitle {
+  name: string | undefined;
+}
+
+export interface IPanelData {
+  id: number;
+  titleData: IPanelTitle;
+}
 const URL = "http://127.0.0.1:8000";
 
 export const todoApi = createApi({
   reducerPath: "todoApi",
   baseQuery: fetchBaseQuery({ baseUrl: URL, credentials: "include" }),
-  tagTypes: ["Post", "Delete", "NewWorkspace", "NewTask"],
+  tagTypes: ["Post", "Delete", "NewWorkspace", "NewTask", "NewPanel"],
   endpoints: (build) => ({
     fetchAllTask: build.query<ITodo[], string>({
       query: () => ({
@@ -122,7 +136,15 @@ export const todoApi = createApi({
       query: (id) => ({
         url: `/kanban/${id}`,
       }),
-      providesTags: () => ["NewTask"],
+      providesTags: () => ["NewTask", "NewPanel"],
+    }),
+    newPanel: build.mutation<IPanel, IPanelData>({
+      query: (data) => ({
+        url: `/panel/${data.id}`,
+        method: "POST",
+        body: data.titleData,
+      }),
+      invalidatesTags: ["NewPanel"],
     }),
   }),
 });
