@@ -1,4 +1,3 @@
-import time
 from fastapi import FastAPI, Request
 from src.task.router import router as router_task
 from fastapi.middleware.cors import CORSMiddleware

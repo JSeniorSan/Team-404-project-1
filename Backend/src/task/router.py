@@ -1,6 +1,6 @@
 from typing import Any
 from fastapi import Depends, APIRouter
-from sqlalchemy import select, update
+from sqlalchemy import insert, select, update
 from sqlalchemy.ext.asyncio import AsyncSession
 from src.auth.models import User
 from src.database import get_db

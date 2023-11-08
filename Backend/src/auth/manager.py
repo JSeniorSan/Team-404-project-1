@@ -5,7 +5,7 @@ from fastapi_users import BaseUserManager, InvalidPasswordException, UUIDIDMixin
 from fastapi_users_db_sqlalchemy import SQLAlchemyUserDatabase
 from src.auth.deps import get_user_db
 from src.auth.schemas import UserCreate
-from src.config import AUTH_SECRET
+from src.config import settings
 from src.auth.models import User
 from src.auth.common_passwords.list_of_passwords import passwords_list
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -16,8 +16,8 @@ from src.database import SessionLocal
 
 
 class UserManager(UUIDIDMixin, BaseUserManager[User, uuid.UUID]):
-    reset_password_token_secret = AUTH_SECRET
-    verification_token_secret = AUTH_SECRET
+    reset_password_token_secret = settings.AUTH_SECRET
+    verification_token_secret = settings.AUTH_SECRET
 
     async def validate_password(
         self,
