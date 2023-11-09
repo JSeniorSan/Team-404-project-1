@@ -1,11 +1,45 @@
-import React from "react";
-
+import React, { useState } from "react";
+import Dots from "../../asset/tabler_dots.svg?react";
 import { ICard } from "./card.interface";
 import "./index.scss";
-const CardUi: React.FC<ICard> = ({ children, title }) => {
+import { useAppDispatch } from "../../api/redux-hooks";
+import { todoApi } from "../../api/todoQueryApi/TodoServise";
+import Wrapper from "../wrapper/Wrapper";
+import { switchModalWindow } from "../../api/todo/modalSlice";
+import { useSelector } from "react-redux";
+import { modalWindowSelector } from "../../api/todo/modalSelectors";
+import cn from "classnames";
+const CardUi: React.FC<ICard> = ({ children, title, elemId }) => {
+  const [cardOptionMenu, setCardOptionMenu] = useState<boolean>(false);
+  const [deleteTodo] = todoApi.useRemoveTaskMutation();
+  const deleteHandler = async () => {
+    await deleteTodo(elemId);
+  };
+  const doneHandler = () => {};
+  const handleClickCardOptions = () => {
+    setCardOptionMenu(!cardOptionMenu);
+  };
+
   return (
     <div className="card">
-      <div className="card__title">{title}</div>
+      <div className="flex justify-between">
+        <div className="card__title">{title}</div>
+        <Dots className="cardVisual__dots" onClick={handleClickCardOptions} />
+        <Wrapper
+          className={cn("box__controll", {
+            ["activeCardOptions"]: cardOptionMenu,
+          })}
+        >
+          <div onClick={deleteHandler} className="cursor-pointer">
+            Delete
+          </div>
+          <div onClick={deleteHandler} className="cursor-pointer">
+            Change
+          </div>
+          <div>Replace to: </div>
+          <div onClick={doneHandler}>Done</div>
+        </Wrapper>
+      </div>
       <div className="card__box">{children}</div>
     </div>
   );

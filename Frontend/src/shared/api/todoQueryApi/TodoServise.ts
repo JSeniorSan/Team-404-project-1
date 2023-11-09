@@ -136,7 +136,7 @@ export const todoApi = createApi({
       query: (id) => ({
         url: `/kanban/${id}`,
       }),
-      providesTags: () => ["NewTask", "NewPanel"],
+      providesTags: () => ["NewTask", "NewPanel", "Delete"],
     }),
     newPanel: build.mutation<IPanel, IPanelData>({
       query: (data) => ({

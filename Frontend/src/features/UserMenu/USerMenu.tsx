@@ -7,9 +7,11 @@ import { useSelector } from "react-redux";
 import { selectUser } from "../../shared/api/user/userSelectors";
 import { todoApi } from "../../shared/api/todoQueryApi/TodoServise";
 import { deleteCurrentUser } from "../../shared/api/user/UserSlice";
+import { useNavigate } from "react-router-dom";
 const UserMenu: React.FC<IMenuProps> = ({ menu }) => {
   const dispatch = useAppDispatch();
   const currentUser = useSelector(selectUser);
+  const navigate = useNavigate();
 
   const user = {
     id: "",
@@ -25,8 +27,8 @@ const UserMenu: React.FC<IMenuProps> = ({ menu }) => {
       await deleteMeById(user.id);
     }
     await logout(null);
-
     dispatch(deleteCurrentUser());
+    navigate("/account");
   };
 
   return (

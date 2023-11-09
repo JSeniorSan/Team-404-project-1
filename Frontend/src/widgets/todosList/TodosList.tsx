@@ -12,9 +12,13 @@ import NewPanel from "../../features/NewPanel/NewPanel";
 const TodosList: React.FC<IProps> = ({ ...props }) => {
   return (
     <Wrapper className="wrapper">
-      <Wrapper className="flex gap-5 h-fit ">
+      <Wrapper className="flex h-fit flex-col gap-10">
         {props.kanbanData.panels &&
-          props.kanbanData.panels.map((panel) => {
+          props.kanbanData.panels.map((panel, _, panelsArray) => {
+            const panelsNames = panelsArray.map((panel) => {
+              return panel.name;
+            });
+
             return (
               <Template className="template" key={panel.id}>
                 <TaskTitle

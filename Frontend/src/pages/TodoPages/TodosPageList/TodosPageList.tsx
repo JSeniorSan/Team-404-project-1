@@ -28,7 +28,7 @@ function TodosPageList() {
 
   return (
     <>
-      {isKanbanFetch && <div>Loading...</div>}
+      {/* {isKanbanFetch && <div>Loading...</div>} */}
       {!isKanbanFetch && kanbanData && (
         <div className="list">
           <WorkspaceHeader kanbanData={kanbanData} />

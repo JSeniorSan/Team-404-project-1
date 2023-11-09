@@ -5,7 +5,7 @@ export interface ITodo {
   updated_at: Date;
   creaed_at: Date;
   is_completed: boolean;
-  user_id: string;
+  panel_id: string;
 }
 
 export interface IPost {
