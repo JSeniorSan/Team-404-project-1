@@ -59,7 +59,7 @@ const Worspaces = () => {
                 onClick={() => handleClickToWorkspace(name.id, name.name)}
               >
                 <Page color="black" size="16px" weight="500">
-                  {name.name + " " + `id: ${name.id}`}
+                  {name.name}
                 </Page>
               </li>
             );
