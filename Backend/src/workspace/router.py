@@ -3,7 +3,7 @@ from fastapi import APIRouter, Depends
 from sqlalchemy import insert, select, update
 from src.workspace.models import Workspace
 from src.auth.models import User
-from src.workspace.schemas import WorkspaceCreate, WorkspaceInDb, WorkspaceUpdate #, workspace_all
+from src.workspace.schemas import WorkspaceCreate, WorkspaceInDb, WorkspaceUpdate
 from src.database import get_db
 from src.auth.config import fastapi_users
 from sqlalchemy.ext.asyncio import AsyncSession

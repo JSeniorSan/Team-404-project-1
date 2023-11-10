@@ -11,4 +11,4 @@ class Workspace(Base):
     id: Mapped[int] = mapped_column(primary_key=True)
     name: Mapped[str] = mapped_column(String(40), nullable=False)
     panels: Mapped[list[Panel]] = relationship(back_populates="workspace", lazy='selectin')
-    user_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("user.id"))
+    parent_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("user.id"))

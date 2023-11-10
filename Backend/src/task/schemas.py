@@ -16,7 +16,7 @@ class TaskInDb(TaskBase):
     is_completed: bool
     created_at: datetime | None
     updated_at: datetime | None
-    panel_id: int
+    parent_id: int
 
     
 

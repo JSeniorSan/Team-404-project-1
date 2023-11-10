@@ -1,13 +1,9 @@
 from typing import Any
 from fastapi import Depends, APIRouter
-from sqlalchemy import insert, select, update
-from sqlalchemy.ext.asyncio import AsyncSession
-from src.auth.models import User
-from src.database import get_db
-from src.task.models import Task
 from src.task.schemas import TaskInDb, TaskCreate, TaskUpdate
-import crud
 from src.auth.config import fastapi_users
+from src.task.service import task_service
+
 
 
 current_user = fastapi_users.current_user()
@@ -21,73 +17,45 @@ router = APIRouter(
 
 
 @router.post("/{panel_id}", response_model=TaskInDb)
-async def create_new_task(panel_id: int, task_in: TaskCreate, db: AsyncSession = Depends(get_db)) -> Any:
+async def create_new_task(panel_id: int, task_in: TaskCreate) -> Any:
     '''
     Create new **task** in panel.
     '''
-    task = Task(**task_in.model_dump(), panel_id=panel_id)
-    db.add(task)
-    await db.commit()
-    await db.refresh(task)
+    task = await task_service.create_task(task_in, panel_id)
     return task
 
 
-@router.get("/{panel_id}", response_model=list[TaskInDb])
-async def get_all_tasks(panel_id: int, db: AsyncSession = Depends(get_db)) -> Any:
-    '''
-    Get all **tasks** in panel.
-    '''
-    query = select(Task).where(Task.panel_id==panel_id)
-    tasks = await db.execute(query)
-    result = tasks.scalars().all()
-    return result
-
-
-@router.get("/{id}", response_model=TaskInDb)
-async def get_one_task(id: int, db: AsyncSession = Depends(get_db)) -> Any:
+@router.get("/{task_id}", response_model=TaskInDb)
+async def get_one_task(task_id: int) -> Any:
     '''
     Get one **task** by ID.
     '''
-    task = await db.get(Task, id)
+    task = await task_service.read_task(task_id)
     return task
 
 
-@router.delete("/{id}", response_model=TaskInDb)
-async def delete_one_task(id: int, db: AsyncSession = Depends(get_db)) -> Any:
+@router.delete("/{task_id}", response_model=TaskInDb)
+async def delete_one_task(task_id: int) -> Any:
     '''
     Delete a **task** by ID.
     '''
-    task = await db.get(Task, id)
-    await db.delete(task)
-    await db.commit()
+    task = await task_service.delete_task(task_id)
     return task
 
 
-# @router.patch("/{id}", response_model=[TaskInDb])
-# async def update_task_status(
-#     id: int, 
-#     db_session: AsyncSession = Depends(get_db), 
-#     task: TaskInDb = Depends(get_one_task)
-# ) -> Any:
-#     '''
-#     Reverse the status of **task**.
-#     '''
-#     current_status = task.is_completed
-#     stmt = update(Task).where(Task.id == id).values(is_completed = not current_status)
-#     await db_session.execute(stmt)
-#     await db_session.commit()
-#     await db_session.refresh(task)
-#     return task
+@router.put("/{task_id}", response_model=TaskInDb)
+async def update_task(task_id: int, new_data: TaskUpdate) -> Any:
+    '''
+    Update **task's** title and/or description by ID.
+    '''
+    task = await task_service.update_task(new_data, task_id)
+    return task
 
 
-@router.put("/{id}", response_model=TaskInDb)
-async def update_task(id: int, new_data: TaskUpdate, db: AsyncSession = Depends(get_db)) -> Any:
+@router.patch("/{task_id}", response_model=TaskInDb)
+async def change_panel(id: int, new_panel_id: int) -> Any:
     '''
-    Update **task** by ID.
+    Change the **panel** in which the **task** is contained (consider its a change of status of **task**).
     '''
-    new_values = new_data.model_dump(exclude_unset=True)
-    stmt = update(Task).where(Task.id==id).values(new_values)
-    await db.execute(stmt)
-    await db.commit()
-    task = await db.get(Task, id)
+    task = await task_service.change_panel(new_panel_id, id)
     return task
