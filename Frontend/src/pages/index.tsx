@@ -6,7 +6,6 @@ import AuthForm from "../processes/auth/AuthForm/AuthForm";
 import AuthHocPrivat from "../processes/auth/Hoc/AuthHocPrivat";
 import TodosPageList from "./TodoPages/TodosPageList/TodosPageList";
 import DashboardHome from "./DashboardHome/DashboardHome";
-import TodosPageBoard from "./TodoPages/TodosPageBoard/TodosPageBoard";
 
 export const Routing = () => {
   return (
@@ -38,11 +37,11 @@ export const Routing = () => {
           path="kanban/"
           element={
             <AuthHocPrivat>
-              <TodosPageBoard />
+              <TodosPageList />
             </AuthHocPrivat>
           }
         >
-          <Route path=":workspaceName" element={<TodosPageBoard />} />
+          <Route path=":workspaceName" element={<TodosPageList />} />
         </Route>
         <Route
           path="calendar"

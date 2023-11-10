@@ -7,10 +7,16 @@ import Tag from "../../shared/ui/tag/Tag";
 export interface ITaksTitle {
   panelTitle: string;
   todosCount: number;
+  panelId: number;
 }
 
-const TaskTitle: React.FC<ITaksTitle> = ({ panelTitle, todosCount }) => {
+const TaskTitle: React.FC<ITaksTitle> = ({
+  panelTitle,
+  todosCount,
+  panelId,
+}) => {
   const [menu, setMenu] = useState<boolean>(false);
+
   const handleDotsClick = () => {
     setMenu(!menu);
   };
@@ -32,7 +38,7 @@ const TaskTitle: React.FC<ITaksTitle> = ({ panelTitle, todosCount }) => {
         <Tag count={todosCount} />
       </div>
       <Dots onClick={handleDotsClick} className="cursor-pointer" />
-      <PanelFeaturesCard menu={menu} />
+      <PanelFeaturesCard menu={menu} panelId={panelId} />
     </div>
   );
 };

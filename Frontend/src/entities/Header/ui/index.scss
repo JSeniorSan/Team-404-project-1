@@ -11,5 +11,8 @@
 
   svg {
     fill: var(--primaryActive);
+    & > path {
+      stroke: var(--primaryActive);
+    }
   }
 }

@@ -1,25 +1,28 @@
-import Page from "../../shared/ui/p/Page";
+import { todoApi } from "../../shared/api/todoQueryApi/TodoServise";
 import "./index.scss";
 import cn from "classnames";
 export interface IMenuProps {
   menu: boolean;
+  panelId: number;
 }
-const PanelFeaturesCard: React.FC<IMenuProps> = ({ menu }) => {
+const PanelFeaturesCard: React.FC<IMenuProps> = ({ menu, panelId }) => {
+  const [deletePanel] = todoApi.useDeletePanelMutation();
+  const handleDeletePanel = async () => {
+    console.log(panelId);
+
+    await deletePanel(panelId);
+  };
   return (
     <div
       className={cn("menu", {
         ["activeMenu"]: menu,
       })}
     >
-      <Page color="black" size="14px" weight="500">
-        Create task
-      </Page>
-      <Page color="black" size="14px" weight="500">
-        Create task
-      </Page>
-      <Page color="black" size="14px" weight="500">
+      <div>Create task</div>
+      <div>Create task</div>
+      <div onClick={handleDeletePanel} className="cursor-pointer">
         Delete panel
-      </Page>
+      </div>
     </div>
   );
 };

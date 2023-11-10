@@ -24,6 +24,7 @@ const TodosList: React.FC<IProps> = ({ ...props }) => {
                 <TaskTitle
                   panelTitle={panel.name}
                   todosCount={panel.tasks.length}
+                  panelId={panel.id}
                 />
                 <TodosContainer>
                   {panel.tasks.map((task) => {

@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { selectView } from "../../../../shared/api/view/viewSliceSelector";
 import { switchWidget } from "../../../../shared/api/view/ViewSlice";
+import SpinLoading from "../../../../shared/ui/spin/Spin";
 const Worspaces = () => {
   const dispatch = useAppDispatch();
   const template = useSelector(selectView);
@@ -49,7 +50,7 @@ const Worspaces = () => {
         newWorkspace={newWorkspace}
         setNewWorkspace={setNewWorkspace}
       />
-      {isWorkspacesFetching && <div>Loading...</div>}
+      {isWorkspacesFetching && <SpinLoading />}
       {!isWorkspacesFetching && (
         <ul className="spaces__list">
           {allWorkspaces?.map((name) => {
