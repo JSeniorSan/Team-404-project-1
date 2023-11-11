@@ -1,14 +1,19 @@
 import Page from "../../shared/ui/p/Page";
 import cn from "classnames";
 import "./index.scss";
-import { IMenuProps } from "../PanelFeatures/PanelFeatures";
+
 import { useAppDispatch } from "../../shared/api/redux-hooks";
 import { useSelector } from "react-redux";
 import { selectUser } from "../../shared/api/user/userSelectors";
 import { todoApi } from "../../shared/api/todoQueryApi/TodoServise";
 import { deleteCurrentUser } from "../../shared/api/user/UserSlice";
 import { useNavigate } from "react-router-dom";
-const UserMenu: React.FC<IMenuProps> = ({ menu }) => {
+
+export interface IUserMenu {
+  menu: boolean;
+}
+
+const UserMenu: React.FC<IUserMenu> = ({ menu }) => {
   const dispatch = useAppDispatch();
   const currentUser = useSelector(selectUser);
   const navigate = useNavigate();

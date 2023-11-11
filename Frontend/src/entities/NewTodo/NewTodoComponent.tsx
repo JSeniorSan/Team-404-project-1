@@ -1,8 +1,8 @@
 import "./index.scss";
 import NewTodo from "../../shared/ui/newTodo/NewTodo";
 import { useAppDispatch } from "../../shared/api/redux-hooks";
-import { switchModalWindow } from "../../shared/api/todo/modalSlice";
-import { modalWindowSelector } from "../../shared/api/todo/modalSelectors";
+import { switchModalWindow } from "../../shared/api/modal/modalSlice";
+import { modalWindowSelector } from "../../shared/api/modal/modalSelectors";
 import { useSelector } from "react-redux";
 
 const NewTodoComponent = () => {

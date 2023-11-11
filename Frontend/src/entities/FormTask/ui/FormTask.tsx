@@ -4,8 +4,8 @@ import { todoApi } from "../../../shared/api/todoQueryApi/TodoServise";
 import { IForm, ITodoTask } from "./formTask.interfaces";
 import "./index.scss";
 import cn from "classnames";
-import { modalWindowSelector } from "../../../shared/api/todo/modalSelectors";
-import { switchModalWindow } from "../../../shared/api/todo/modalSlice";
+import { modalWindowSelector } from "../../../shared/api/modal/modalSelectors";
+import { switchModalWindow } from "../../../shared/api/modal/modalSlice";
 import BtnDone from "../../../shared/ui/btns/btn-done/Btn-done";
 import { useForm, SubmitHandler } from "react-hook-form";
 

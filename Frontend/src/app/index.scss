@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 @import "./styles/index.scss";
-@import "../shared/ui/card/index.scss";
+@import "../entities/card/index.scss";
 @import "../widgets/todosList/index.scss";
 @import "../shared/ui/wrapper/index.scss";
 @import "../shared/ui/btns/btn-done/index.scss";
@@ -15,7 +15,6 @@
 @import "../entities/Header/ui/index.scss";
 @import "../entities/Footer/ui/index.scss";
 @import "../entities/FormTask/ui/index.scss";
-@import "../shared/ui/modalFormInput/index.scss";
 @import "../pages/Account/index.scss";
 @import "../entities/NavPanel/ui/index.scss";
 @import "../pages/index.scss";

@@ -1,6 +1,6 @@
 import { configureStore, combineReducers } from "@reduxjs/toolkit";
 import { todoApi } from "./todoQueryApi/TodoServise";
-import todoReduser from "./todo/modalSlice";
+import todoReduser from "./modal/modalSlice";
 import userReducer from "./user/UserSlice";
 import viewReducer from "./view/ViewSlice";
 const rootReducer = combineReducers({

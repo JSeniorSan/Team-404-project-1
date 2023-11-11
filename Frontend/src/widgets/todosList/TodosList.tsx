@@ -14,11 +14,7 @@ const TodosList: React.FC<IProps> = ({ ...props }) => {
     <Wrapper className="wrapper">
       <Wrapper className="flex h-fit flex-col gap-10">
         {props.kanbanData.panels &&
-          props.kanbanData.panels.map((panel, _, panelsArray) => {
-            const panelsNames = panelsArray.map((panel) => {
-              return panel.name;
-            });
-
+          props.kanbanData.panels.map((panel) => {
             return (
               <Template className="template" key={panel.id}>
                 <TaskTitle
