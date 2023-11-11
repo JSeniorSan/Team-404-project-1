@@ -1,11 +1,8 @@
 from typing import Any
 from fastapi import APIRouter, Depends
-from sqlalchemy import select, update
-from src.panel.models import Panel
-from src.database import get_db
 from src.panel.schemas import PanelCreate, PanelInDb, PanelUpdate
-from sqlalchemy.ext.asyncio import AsyncSession
 from src.auth.config import fastapi_users
+from src.panel.service import panel_service
 
 
 current_user = fastapi_users.current_user()
@@ -18,58 +15,36 @@ router = APIRouter(
 
 
 @router.post("/{workspace_id}", response_model=PanelInDb)
-async def create_panel(
-    new_panel: PanelCreate,
-    workspace_id: int,
-    db: AsyncSession = Depends(get_db)
-    ) -> Any:
+async def create_panel(new_panel: PanelCreate, workspace_id: int) -> Any:
     '''
     Create **panel** in workspace.
     '''
-    panel = Panel(**new_panel.model_dump(), workspace_id=workspace_id)
-    db.add(panel)
-    await db.commit()
-    await db.refresh(panel)
+    panel = await panel_service.create_panel(new_panel, workspace_id)
     return panel
 
 
-@router.delete("/{id}", response_model=PanelInDb)
-async def delete_panel(id: int, db: AsyncSession = Depends(get_db)) -> Any:
+@router.delete("/{panel_id}", response_model=PanelInDb)
+async def delete_panel(panel_id: int) -> Any:
     '''
     Delete **panel** by ID.
     '''
-    panel = await db.get(Panel, id)
-    await db.delete(panel)
-    await db.commit()
+    panel = await panel_service.delete_panel(panel_id)
     return panel
 
 
-@router.get("/{workspace_id}", response_model=list[PanelInDb])
-async def get_all_panels(
-    workspace_id: int,
-    db: AsyncSession = Depends(get_db),
-    ) -> Any:
+@router.get("/{panel_id}", response_model=PanelInDb)
+async def get_panel(panel_id: int) -> Any:
     '''
-    Get all **panels** in workspace.
+    Get **panel** in workspace.
     '''
-    stmt = select(Panel).where(Panel.workspace_id==workspace_id)
-    panels = await db.execute(stmt)
-    result = panels.scalars().all()
-    return result
+    panel = await panel_service.read_panel(panel_id)
+    return panel
 
 
-@router.put("/{id}", response_model=PanelInDb)
-async def update_panel(
-    id: int,
-    new_data: PanelUpdate,
-    db: AsyncSession = Depends(get_db)
-    ) -> Any:
+@router.put("/{panel_id}", response_model=PanelInDb)
+async def update_panel(new_data: PanelUpdate, panel_id: int) -> Any:
     '''
     Update **panel** by ID.
     '''
-    new_values = new_data.model_dump(exclude_unset=True)
-    stmt = update(Panel).where(Panel.id==id).values(new_values)
-    await db.execute(stmt)
-    await db.commit()
-    panel = await db.get(Panel, id)
+    panel = await panel_service.update_panel(new_data, panel_id)
     return panel

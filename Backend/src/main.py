@@ -1,11 +1,11 @@
-from fastapi import FastAPI, Request
-from src.task.router import router as router_task
+from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from src.auth.config import auth_backend, fastapi_users
 from src.auth.schemas import UserRead, UserCreate, UserUpdate
 from src.workspace.router import router as router_workspace
 from src.panel.router import router as router_panel
 from src.kanban.router import router as router_kanban
+from src.task.router import router as router_task
 
 
 app = FastAPI(title="Kanban App")

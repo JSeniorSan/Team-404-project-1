@@ -1,10 +1,5 @@
 import uuid
 from pydantic import BaseModel, ConfigDict
-from marshmallow_sqlalchemy import SQLAlchemyAutoSchema
-# from src.panel.schemas import PanelAll
-from src.workspace.models import Workspace
-from marshmallow_sqlalchemy.fields import Nested
-
 
 
 class WorkspaceBase(BaseModel):
@@ -15,7 +10,7 @@ class WorkspaceBase(BaseModel):
 
 class WorkspaceInDb(WorkspaceBase):
     id: int
-    user_id: uuid.UUID
+    parent_id: uuid.UUID
 
 
 class WorkspaceCreate(WorkspaceBase):

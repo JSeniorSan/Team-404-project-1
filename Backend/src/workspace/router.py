@@ -1,76 +1,61 @@
 from typing import Any
 from fastapi import APIRouter, Depends
-from sqlalchemy import insert, select, update
-from src.workspace.models import Workspace
 from src.auth.models import User
 from src.workspace.schemas import WorkspaceCreate, WorkspaceInDb, WorkspaceUpdate
-from src.database import get_db
 from src.auth.config import fastapi_users
-from sqlalchemy.ext.asyncio import AsyncSession
-
-
-router = APIRouter(
-    prefix="/workspace",
-    tags=["Workspace"]
-)
+from src.workspace.service import workspace_service
 
 
 current_user = fastapi_users.current_user()
 
 
+router = APIRouter(
+    prefix="/workspace",
+    tags=["Workspace"],
+    dependencies=[Depends(current_user)]
+)
+
+
 @router.post("/", response_model=WorkspaceInDb)
-async def create_workspace(
-    new_workspace: WorkspaceCreate,
-    db: AsyncSession = Depends(get_db),
-    user: User = Depends(current_user)
-    ) -> Any:
+async def create_workspace(new_workspace: WorkspaceCreate, user: User = Depends(current_user)) -> Any:
     '''
     Create **workspace**.
     '''
-    workspace = Workspace(**new_workspace.model_dump(), user_id=user.id)
-    db.add(workspace)
-    await db.commit()
-    await db.refresh(workspace)
+    workspace = await workspace_service.create_workspace(new_workspace, user.id)
     return workspace
 
 
-@router.delete("/{id}", response_model=WorkspaceInDb, dependencies=[Depends(current_user)])
-async def delete_workspace(id: int, db: AsyncSession = Depends(get_db)) -> Any:
+@router.delete("/{workspace_id}", response_model=WorkspaceInDb)
+async def delete_workspace(workspace_id: int) -> Any:
     '''
     Delete **workspace** by ID.
     '''
-    workspace = await db.get(Workspace, id)
-    await db.delete(workspace)
-    await db.commit()
+    workspace = await workspace_service.delete_workspace(workspace_id)
     return workspace
 
 
 @router.get("/", response_model=list[WorkspaceInDb])
-async def get_all_workspaces(
-    db: AsyncSession = Depends(get_db),
-    user: User = Depends(current_user)
-    ) -> Any:
+async def get_all_workspaces(user: User = Depends(current_user)) -> Any:
     '''
-    Get all **workspaces**.
+    Get all **workspaces** by user_id.
     '''
-    stmt = select(Workspace).where(Workspace.user_id==user.id)
-    workspaces = await db.execute(stmt)
-    result = workspaces.scalars().all()
-    return result
+    workspaces = await workspace_service.read_all_workspaces(user.id)
+    return workspaces
 
 
-@router.put("/{id}", response_model=WorkspaceInDb)
-async def update_workspace(
-    id: int,
-    new_data: WorkspaceUpdate,
-    db: AsyncSession = Depends(get_db)
-    ) -> Any:
+@router.get("/{workspace_id}", response_model=WorkspaceInDb)
+async def get_workspace(workspace_id: int) -> Any:
+    '''
+    Get one **workspaces** by ID.
+    '''
+    workspace = await workspace_service.read_workspace(workspace_id)
+    return workspace
+
+
+@router.put("/{workspace_id}", response_model=WorkspaceInDb)
+async def update_workspace(workspace_id: int, new_data: WorkspaceUpdate) -> Any:
     '''
     Update **workspace** by ID.
     '''
-    new_values = new_data.model_dump(exclude_unset=True)
-    stmt = update(Workspace).where(Workspace.id==id).values(new_values)
-    await db.execute(stmt)
-    await db.commit()
-    workspace = await db.get(Workspace, id)
+    workspace = await workspace_service.update_workspace(new_data, workspace_id)
     return workspace

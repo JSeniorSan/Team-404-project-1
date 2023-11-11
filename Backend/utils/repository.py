@@ -25,6 +25,12 @@ class SQLAlchemyRespository(Generic[Model]):
             result = await session.execute(query)
             return result.scalar_one()
         
+    async def read_all(self, owner_id: int | uuid.UUID) -> list[Model]:
+        async with Session() as session:
+            query = select(self.model).where(self.model.parent_id == owner_id)
+            result = await session.execute(query)
+            return result.scalars().all()
+
     async def delete_one(self, id: int | uuid.UUID) -> Model:
         async with Session() as session:
             stmt = delete(self.model).where(self.model.id == id).returning(self.model)
@@ -38,3 +44,5 @@ class SQLAlchemyRespository(Generic[Model]):
             result = await session.execute(stmt)
             await session.commit()
             return result.scalar_one()
+        
+    

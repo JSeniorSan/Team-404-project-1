@@ -1,7 +1,5 @@
 from datetime import datetime
 from pydantic import BaseModel, ConfigDict
-from marshmallow_sqlalchemy import SQLAlchemyAutoSchema
-from src.task.models import Task
 
 
 class TaskBase(BaseModel):
