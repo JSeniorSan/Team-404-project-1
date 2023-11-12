@@ -1,9 +1,9 @@
 import Wrapper from "../../shared/ui/wrapper/Wrapper";
 import Page from "../../shared/ui/p/Page";
-import BtnDone from "../../shared/ui/btns/btn-done/Btn-done";
 import "./index.scss";
 import { Link } from "react-router-dom";
 import Login from "../../processes/auth/Login/Login";
+import Btn from "../../shared/ui/btns/Btn";
 
 const Account = () => {
   return (
@@ -17,7 +17,9 @@ const Account = () => {
               Register with your personal details to use all of site features
             </Page>
             <Link to={"/account/register"}>
-              <BtnDone description="SIGN UP" color="default" />
+              <Btn color="white" type="activity">
+                Sign Up
+              </Btn>
             </Link>
           </div>
         </Wrapper>

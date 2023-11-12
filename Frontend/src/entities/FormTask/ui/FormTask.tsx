@@ -6,8 +6,8 @@ import "./index.scss";
 import cn from "classnames";
 import { modalWindowSelector } from "../../../shared/api/modal/modalSelectors";
 import { switchModalWindow } from "../../../shared/api/modal/modalSlice";
-import BtnDone from "../../../shared/ui/btns/btn-done/Btn-done";
 import { useForm, SubmitHandler } from "react-hook-form";
+import Btn from "../../../shared/ui/btns/Btn";
 
 const FormCard: React.FC<ITodoTask> = ({ className, ...props }) => {
   const [createTodo] = todoApi.useCreateTaskMutation();
@@ -61,7 +61,7 @@ const FormCard: React.FC<ITodoTask> = ({ className, ...props }) => {
         />
         <label>Task</label>
         <textarea className="textarea" {...register("description")} />
-        <BtnDone color="green" description="Submit" />
+        <Btn>Submit</Btn>
       </form>
     </div>
   );

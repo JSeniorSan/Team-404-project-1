@@ -33,7 +33,7 @@ const UserMenu: React.FC<IUserMenu> = ({ menu }) => {
     }
     await logout(null);
     dispatch(deleteCurrentUser());
-    navigate("/account");
+    navigate("/account", { replace: true });
   };
 
   return (

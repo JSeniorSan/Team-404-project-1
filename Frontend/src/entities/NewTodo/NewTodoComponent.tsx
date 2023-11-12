@@ -1,9 +1,11 @@
 import "./index.scss";
-import NewTodo from "../../shared/ui/newTodo/NewTodo";
+import Plus from "../../shared/asset/PlusNewTodo.svg?react";
 import { useAppDispatch } from "../../shared/api/redux-hooks";
 import { switchModalWindow } from "../../shared/api/modal/modalSlice";
 import { modalWindowSelector } from "../../shared/api/modal/modalSelectors";
 import { useSelector } from "react-redux";
+import Btn from "../../shared/ui/btns/Btn";
+import Page from "../../shared/ui/p/Page";
 
 const NewTodoComponent = () => {
   const dispatch = useAppDispatch();
@@ -16,7 +18,14 @@ const NewTodoComponent = () => {
 
   return (
     <div className="fixed right-5 bottom-5 flex gap-2 items-center">
-      <NewTodo onClick={createHandler} />
+      <Btn type="newTodo" onClick={createHandler}>
+        <Page color="white" size="14px" weight="700">
+          <div className="flex gap-2 items-center">
+            <Plus />
+            New Task
+          </div>
+        </Page>
+      </Btn>
     </div>
   );
 };

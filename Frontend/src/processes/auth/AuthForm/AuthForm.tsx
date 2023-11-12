@@ -1,9 +1,9 @@
 import { useNavigate } from "react-router-dom";
 import { todoApi } from "../../../shared/api/todoQueryApi/TodoServise";
-import BtnDone from "../../../shared/ui/btns/btn-done/Btn-done";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useState } from "react";
 import Page from "../../../shared/ui/p/Page";
+import Btn from "../../../shared/ui/btns/Btn";
 export interface IAuth {
   username: string;
   password: string;
@@ -59,7 +59,7 @@ const AuthForm = () => {
           {...register("password", { required: true })}
           className="border w-32"
         />
-        <BtnDone color="default" description="Submit" />
+        <Btn color="black">Submit</Btn>
       </form>
     </div>
   );

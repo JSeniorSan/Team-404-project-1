@@ -1,7 +1,7 @@
 import { useRef } from "react";
 import { todoApi } from "../../../../../shared/api/todoQueryApi/TodoServise";
 import Plus from "../../../../../shared/asset/Plus.svg?react";
-import BtnModal from "../../../../../shared/ui/btns/btn-modal/Btn-modal";
+import Btn from "../../../../../shared/ui/btns/Btn";
 export interface INewWorkspace {
   newWorkspace: boolean;
   setNewWorkspace: (value: boolean) => void;
@@ -43,7 +43,7 @@ const CreateNew: React.FC<INewWorkspace> = ({
             name="workspace"
             ref={ref}
           />
-          <BtnModal title="Save" type="default" onClick={handleCreateNew} />
+          <Btn onClick={handleCreateNew}>Save</Btn>
         </div>
       )}
     </>

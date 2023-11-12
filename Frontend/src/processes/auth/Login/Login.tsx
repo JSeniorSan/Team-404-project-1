@@ -2,10 +2,10 @@ import { useNavigate } from "react-router-dom";
 import { todoApi } from "../../../shared/api/todoQueryApi/TodoServise";
 import { useForm, SubmitHandler } from "react-hook-form";
 import Page from "../../../shared/ui/p/Page";
-import BtnDone from "../../../shared/ui/btns/btn-done/Btn-done";
 import { useAppDispatch } from "../../../shared/api/redux-hooks";
 import { saveUser } from "../../../shared/api/user/UserSlice";
 import { useEffect } from "react";
+import Btn from "../../../shared/ui/btns/Btn";
 export interface IInputs {
   username: string;
   password: string;
@@ -58,7 +58,9 @@ const Login: React.FC = () => {
       <Page size="14px" color="black" weight="500">
         Forget your password?
       </Page>
-      <BtnDone color="default" description="SIGN IN" />
+      <Btn color="black" type="activity">
+        Sign In
+      </Btn>
     </form>
   );
 };
