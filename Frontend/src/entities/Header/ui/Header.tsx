@@ -1,6 +1,5 @@
 import "./index.scss";
 import cn from "classnames";
-import ModalFormInput from "shared/ui/modalFormInput/ModalFormInput";
 import { DetailedHTMLProps, HTMLAttributes, useEffect, useState } from "react";
 import Notification from "shared/asset/notification.svg?react";
 import Message from "shared/asset/Chat.svg?react";
@@ -16,6 +15,7 @@ import { useAppDispatch } from "shared/api/redux-hooks";
 import { switchWidget } from "shared/api/view/ViewSlice";
 import { useNavigate } from "react-router-dom";
 import UserMenu from "features/UserMenu/USerMenu";
+import InputLeftElem from "shared/ui/input/addons/InputLeftElem";
 export interface IHeader
   extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> {}
 
@@ -64,9 +64,8 @@ const Header: React.FC<IHeader> = ({ className, ...props }) => {
         </TodosMode>
       </div>
       <div className="flex gap-4 items-center">
-        <ModalFormInput placeholder="Search..." type="search">
-          <Glass />
-        </ModalFormInput>
+        <InputLeftElem placeholder="Search..." type="search" elem={<Glass />} />
+
         <span>
           <Message />
         </span>

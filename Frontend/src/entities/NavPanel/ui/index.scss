@@ -9,7 +9,7 @@
   .mainTitle {
     grid-row: 1 / 2;
     border-bottom: 1px solid var(--lineColor);
-    @apply flex justify-center items-center text-5xl font-bold text-gray-600 cursor-pointer;
+    @apply flex justify-center items-center text-5xl font-bold text-gray-600 cursor-pointer gap-3;
   }
   .navig {
     grid-row: 2 / 3;

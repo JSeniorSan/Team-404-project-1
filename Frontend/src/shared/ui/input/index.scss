@@ -1,0 +1,7 @@
+.input {
+  @apply h-12 text-black p-2 font-normal text-lg border-b-2 bg-transparent;
+}
+
+.withoutLine {
+  @apply border-none;
+}

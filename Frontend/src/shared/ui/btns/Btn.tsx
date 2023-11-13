@@ -6,7 +6,7 @@ export interface IBtn
     HTMLAttributes<HTMLButtonElement>,
     HTMLButtonElement
   > {
-  type?: "activity" | "newTodo";
+  type?: "activity" | "newTodo" | "submit";
   color?: "black" | "white";
 }
 
@@ -18,6 +18,7 @@ const Btn: React.FC<IBtn> = ({ color, type, children, ...props }) => {
         ["newTodo"]: type === "newTodo",
         ["darkText"]: color === "black",
         ["lightText"]: color === "white",
+        ["submit"]: type === "submit",
       })}
       {...props}
     >

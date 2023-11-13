@@ -17,7 +17,7 @@ const NewTodoComponent = () => {
   };
 
   return (
-    <div className="fixed right-5 bottom-5 flex gap-2 items-center">
+    <div className="fixed right-10 bottom-5 flex gap-2 items-center ">
       <Btn type="newTodo" onClick={createHandler}>
         <Page color="white" size="14px" weight="700">
           <div className="flex gap-2 items-center">

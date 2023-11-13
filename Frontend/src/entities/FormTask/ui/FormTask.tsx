@@ -8,6 +8,9 @@ import { modalWindowSelector } from "shared/api/modal/modalSelectors";
 import { switchModalWindow } from "shared/api/modal/modalSlice";
 import { useForm, SubmitHandler } from "react-hook-form";
 import Btn from "shared/ui/btns/Btn";
+import Input from "shared/ui/input/Input";
+import Glass from "shared/asset/Group 3.svg?react";
+import InputLeftElem from "shared/ui/input/addons/InputLeftElem";
 
 const FormCard: React.FC<ITodoTask> = ({ className, ...props }) => {
   const [createTodo] = todoApi.useCreateTaskMutation();
@@ -52,16 +55,19 @@ const FormCard: React.FC<ITodoTask> = ({ className, ...props }) => {
         onClick={stopHandler}
         onSubmit={handleSubmit(onSubmit)}
       >
-        <label>Task title</label>
-        <input
-          type="string"
+        <label className="text-xl ">Task title</label>
+        <Input
+          type="text"
           placeholder="Введите заголовок задачи"
-          style={{ color: "black" }}
+          variant="input"
           {...register("title", { required: true })}
         />
-        <label>Task</label>
+        <label className="text-xl">Task</label>
         <textarea className="textarea" {...register("description")} />
-        <Btn>Submit</Btn>
+        <Btn type="submit" color="black">
+          Submit
+        </Btn>
+        <InputLeftElem elem={<Glass />} placeholder="Hi" type="text" />
       </form>
     </div>
   );
