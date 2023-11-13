@@ -1,9 +1,9 @@
 import { useNavigate } from "react-router-dom";
-import { todoApi } from "../../../shared/api/todoQueryApi/TodoServise";
+import { todoApi } from "shared/api/todoQueryApi/TodoServise";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useState } from "react";
-import Page from "../../../shared/ui/p/Page";
-import Btn from "../../../shared/ui/btns/Btn";
+import Page from "shared/ui/p/Page";
+import Btn from "shared/ui/btns/Btn";
 export interface IAuth {
   username: string;
   password: string;

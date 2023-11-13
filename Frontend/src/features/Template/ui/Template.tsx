@@ -1,4 +1,4 @@
-import Wrapper from "../../../shared/ui/wrapper/Wrapper";
+import Wrapper from "shared/ui/wrapper/Wrapper";
 import "./index.scss";
 import { ITemplate } from "./template.interfaces";
 

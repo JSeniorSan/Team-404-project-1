@@ -1,5 +1,5 @@
 import { Navigate, useLocation } from "react-router-dom";
-import { todoApi } from "../../../shared/api/todoQueryApi/TodoServise";
+import { todoApi } from "shared/api/todoQueryApi/TodoServise";
 import React from "react";
 
 export interface IAuthHoc {

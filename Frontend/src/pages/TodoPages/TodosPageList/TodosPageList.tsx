@@ -1,18 +1,15 @@
 import "./index.scss";
-import TodosList from "../../../widgets/todosList/TodosList";
+import TodosList from "widgets/todosList/TodosList";
 import { useSelector } from "react-redux";
 
-import { todoApi } from "../../../shared/api/todoQueryApi/TodoServise";
+import { todoApi } from "shared/api/todoQueryApi/TodoServise";
 import { useEffect } from "react";
-import {
-  selectUser,
-  selectWorkspaceData,
-} from "../../../shared/api/user/userSelectors";
-import WorkspaceHeader from "../../../entities/Workspace/title/WorksapceHeader";
+import { selectUser, selectWorkspaceData } from "shared/api/user/userSelectors";
+import WorkspaceHeader from "entities/Workspace/title/WorksapceHeader";
 import { useNavigate } from "react-router-dom";
-import SpinLoading from "../../../shared/ui/spin/Spin";
-import { selectView } from "../../../shared/api/view/viewSliceSelector";
-import TodosBoard from "../../../widgets/todosBoard/TodosBoard";
+import SpinLoading from "shared/ui/spin/Spin";
+import { selectView } from "shared/api/view/viewSliceSelector";
+import TodosBoard from "widgets/todosBoard/TodosBoard";
 
 function TodosPageList() {
   const navigate = useNavigate();

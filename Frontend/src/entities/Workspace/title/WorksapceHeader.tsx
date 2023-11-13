@@ -1,12 +1,12 @@
 import { useLocation } from "react-router-dom";
-import { IWorkspace } from "../../../shared/api/user/UserSlice";
-import Page from "../../../shared/ui/p/Page";
+import { IWorkspace } from "shared/api/user/UserSlice";
+import Page from "shared/ui/p/Page";
 import "./index.scss";
-import Star from "../../../shared/asset/star.svg?react";
-import Flash from "../../../shared/asset/flash.svg?react";
-import TwoUsers from "../../../shared/asset/profile-2userDark.svg?react";
-import UserAvatar from "../../../shared/asset/Group 3.svg?react";
-import Btn from "../../../shared/ui/btns/Btn";
+import Star from "shared/asset/star.svg?react";
+import Flash from "shared/asset/flash.svg?react";
+import TwoUsers from "shared/asset/profile-2userDark.svg?react";
+import UserAvatar from "shared/asset/Group 3.svg?react";
+import Btn from "shared/ui/btns/Btn";
 
 export interface IProps {
   kanbanData: IWorkspace;

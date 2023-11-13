@@ -1,21 +1,21 @@
 import "./index.scss";
 import cn from "classnames";
-import ModalFormInput from "../../../shared/ui/modalFormInput/ModalFormInput";
+import ModalFormInput from "shared/ui/modalFormInput/ModalFormInput";
 import { DetailedHTMLProps, HTMLAttributes, useEffect, useState } from "react";
-import Notification from "../../../shared/asset/notification.svg?react";
-import Message from "../../../shared/asset/Chat.svg?react";
-import UserIcon from "../../../shared/asset/Group 3.svg?react";
-import ListLogo from "../../../shared/asset/fatrows.svg?react";
-import TodosMode from "../../../shared/ui/todosModeContainer/TodosMode";
-import BoardLogo from "../../../shared/asset/kanban.svg?react";
-import Calendar from "../../../shared/asset/calendar.svg?react";
-import Glass from "../../../shared/asset/search-normal.svg?react";
+import Notification from "shared/asset/notification.svg?react";
+import Message from "shared/asset/Chat.svg?react";
+import UserIcon from "shared/asset/Group 3.svg?react";
+import ListLogo from "shared/asset/fatrows.svg?react";
+import TodosMode from "shared/ui/todosModeContainer/TodosMode";
+import BoardLogo from "shared/asset/kanban.svg?react";
+import Calendar from "shared/asset/calendar.svg?react";
+import Glass from "shared/asset/search-normal.svg?react";
 import { useSelector } from "react-redux";
-import { selectView } from "../../../shared/api/view/viewSliceSelector";
-import { useAppDispatch } from "../../../shared/api/redux-hooks";
-import { switchWidget } from "../../../shared/api/view/ViewSlice";
+import { selectView } from "shared/api/view/viewSliceSelector";
+import { useAppDispatch } from "shared/api/redux-hooks";
+import { switchWidget } from "shared/api/view/ViewSlice";
 import { useNavigate } from "react-router-dom";
-import UserMenu from "../../../features/UserMenu/USerMenu";
+import UserMenu from "features/UserMenu/USerMenu";
 export interface IHeader
   extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> {}
 

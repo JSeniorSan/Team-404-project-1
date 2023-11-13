@@ -1,11 +1,11 @@
 import "./index.scss";
-import Plus from "../../shared/asset/PlusNewTodo.svg?react";
-import { useAppDispatch } from "../../shared/api/redux-hooks";
-import { switchModalWindow } from "../../shared/api/modal/modalSlice";
-import { modalWindowSelector } from "../../shared/api/modal/modalSelectors";
+import Plus from "shared/asset/PlusNewTodo.svg?react";
+import { useAppDispatch } from "shared/api/redux-hooks";
+import { switchModalWindow } from "shared/api/modal/modalSlice";
+import { modalWindowSelector } from "shared/api/modal/modalSelectors";
 import { useSelector } from "react-redux";
-import Btn from "../../shared/ui/btns/Btn";
-import Page from "../../shared/ui/p/Page";
+import Btn from "shared/ui/btns/Btn";
+import Page from "shared/ui/p/Page";
 
 const NewTodoComponent = () => {
   const dispatch = useAppDispatch();

@@ -1,14 +1,14 @@
 import { useEffect, useState } from "react";
-import { todoApi } from "../../../../shared/api/todoQueryApi/TodoServise";
-import Page from "../../../../shared/ui/p/Page";
+import { todoApi } from "shared/api/todoQueryApi/TodoServise";
+import Page from "shared/ui/p/Page";
 import CreateNew from "./createNew/CreateNew";
-import { useAppDispatch } from "../../../../shared/api/redux-hooks";
-import { addWorkspace } from "../../../../shared/api/user/UserSlice";
+import { useAppDispatch } from "shared/api/redux-hooks";
+import { addWorkspace } from "shared/api/user/UserSlice";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { selectView } from "../../../../shared/api/view/viewSliceSelector";
-import { switchWidget } from "../../../../shared/api/view/ViewSlice";
-import SpinLoading from "../../../../shared/ui/spin/Spin";
+import { selectView } from "shared/api/view/viewSliceSelector";
+import { switchWidget } from "shared/api/view/ViewSlice";
+import SpinLoading from "shared/ui/spin/Spin";
 const Worspaces = () => {
   const dispatch = useAppDispatch();
   const template = useSelector(selectView);

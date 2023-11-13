@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import Logo from "../../../../shared/asset/Group 1.svg?react";
+import Logo from "shared/asset/Group 1.svg?react";
 import "../index.scss";
 const MainTitle = () => {
   const navigate = useNavigate();

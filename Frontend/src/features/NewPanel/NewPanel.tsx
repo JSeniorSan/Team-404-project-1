@@ -1,6 +1,6 @@
-import { todoApi } from "../../shared/api/todoQueryApi/TodoServise";
+import { todoApi } from "shared/api/todoQueryApi/TodoServise";
 import { useSelector } from "react-redux";
-import { selectWorkspaceData } from "../../shared/api/user/userSelectors";
+import { selectWorkspaceData } from "shared/api/user/userSelectors";
 import { useRef, useState } from "react";
 import cn from "classnames";
 import "./index.scss";

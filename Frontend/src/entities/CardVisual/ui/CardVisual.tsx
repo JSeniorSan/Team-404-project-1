@@ -1,4 +1,4 @@
-import CardUi from "../../card/Card";
+import CardUi from "entities/card/Card";
 import { ICardVisual } from "./cardVisual.interfaces";
 import "./index.scss";
 

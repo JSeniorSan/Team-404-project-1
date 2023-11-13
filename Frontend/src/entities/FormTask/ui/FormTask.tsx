@@ -1,13 +1,13 @@
 import { useSelector } from "react-redux";
-import { useAppDispatch } from "../../../shared/api/redux-hooks";
-import { todoApi } from "../../../shared/api/todoQueryApi/TodoServise";
+import { useAppDispatch } from "shared/api/redux-hooks";
+import { todoApi } from "shared/api/todoQueryApi/TodoServise";
 import { IForm, ITodoTask } from "./formTask.interfaces";
 import "./index.scss";
 import cn from "classnames";
-import { modalWindowSelector } from "../../../shared/api/modal/modalSelectors";
-import { switchModalWindow } from "../../../shared/api/modal/modalSlice";
+import { modalWindowSelector } from "shared/api/modal/modalSelectors";
+import { switchModalWindow } from "shared/api/modal/modalSlice";
 import { useForm, SubmitHandler } from "react-hook-form";
-import Btn from "../../../shared/ui/btns/Btn";
+import Btn from "shared/ui/btns/Btn";
 
 const FormCard: React.FC<ITodoTask> = ({ className, ...props }) => {
   const [createTodo] = todoApi.useCreateTaskMutation();

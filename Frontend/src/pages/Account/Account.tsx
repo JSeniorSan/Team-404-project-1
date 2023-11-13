@@ -1,9 +1,9 @@
-import Wrapper from "../../shared/ui/wrapper/Wrapper";
-import Page from "../../shared/ui/p/Page";
+import Wrapper from "shared/ui/wrapper/Wrapper";
+import Page from "shared/ui/p/Page";
 import "./index.scss";
 import { Link } from "react-router-dom";
-import Login from "../../processes/auth/Login/Login";
-import Btn from "../../shared/ui/btns/Btn";
+import Login from "processes/auth/Login/Login";
+import Btn from "shared/ui/btns/Btn";
 
 const Account = () => {
   return (

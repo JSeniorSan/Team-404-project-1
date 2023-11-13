@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import Dots from "../../shared/asset/tabler_dots.svg?react";
 import { ICard } from "./card.interface";
 import "./index.scss";
-import { todoApi } from "../../shared/api/todoQueryApi/TodoServise";
-import Wrapper from "../../shared/ui/wrapper/Wrapper";
+import { todoApi } from "shared/api/todoQueryApi/TodoServise";
+import Wrapper from "shared/ui/wrapper/Wrapper";
 import cn from "classnames";
 const CardUi: React.FC<ICard> = ({ children, title, elemId }) => {
   const [cardOptionMenu, setCardOptionMenu] = useState<boolean>(false);

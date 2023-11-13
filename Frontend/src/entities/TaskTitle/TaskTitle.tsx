@@ -1,8 +1,8 @@
 import { useState } from "react";
-import PanelFeaturesCard from "../../features/PanelFeatures/PanelFeatures";
-import Dots from "../../shared/asset/tabler_dots.svg?react";
-import Page from "../../shared/ui/p/Page";
-import Tag from "../../shared/ui/tag/Tag";
+import PanelFeaturesCard from "features/PanelFeatures/PanelFeatures";
+import Dots from "shared/asset/tabler_dots.svg?react";
+import Page from "shared/ui/p/Page";
+import Tag from "shared/ui/tag/Tag";
 
 export interface ITaksTitle {
   panelTitle: string;

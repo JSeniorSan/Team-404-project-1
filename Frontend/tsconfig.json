@@ -13,6 +13,16 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
+    "baseUrl": "src",
+    "paths": {
+      "app/*": ["app/*"],
+      "entities/*": ["entities/*"],
+      "features/*": ["features/*"],
+      "pages/*": ["pages/*"],
+      "processes/*": ["processes/*"],
+      "shared/*": ["shared/*"],
+      "widgets/*": ["widgets/*"]
+    },
 
     /* Linting */
     "strict": true,

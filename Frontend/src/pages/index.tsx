@@ -2,8 +2,8 @@ import { Route, Routes, Navigate } from "react-router-dom";
 import Home from "./Home/Home";
 import Account from "./Account/Account";
 import Layout from "./Layout";
-import AuthForm from "../processes/auth/AuthForm/AuthForm";
-import AuthHocPrivat from "../processes/auth/Hoc/AuthHocPrivat";
+import AuthForm from "processes/auth/AuthForm/AuthForm";
+import AuthHocPrivat from "processes/auth/Hoc/AuthHocPrivat";
 import TodosPageList from "./TodoPages/TodosPageList/TodosPageList";
 import DashboardHome from "./DashboardHome/DashboardHome";
 

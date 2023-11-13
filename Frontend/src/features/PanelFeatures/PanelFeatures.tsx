@@ -1,4 +1,4 @@
-import { todoApi } from "../../shared/api/todoQueryApi/TodoServise";
+import { todoApi } from "shared/api/todoQueryApi/TodoServise";
 import "./index.scss";
 import cn from "classnames";
 export interface IMenuProps {
