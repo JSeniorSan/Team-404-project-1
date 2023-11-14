@@ -9,7 +9,7 @@ class PanelBase(BaseModel):
 
 class PanelInDb(PanelBase):
     id: int
-    parent_id: int
+    workspace_id: int
 
 
 class PanelCreate(PanelBase):

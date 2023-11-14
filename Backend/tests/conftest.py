@@ -1,4 +1,4 @@
-from src.database import Base, sync_engine, TestSession
+from src.database import Base, sync_engine, TestSession, Session
 from src.task.models import Task
 from src.panel.models import Panel
 from src.workspace.models import Workspace
@@ -29,5 +29,5 @@ async def client():
 
 @pytest_asyncio.fixture
 async def session() -> AsyncIterator[AsyncSession]:
-    async with TestSession() as session:
+    async with Session() as session:
         yield session

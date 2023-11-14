@@ -10,7 +10,8 @@ class TaskService:
 
     async def create_task(self, new_task: TaskCreate, panel_id: int) -> Task:
         new_task_dict = new_task.model_dump()
-        task = await self.task_repo.create_one(new_task_dict, panel_id)
+        new_task_dict["panel_id"] = panel_id
+        task = await self.task_repo.create_one(new_task_dict)
         return task
     
     async def read_task(self, task_id: int) -> Task:

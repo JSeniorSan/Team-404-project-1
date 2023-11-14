@@ -12,9 +12,9 @@ class SQLAlchemyRespository(Generic[Model]):
     def __init__(self, model: Type[Model]) -> None:
         self.model = model
 
-    async def create_one(self, data: dict[str, Any], owner_id: int | uuid.UUID) -> Model:
+    async def create_one(self, data: dict[str, Any]) -> Model:
         async with Session() as session:
-            stmt = insert(self.model).values(parent_id = owner_id, **data).returning(self.model)
+            stmt = insert(self.model).values(**data).returning(self.model)
             result = await session.execute(stmt)
             await session.commit()
             return result.scalar_one()
@@ -25,9 +25,9 @@ class SQLAlchemyRespository(Generic[Model]):
             result = await session.execute(query)
             return result.scalar_one()
         
-    async def read_all(self, owner_id: int | uuid.UUID) -> list[Model]:
+    async def read_all(self, filter: dict[str, int | uuid.UUID]) -> list[Model]:
         async with Session() as session:
-            query = select(self.model).where(self.model.parent_id == owner_id)
+            query = select(self.model).filter_by(**filter)
             result = await session.execute(query)
             return result.scalars().all()
 

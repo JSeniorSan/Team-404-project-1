@@ -11,7 +11,8 @@ class WorkspaceService:
 
     async def create_workspace(self, new_workspace: WorkspaceCreate, user_id: uuid.UUID) -> Workspace:
         new_workspace_dict = new_workspace.model_dump()
-        workspace = await self.workspace_repo.create_one(new_workspace_dict, user_id)
+        new_workspace_dict["user_id"] = user_id
+        workspace = await self.workspace_repo.create_one(new_workspace_dict)
         return workspace
     
     async def read_workspace(self, workspace_id: int) -> Workspace:
@@ -19,7 +20,8 @@ class WorkspaceService:
         return workspace
     
     async def read_all_workspaces(self, user_id: uuid.UUID) -> list[Workspace]:
-        workspaces = await self.workspace_repo.read_all(user_id)
+        filter = {"user_id": user_id}
+        workspaces = await self.workspace_repo.read_all(filter)
         return workspaces
     
     async def delete_workspace(self, workspace_id: int) -> Workspace:

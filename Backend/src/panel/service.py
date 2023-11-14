@@ -10,7 +10,8 @@ class PanelService:
 
     async def create_panel(self, new_panel: PanelCreate, workspace_id: int) -> Panel:
         new_panel_dict = new_panel.model_dump()
-        panel = await self.panel_repo.create_one(new_panel_dict, workspace_id)
+        new_panel_dict["workspace_id"] = workspace_id
+        panel = await self.panel_repo.create_one(new_panel_dict)
         return panel
     
     async def read_panel(self, panel_id: int) -> Panel:
