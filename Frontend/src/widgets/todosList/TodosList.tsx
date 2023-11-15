@@ -1,18 +1,14 @@
-import "./index.scss";
-import TodosContainer from "shared/ui/todosContainer/TodosContainer";
 import Template from "features/Template/ui/Template";
-import Wrapper from "shared/ui/wrapper/Wrapper";
-import NewTodoComponent from "entities/NewTodo/NewTodoComponent";
 import { IProps } from "entities/Workspace/title/WorksapceHeader";
-import TaskTitle from "entities/TaskTitle/TaskTitle";
-import CardVisual from "entities/CardVisual/ui/CardVisual";
-import FormCard from "entities/FormTask/ui/FormTask";
+import TaskTitle from "widgets/todosList/ui/TaskTitle";
+
 import NewPanel from "features/NewPanel/NewPanel";
+import ListSection from "./ui/ListSection";
 
 const TodosList: React.FC<IProps> = ({ ...props }) => {
   return (
-    <Wrapper className="wrapper">
-      <Wrapper className="flex h-fit flex-col gap-10">
+    <div className="flex flex-col gap-5 h-fit mb-3">
+      <div className="flex h-fit flex-col gap-10">
         {props.kanbanData.panels &&
           props.kanbanData.panels.map((panel) => {
             return (
@@ -22,34 +18,13 @@ const TodosList: React.FC<IProps> = ({ ...props }) => {
                   todosCount={panel.tasks.length}
                   panelId={panel.id}
                 />
-                <TodosContainer>
-                  {panel.tasks.map((task) => {
-                    return (
-                      <CardVisual
-                        title={task.title}
-                        description={task.description}
-                        idElem={task.id}
-                        key={task.id}
-                      />
-                    );
-                  })}
-                </TodosContainer>
+                <ListSection list={panel.tasks} />
               </Template>
             );
           })}
         <NewPanel />
-      </Wrapper>
-      <NewTodoComponent />
-      <FormCard
-        className="modalWrapper"
-        id={
-          props.kanbanData.panels[0]
-            ? props.kanbanData.panels[0].id?.toString()
-            : // Пофиксить
-              "1"
-        }
-      />
-    </Wrapper>
+      </div>
+    </div>
   );
 };
 export default TodosList;

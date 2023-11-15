@@ -1,4 +1,3 @@
-import Wrapper from "shared/ui/wrapper/Wrapper";
 import Page from "shared/ui/p/Page";
 import "./index.scss";
 import { Link } from "react-router-dom";
@@ -8,8 +7,8 @@ import Btn from "shared/ui/btns/Btn";
 const Account = () => {
   return (
     <>
-      <Wrapper className="w-full h-screen flex justify-center items-center">
-        <Wrapper className="flex rounded-3xl h-fit border w-fit shadow-lg">
+      <div className="w-full h-screen flex justify-center items-center">
+        <div className="flex rounded-3xl h-fit border w-fit shadow-lg">
           <Login />
           <div className="register">
             <div className="text-white text-5xl font-bold">Hello, friend!</div>
@@ -22,8 +21,8 @@ const Account = () => {
               </Btn>
             </Link>
           </div>
-        </Wrapper>
-      </Wrapper>
+        </div>
+      </div>
     </>
   );
 };

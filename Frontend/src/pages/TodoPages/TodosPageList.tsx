@@ -1,7 +1,6 @@
 import "./index.scss";
 import TodosList from "widgets/todosList/TodosList";
 import { useSelector } from "react-redux";
-
 import { todoApi } from "shared/api/todoQueryApi/TodoServise";
 import { useEffect } from "react";
 import { selectUser, selectWorkspaceData } from "shared/api/user/userSelectors";
@@ -10,6 +9,8 @@ import { useNavigate } from "react-router-dom";
 import SpinLoading from "shared/ui/spin/Spin";
 import { selectView } from "shared/api/view/viewSliceSelector";
 import TodosBoard from "widgets/todosBoard/TodosBoard";
+import NewTodoComponent from "entities/NewTodo/NewTodoComponent";
+import FormCard from "entities/FormTask/ui/FormTask";
 
 function TodosPageList() {
   const navigate = useNavigate();
@@ -28,16 +29,18 @@ function TodosPageList() {
 
   return (
     <>
-      {isKanbanFetch && (
-        <div className="w-full h-screen flex items-center justify-center">
-          <SpinLoading />
-        </div>
-      )}
+      {isKanbanFetch && <SpinLoading />}
       {!isKanbanFetch && kanbanData && (
         <div className="list">
           <WorkspaceHeader kanbanData={kanbanData} />
           {pageState === "List" && <TodosList kanbanData={kanbanData} />}
           {pageState === "Board" && <TodosBoard />}
+          <NewTodoComponent />
+          <FormCard
+            id={
+              kanbanData.panels[0] ? kanbanData.panels[0].id?.toString() : "1"
+            }
+          />
         </div>
       )}
     </>

@@ -3,12 +3,8 @@
 @tailwind utilities;
 @import "./styles/index.scss";
 @import "entities/card/index.scss";
-@import "widgets/todosList/index.scss";
-@import "shared/ui/wrapper/index.scss";
 @import "entities/CardVisual/ui/index.scss";
-@import "shared/ui/todosContainer/index.scss";
 @import "shared/ui/p/index.scss";
-@import "shared/ui/modalFormInput/index.scss";
 @import "features/Template/ui/index.scss";
 @import "entities/Header/ui/index.scss";
 @import "entities/Footer/ui/index.scss";
@@ -16,8 +12,7 @@
 @import "pages/Account/index.scss";
 @import "entities/NavPanel/ui/index.scss";
 @import "pages/index.scss";
-@import "shared/ui/todosModeContainer/index.scss";
-@import "pages/TodoPages/TodosPageList/index.scss";
+@import "pages/TodoPages/index.scss";
 @import "features/PanelFeatures/index.scss";
 @import "features/UserMenu/index.scss";
 @import "features/NewPanel/index.scss";

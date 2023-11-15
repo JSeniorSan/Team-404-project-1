@@ -4,7 +4,7 @@ import Account from "./Account/Account";
 import Layout from "./Layout";
 import AuthForm from "processes/auth/AuthForm/AuthForm";
 import AuthHocPrivat from "processes/auth/Hoc/AuthHocPrivat";
-import TodosPageList from "./TodoPages/TodosPageList/TodosPageList";
+import TodosPageList from "./TodoPages/TodosPageList";
 import DashboardHome from "./DashboardHome/DashboardHome";
 
 export const Routing = () => {

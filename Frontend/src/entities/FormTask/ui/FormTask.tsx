@@ -12,7 +12,7 @@ import Input from "shared/ui/input/Input";
 import Glass from "shared/asset/Group 3.svg?react";
 import InputLeftElem from "shared/ui/input/addons/InputLeftElem";
 
-const FormCard: React.FC<ITodoTask> = ({ className, ...props }) => {
+const FormCard: React.FC<ITodoTask> = ({ ...props }) => {
   const [createTodo] = todoApi.useCreateTaskMutation();
 
   const dispatch = useAppDispatch();
@@ -44,7 +44,7 @@ const FormCard: React.FC<ITodoTask> = ({ className, ...props }) => {
 
   return (
     <div
-      className={cn(className, {
+      className={cn("modalWrapper", {
         ["active"]: modalStatus,
       })}
       onClick={modalWindowHandler}
