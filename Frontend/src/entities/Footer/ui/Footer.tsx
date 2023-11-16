@@ -1,7 +1,6 @@
-import Wrapper from "shared/ui/wrapper/Wrapper";
 import "./index.scss";
 const Footer = () => {
-  return <Wrapper className="footer">Footer</Wrapper>;
+  return <div className="footer">Footer</div>;
 };
 
 export default Footer;
