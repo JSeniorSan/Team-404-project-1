@@ -1,7 +1,6 @@
 import Template from "features/Template/ui/Template";
-import { IProps } from "entities/Workspace/title/WorksapceHeader";
+import { IProps } from "entities/PageTitle/PageTitle";
 import TaskTitle from "widgets/todosList/ui/TaskTitle";
-
 import NewPanel from "features/NewPanel/NewPanel";
 import ListSection from "./ui/ListSection";
 

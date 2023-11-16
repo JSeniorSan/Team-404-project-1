@@ -4,7 +4,7 @@ export interface ITodoTask
   id?: string;
 }
 
-export interface IForm {
+export interface IFormData {
   title: string;
   description: string;
 }

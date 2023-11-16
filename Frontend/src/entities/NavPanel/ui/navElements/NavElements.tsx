@@ -1,4 +1,4 @@
-import TodosMode from "shared/ui/todosModeContainer/TodosMode";
+import TodosMode from "shared/ui/todosMode/TodosMode";
 import Home from "shared/asset/home-2.svg?react";
 import Tasks from "shared/asset/tasks.svg?react";
 import Cup from "shared/asset/cup.svg?react";

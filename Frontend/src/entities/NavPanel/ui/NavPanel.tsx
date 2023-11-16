@@ -13,7 +13,7 @@ export interface INavPanel
 const NavPanel: React.FC<INavPanel> = ({ className, ...props }) => {
   return (
     <aside className={cn("navPanel", className)} {...props}>
-      <MainTitle />
+      <MainTitle title="Kanban" />
       <NavElements />
       <Worspaces />
       <ThemeSwitcher />

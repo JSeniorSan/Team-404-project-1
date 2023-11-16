@@ -1,4 +1,4 @@
-import CardVisual from "entities/CardVisual/ui/CardVisual";
+import Card from "entities/card/ui/Card";
 import React from "react";
 import { ITask } from "shared/api/user/UserSlice";
 
@@ -11,12 +11,9 @@ const ListSection: React.FC<IListSection> = ({ list }) => {
     <section className="flex flex-col gap-4">
       {list.map((task) => {
         return (
-          <CardVisual
-            title={task.title}
-            description={task.description}
-            idElem={task.id}
-            key={task.id}
-          />
+          <Card title={task.title} elemId={task.id} key={task.id}>
+            {task.description}
+          </Card>
         );
       })}
     </section>

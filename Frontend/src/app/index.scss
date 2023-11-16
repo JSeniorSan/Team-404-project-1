@@ -2,8 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 @import "./styles/index.scss";
-@import "entities/card/index.scss";
-@import "entities/CardVisual/ui/index.scss";
+@import "entities/card/ui/index.scss";
 @import "shared/ui/p/index.scss";
 @import "features/Template/ui/index.scss";
 @import "entities/Header/ui/index.scss";

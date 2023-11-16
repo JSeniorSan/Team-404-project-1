@@ -4,13 +4,14 @@ import { useSelector } from "react-redux";
 import { todoApi } from "shared/api/todoQueryApi/TodoServise";
 import { useEffect } from "react";
 import { selectUser, selectWorkspaceData } from "shared/api/user/userSelectors";
-import WorkspaceHeader from "entities/Workspace/title/WorksapceHeader";
 import { useNavigate } from "react-router-dom";
 import SpinLoading from "shared/ui/spin/Spin";
 import { selectView } from "shared/api/view/viewSliceSelector";
 import TodosBoard from "widgets/todosBoard/TodosBoard";
 import NewTodoComponent from "entities/NewTodo/NewTodoComponent";
 import FormCard from "entities/FormTask/ui/FormTask";
+import PageTitle from "entities/PageTitle/PageTitle";
+// import RightMenu from "entities/RightMenu/RightMenu";
 
 function TodosPageList() {
   const navigate = useNavigate();
@@ -32,7 +33,7 @@ function TodosPageList() {
       {isKanbanFetch && <SpinLoading />}
       {!isKanbanFetch && kanbanData && (
         <div className="list">
-          <WorkspaceHeader kanbanData={kanbanData} />
+          <PageTitle kanbanData={kanbanData} />
           {pageState === "List" && <TodosList kanbanData={kanbanData} />}
           {pageState === "Board" && <TodosBoard />}
           <NewTodoComponent />
@@ -41,6 +42,7 @@ function TodosPageList() {
               kanbanData.panels[0] ? kanbanData.panels[0].id?.toString() : "1"
             }
           />
+          {/* <RightMenu /> */}
         </div>
       )}
     </>

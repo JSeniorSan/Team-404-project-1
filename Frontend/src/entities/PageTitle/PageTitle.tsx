@@ -12,9 +12,8 @@ export interface IProps {
   kanbanData: IWorkspace;
 }
 
-const WorkspaceHeader: React.FC<IProps> = ({ ...props }) => {
+const PageTitle: React.FC<IProps> = ({ ...props }) => {
   const location = useLocation();
-  console.log(location.pathname);
   const pathArray = location.pathname.split("/")[2];
 
   return (
@@ -63,4 +62,4 @@ const WorkspaceHeader: React.FC<IProps> = ({ ...props }) => {
   );
 };
 
-export default WorkspaceHeader;
+export default PageTitle;
