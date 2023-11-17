@@ -1,39 +1,27 @@
-import { useNavigate } from "react-router-dom";
-import { todoApi } from "shared/api/todoQueryApi/TodoServise";
+// import { useNavigate } from "react-router-dom";
+// import { todoApi } from "shared/api/todoQueryApi/TodoServise";
 import { useForm, SubmitHandler } from "react-hook-form";
 import Page from "shared/ui/p/Page";
-import { useAppDispatch } from "shared/api/redux-hooks";
-import { saveUser } from "shared/api/user/UserSlice";
-import { useEffect } from "react";
+// import { useAppDispatch } from "shared/api/redux-hooks";
+// import { saveUser } from "shared/api/user/UserSlice";
+// import { useEffect } from "react";
 import Btn from "shared/ui/btns/Btn";
+import useLogin from "shared/hooks/useLogin";
 export interface IInputs {
   username: string;
   password: string;
 }
 
 const Login: React.FC = () => {
-  const navigate = useNavigate();
-  const dispatch = useAppDispatch();
-
-  const [login, { isSuccess: done }] = todoApi.useLoginMutation();
-
-  const [getMe, { data: meData }] = todoApi.useLazyGetMeQuery();
+  const { getMe, login } = useLogin();
 
   const { handleSubmit, register } = useForm<IInputs>();
-
   const onSubmit: SubmitHandler<IInputs> = async (data) => {
     await login(
       `grant_type=&username=${data.username}&password=${data.password}&scope=&client_id=&client_secret=`
     );
     await getMe("");
   };
-
-  useEffect(() => {
-    if (done && meData) {
-      dispatch(saveUser(meData));
-      navigate("/dashboard/home", { replace: true });
-    }
-  }, [dispatch, navigate, done, getMe, meData]);
 
   return (
     <form
