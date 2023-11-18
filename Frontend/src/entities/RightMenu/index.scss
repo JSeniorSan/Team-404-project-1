@@ -1,0 +1,7 @@
+.menuState {
+  @apply hidden;
+}
+
+.menuActive {
+  @apply w-2/6  fixed h-screen  flex justify-end top-0 right-0  z-20 bg-slate-400 opacity-90 backdrop-blur-lg;
+}

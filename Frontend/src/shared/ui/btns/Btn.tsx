@@ -11,7 +11,7 @@ export interface IBtn
   children: React.ReactNode;
 }
 
-const Btn: React.FC<IBtn> = ({ color, type, children }) => {
+const Btn: React.FC<IBtn> = ({ color, type, children, ...props }) => {
   return (
     <button
       className={cn("btn", {
@@ -21,6 +21,7 @@ const Btn: React.FC<IBtn> = ({ color, type, children }) => {
         ["lightText"]: color === "white",
         ["submit"]: type === "submit",
       })}
+      {...props}
     >
       {children}
     </button>

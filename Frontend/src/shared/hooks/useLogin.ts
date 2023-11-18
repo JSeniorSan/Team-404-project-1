@@ -7,9 +7,10 @@ import { saveUser } from "shared/api/user/UserSlice";
 const useLogin = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const [login, { isSuccess: done }] = todoApi.useLoginMutation();
-
-  const [getMe, { data: meData }] = todoApi.useLazyGetMeQuery();
+  const [login, { isSuccess: done, isError: errorLogin }] =
+    todoApi.useLoginMutation();
+  const [getMe, { data: meData, isError: errorMe }] =
+    todoApi.useLazyGetMeQuery();
 
   useEffect(() => {
     if (done && meData) {
@@ -18,7 +19,7 @@ const useLogin = () => {
     }
   }, [dispatch, navigate, done, getMe, meData]);
 
-  return { login, getMe };
+  return { login, getMe, errorLogin, errorMe };
 };
 
 export default useLogin;

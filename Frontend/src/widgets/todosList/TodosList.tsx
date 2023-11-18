@@ -3,6 +3,7 @@ import { IProps } from "entities/PageTitle/PageTitle";
 import TaskTitle from "widgets/todosList/ui/TaskTitle";
 import NewPanel from "features/NewPanel/NewPanel";
 import ListSection from "./ui/ListSection";
+import RightMenu from "entities/RightMenu/RightMenu";
 
 const TodosList: React.FC<IProps> = ({ ...props }) => {
   return (
@@ -22,6 +23,7 @@ const TodosList: React.FC<IProps> = ({ ...props }) => {
             );
           })}
         <NewPanel />
+        <RightMenu />
       </div>
     </div>
   );
