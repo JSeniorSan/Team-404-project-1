@@ -1,48 +1,20 @@
-import { todoApi } from "shared/api/todoQueryApi/TodoServise";
-import { useSelector } from "react-redux";
-import { selectWorkspaceData } from "shared/api/user/userSelectors";
-import { useRef, useState } from "react";
-import cn from "classnames";
+import { useState } from "react";
 import "./index.scss";
+import ToggleText from "shared/ui/toggleText/ToggleText";
+import NewPanelForm from "shared/ui/form/addons/NewPanelForm";
 
 const NewPanel = () => {
-  const ref = useRef<HTMLInputElement>(null);
-  const [inputForm, setInputForm] = useState<boolean>(false);
-  const workspaceId = useSelector(selectWorkspaceData);
-  const [createPanel] = todoApi.useNewPanelMutation();
-
-  const handleNewPanelClick = () => {
-    setInputForm(!inputForm);
-  };
-
-  const handleSavePanel = async () => {
-    const newPanelFetchData = {
-      id: workspaceId,
-      titleData: {
-        name: ref.current?.value,
-      },
-    };
-
-    await createPanel(newPanelFetchData);
-  };
+  const [InputFormStatus, setInputFormStatus] = useState<boolean>(false);
 
   return (
-    <>
-      <div
-        className="pl-12 text-xl cursor-pointer"
-        onClick={handleNewPanelClick}
-      >
-        + Create new panel
-      </div>
-      <div
-        className={cn("panelInputDiv", {
-          ["activePanelInput"]: inputForm,
-        })}
-      >
-        <input type="text" placeholder="panel title..." ref={ref} />
-        <button onClick={handleSavePanel}>Save</button>
-      </div>
-    </>
+    <div className="flex gap-4 mb-10 items-center">
+      <ToggleText
+        text="+ Create new panel"
+        setStatus={setInputFormStatus}
+        status={InputFormStatus}
+      />
+      <NewPanelForm inputForm={InputFormStatus} />
+    </div>
   );
 };
 

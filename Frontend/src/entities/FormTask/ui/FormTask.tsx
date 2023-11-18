@@ -36,7 +36,12 @@ const FormCard: React.FC<ITodoTask> = ({ ...props }) => {
       onClick={modalWindowHandler}
       {...props}
     >
-      <Form description="Task text" title="Task title" onSubmit={onSubmit} />
+      <Form
+        description="Task text"
+        title="Task title"
+        onSubmit={onSubmit}
+        type="withDescription"
+      />
     </div>
   );
 };

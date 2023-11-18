@@ -8,7 +8,7 @@ export interface IForm extends IFormData {
   onSubmit: SubmitHandler<IFormData>;
 }
 
-const Form: React.FC<IForm> = ({ title, description, onSubmit }) => {
+const Form: React.FC<IForm> = ({ title, description, onSubmit, type }) => {
   const { handleSubmit, register } = useForm<IForm>();
   const stopHandler = (e: React.MouseEvent) => {
     e.stopPropagation();
@@ -20,15 +20,19 @@ const Form: React.FC<IForm> = ({ title, description, onSubmit }) => {
       onClick={stopHandler}
       onSubmit={handleSubmit(onSubmit)}
     >
-      <label className="text-xl ">{title}</label>
       <Input
         type="text"
-        placeholder="Введите заголовок задачи"
+        placeholder={title}
         variant="input"
         {...register("title", { required: true })}
       />
-      <label className="text-xl">{description}</label>
-      <textarea className="textarea" {...register("description")} />
+      {type === "withDescription" && (
+        <>
+          <label className="text-xl">{description}</label>
+          <textarea className="textarea" {...register("description")} />
+        </>
+      )}
+
       <Btn type="submit" color="black">
         Submit
       </Btn>

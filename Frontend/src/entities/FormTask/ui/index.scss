@@ -8,7 +8,7 @@
     color: rgb(0, 0, 0);
 
     .textarea {
-      @apply text-black bg-transparent border text-lg font-normal;
+      @apply text-black bg-transparent border text-lg font-normal border-blue-300;
     }
   }
 }

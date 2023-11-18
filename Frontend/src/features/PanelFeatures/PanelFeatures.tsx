@@ -7,11 +7,11 @@ export interface IMenuProps {
 }
 const PanelFeaturesCard: React.FC<IMenuProps> = ({ menu, panelId }) => {
   const [deletePanel] = todoApi.useDeletePanelMutation();
-  const handleDeletePanel = async () => {
-    console.log(panelId);
 
+  const handleDeletePanel = async () => {
     await deletePanel(panelId);
   };
+
   return (
     <div
       className={cn("menu", {

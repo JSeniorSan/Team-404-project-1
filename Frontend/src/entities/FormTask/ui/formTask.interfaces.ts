@@ -7,4 +7,5 @@ export interface ITodoTask
 export interface IFormData {
   title: string;
   description: string;
+  type: "withDescription" | "simpleForm";
 }
