@@ -2,6 +2,7 @@ import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   state: false,
+  todoId: null,
 };
 
 const MenuSlice = createSlice({

@@ -12,7 +12,8 @@ const CardUi: React.FC<ICard> = ({ children, title, elemId }) => {
     <motion.div
       className="card"
       onClick={handleSideMenu}
-      whileHover={{ scale: 1.01 }}
+      transition={{ duration: 0.02 }}
+      whileTap={{ scale: 1.01 }}
     >
       <div className="flex justify-between">
         <div className="card__title">{title}</div>
