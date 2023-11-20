@@ -1,15 +1,17 @@
 import { useRef } from "react";
-import { todoApi } from "shared/api/todoQueryApi/TodoServise";
+import { IWorkspaceData, todoApi } from "shared/api/todoQueryApi/TodoServise";
 import Plus from "shared/asset/Plus.svg?react";
 import Btn from "shared/ui/btns/Btn";
 export interface INewWorkspace {
   newWorkspace: boolean;
   setNewWorkspace: (value: boolean) => void;
+  allWorkspaces: IWorkspaceData[] | undefined;
 }
 
 const CreateNew: React.FC<INewWorkspace> = ({
   setNewWorkspace,
   newWorkspace,
+  allWorkspaces,
 }) => {
   const ref = useRef<HTMLInputElement | null>(null);
 

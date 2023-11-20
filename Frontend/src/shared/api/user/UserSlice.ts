@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { IResponseAuth } from "../todoQueryApi/TodoServise";
+import { ITodo } from "../todoQueryApi/todoInterfaces";
 
 export interface IWorkspace {
   id: number;
@@ -10,17 +11,17 @@ export interface IWorkspace {
 export interface IPanel {
   id: number;
   name: string;
-  tasks: ITask[];
+  tasks: ITodo[];
 }
 
-export interface ITask {
-  id: number;
-  title: string;
-  description: string;
-  is_completed: boolean;
-  created_at: string;
-  updated_at: string;
-}
+// export interface ITask {
+//   id: number;
+//   title: string;
+//   description: string;
+//   is_completed: boolean;
+//   created_at: string;
+//   updated_at: string;
+// }
 
 const initialState = {
   currentUser: {},

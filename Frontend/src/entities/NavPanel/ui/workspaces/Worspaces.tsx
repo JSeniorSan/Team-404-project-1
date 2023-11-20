@@ -25,6 +25,7 @@ const Worspaces = () => {
       <CreateNew
         newWorkspace={newWorkspace}
         setNewWorkspace={setNewWorkspace}
+        allWorkspaces={allWorkspaces}
       />
       {isWorkspacesFetching && <SpinLoading />}
       {!isWorkspacesFetching && (

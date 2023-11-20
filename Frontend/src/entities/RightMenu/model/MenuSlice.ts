@@ -1,15 +1,25 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
-const initialState = {
-  state: false,
-  todoId: null,
+export interface IState {
+  isOpen: boolean;
+  todoId: number | null;
+}
+export interface IMenu {
+  state: IState;
+}
+
+const initialState: IMenu = {
+  state: {
+    isOpen: false,
+    todoId: null,
+  },
 };
 
 const MenuSlice = createSlice({
   name: "@@menu",
   initialState,
   reducers: {
-    switchState: (state, action: PayloadAction<boolean>) => {
+    switchState: (state, action: PayloadAction<IState>) => {
       state.state = action.payload;
     },
   },

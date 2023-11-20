@@ -3,13 +3,15 @@ import { todoApi } from "./todoQueryApi/TodoServise";
 import todoReduser from "./modal/modalSlice";
 import userReducer from "./user/UserSlice";
 import viewReducer from "./view/ViewSlice";
-import menuReduceer from "entities/RightMenu/model/MenuSlice";
+import menuReducer from "entities/RightMenu/model/MenuSlice";
+import panelReducer from "widgets/todosList/model/PanelsSlice";
 const rootReducer = combineReducers({
   [todoApi.reducerPath]: todoApi.reducer,
   todoReduser,
   userReducer,
   viewReducer,
-  menuReduceer,
+  menuReducer,
+  panelReducer,
 });
 
 export const store = configureStore({

@@ -1,12 +1,13 @@
 import cn from "classnames";
 import "./index.scss";
 import { useSelector } from "react-redux";
-import { selectMenuState } from "./model/MenuSliceSelectors";
+import { selectMenuIsOpen } from "./model/MenuSliceSelectors";
 import { useAppDispatch } from "shared/api/redux-hooks";
 import { switchState } from "./model/MenuSlice";
 import { AnimatePresence, motion } from "framer-motion";
 import Close from "shared/ui/close/Close";
-import EditableDiv from "shared/ui/editable/Editable";
+import Btn from "shared/ui/btns/Btn";
+import { selectCurrentTask } from "widgets/todosList/model/PanelsSelectors";
 
 const menuAnimation = {
   initial: { opacity: 0, x: 100 },
@@ -16,10 +17,15 @@ const menuAnimation = {
 
 const RightMenu = () => {
   const dispatch = useAppDispatch();
-  const menuState = useSelector(selectMenuState);
-
+  const menuState = useSelector(selectMenuIsOpen);
+  const menuData = useSelector(selectCurrentTask);
   const handleClick = () => {
-    dispatch(switchState(false));
+    dispatch(switchState({ isOpen: !menuState, todoId: null }));
+  };
+  console.log("render", menuData);
+
+  const handleSubmit = () => {
+    console.log("patch");
   };
 
   return (
@@ -33,12 +39,14 @@ const RightMenu = () => {
         >
           <Close onClick={handleClick} />
           <div className="flex items-center justify-between flex-col gap-4 h-full">
-            <div className="flex items-center flex-col gap-4 p-5 h-fit">
-              {/* <textarea className=" w-64 flex justify-center border  h-fit bg-transparent rounded text-white flex-wrap"></textarea> */}
-              <EditableDiv text={"Title"} />
-              <EditableDiv text={"descr"} />
-              <div className="bg-gray-200 p-3">Select panel</div>
-            </div>
+            <form
+              className="flex items-center flex-col gap-4 p-5 h-fit"
+              onSubmit={handleSubmit}
+            >
+              <div>{menuData?.title}</div>
+              <div>{menuData?.description}</div>
+              <Btn>Save</Btn>
+            </form>
             <div>Added</div>
           </div>
         </motion.div>
