@@ -1,4 +1,5 @@
 * linguist-detectable=true
+*.pyc linguist-detectable=false
 *.ts linguist-detectable=true
 *.tsx linguist-detectable=true
 *.ts linguist-language=TypeScript
