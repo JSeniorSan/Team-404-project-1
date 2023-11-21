@@ -18,10 +18,12 @@ class User(SQLAlchemyBaseUserTableUUID, Base):
     is_superuser: Mapped[bool] = mapped_column(Boolean, default=False, nullable=False)
     is_verified: Mapped[bool] = mapped_column(Boolean, default=False, nullable=False)
     created_at: Mapped[DateTime] = mapped_column(DateTime, server_default=func.now(), nullable=False)
-    updated_at: Mapped[DateTime] = mapped_column(DateTime, onupdate=func.now(), nullable=True)
+    updated_at: Mapped[DateTime] = mapped_column(DateTime, server_default=func.now(), onupdate=func.now(), nullable=True)
     username: Mapped[str] = mapped_column(String(length=24), unique=True, nullable=False)
     workspaces: Mapped[list[Workspace]] = relationship()
 
+    def __repr__(self) -> str:
+        return f"User: {self.email}"
 
 class AccessToken(SQLAlchemyBaseAccessTokenTableUUID, Base):  
     pass

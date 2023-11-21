@@ -6,7 +6,7 @@ from src.task.router import router as router_task
 from src.task.models import Task
 from src.auth.models import User, AccessToken
 from src.panel.models import Panel
-from src.workspace.models import Workspace
+from src.workspace.models import Workspace, workspace_members
 
 
 my_routers = [
@@ -21,5 +21,5 @@ my_models = [
     User,
     AccessToken,
     Panel,
-    Workspace
+    Workspace, workspace_members
 ]

@@ -10,7 +10,7 @@ class WorkspaceBase(BaseModel):
 
 class WorkspaceInDb(WorkspaceBase):
     id: int
-    user_id: uuid.UUID
+    creator_id: uuid.UUID
 
 
 class WorkspaceCreate(WorkspaceBase):

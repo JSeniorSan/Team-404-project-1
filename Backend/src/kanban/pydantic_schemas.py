@@ -1,4 +1,5 @@
 from datetime import datetime
+import uuid
 from pydantic import BaseModel
 
 
@@ -17,8 +18,15 @@ class PanelKanban(BaseModel):
     tasks: list[TaskKanban]
 
 
+class MemberKanban(BaseModel):
+    id: uuid.UUID
+    email: str
+    username: str
+
+
 class WorkspaceKanban(BaseModel):
     id: int
     name: str
     panels: list[PanelKanban]
-    
+    members: list[MemberKanban]
+
