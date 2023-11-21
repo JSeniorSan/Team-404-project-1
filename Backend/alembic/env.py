@@ -28,10 +28,7 @@ if config.config_file_name is not None:
 # from myapp import mymodel
 # target_metadata = mymodel.Base.metadata
 from src.database import Base
-from src.task.models import *
-from src.auth.models import *
-from src.panel.models import *
-from src.workspace.models import *
+from src import my_models
 
 target_metadata = Base.metadata
 
