@@ -4,7 +4,7 @@ from sqlalchemy import engine_from_config
 from sqlalchemy import pool
 
 from alembic import context
-from src.config import DB_HOST, DB_NAME, DB_PASS, DB_PORT, DB_USER, settings
+from src.config import settings
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
@@ -15,7 +15,7 @@ section = config.config_ini_section
 config.set_section_option(section, "DB_USER", settings.DB_USER)
 config.set_section_option(section, "DB_PASS", settings.DB_PASS)
 config.set_section_option(section, "DB_HOST", settings.DB_HOST)
-config.set_section_option(section, "DB_PORT", settings.DB_PORT)
+config.set_section_option(section, "DB_PORT", str(settings.DB_PORT))
 config.set_section_option(section, "DB_NAME", settings.DB_NAME)
 
 # Interpret the config file for Python logging.
@@ -28,10 +28,7 @@ if config.config_file_name is not None:
 # from myapp import mymodel
 # target_metadata = mymodel.Base.metadata
 from src.database import Base
-from src.task.models import *
-from src.auth.models import *
-from src.panel.models import *
-from src.workspace.models import *
+from src import my_models
 
 target_metadata = Base.metadata
 

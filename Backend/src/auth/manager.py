@@ -50,32 +50,32 @@ class UserManager(UUIDIDMixin, BaseUserManager[User, uuid.UUID]):
         Creates welcome **workspace**.
         '''
         
-        db: AsyncSession = Session()
+        async with Session() as session:
 
-        workspace = Workspace(name="Привет, это твой первый проект!", user_id=user.id)
-        db.add(workspace)
-        await db.commit()
-        await db.refresh(workspace)
+            workspace = Workspace(name="Привет, это твой первый проект!", user_id=user.id)
+            session.add(workspace)
+            await session.commit()
+            await session.refresh(workspace)
 
-        panel_todo = Panel(name="Запланировано", workspace_id=workspace.id)
-        panel_in_progress = Panel(name="В работе", workspace_id=workspace.id)
-        panel_done = Panel(name="Выполнено", workspace_id=workspace.id)
-        db.add_all([panel_todo, panel_in_progress, panel_done])
-        await db.commit()
-        await db.refresh(panel_todo)
-        await db.refresh(panel_in_progress)
-        await db.refresh(panel_done)
+            panel_todo = Panel(name="Запланировано", workspace_id=workspace.id)
+            panel_in_progress = Panel(name="В работе", workspace_id=workspace.id)
+            panel_done = Panel(name="Выполнено", workspace_id=workspace.id)
+            session.add_all([panel_todo, panel_in_progress, panel_done])
+            await session.commit()
+            await session.refresh(panel_todo)
+            await session.refresh(panel_in_progress)
+            await session.refresh(panel_done)
 
-        task_todo = Task(title="Запланированная задача", panel_id=panel_todo.id, description="Это пример" \
-                                                                                             " запланированной задачи," \
-                                                                                             " можешь попробовать" \
-                                                                                             " отредактировать её.")
-        task_in_progress = Task(title="Эта задача в процессе", panel_id=panel_in_progress.id, description="Описание текущей задачи." \
-                                                                                                          " Её подробности.")
-        task_done = Task(title="А это задача уже выполнена", panel_id=panel_done.id, description="Эту задачу уже выполнили." \
-                                                                                                 " Можно оставить какие-то комментарии.")
-        db.add_all([task_todo, task_in_progress, task_done])
-        await db.commit()
+            task_todo = Task(title="Запланированная задача", panel_id=panel_todo.id, description="Это пример" \
+                                                                                                " запланированной задачи," \
+                                                                                                " можешь попробовать" \
+                                                                                                " отредактировать её.")
+            task_in_progress = Task(title="Эта задача в процессе", panel_id=panel_in_progress.id, description="Описание текущей задачи." \
+                                                                                                            " Её подробности.")
+            task_done = Task(title="А это задача уже выполнена", panel_id=panel_done.id, description="Эту задачу уже выполнили." \
+                                                                                                    " Можно оставить какие-то комментарии.")
+            session.add_all([task_todo, task_in_progress, task_done])
+            await session.commit()
 
 
     async def on_after_update(

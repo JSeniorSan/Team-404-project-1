@@ -13,6 +13,6 @@ class Task(Base):
     is_completed: Mapped[bool] = mapped_column(default=False)
     created_at: Mapped[DateTime] = mapped_column(DateTime, default=func.now(), nullable=False)
     updated_at: Mapped[datetime | None] = mapped_column(default=func.now(), onupdate=func.now(), nullable=True)
-    panel_id: Mapped[int] = mapped_column(ForeignKey("panels.id"))
-    panel: Mapped["Panel"] = relationship(back_populates="tasks")
+    panel_id: Mapped[int] = mapped_column(ForeignKey("panels.id", ondelete="CASCADE"))
+    panel: Mapped["Panel"] = relationship(back_populates="tasks", cascade="all, delete")
     

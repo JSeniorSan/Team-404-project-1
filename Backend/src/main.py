@@ -1,11 +1,8 @@
-from fastapi import FastAPI, Request
-from src.task.router import router as router_task
+from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from src.auth.config import auth_backend, fastapi_users
 from src.auth.schemas import UserRead, UserCreate, UserUpdate
-from src.workspace.router import router as router_workspace
-from src.panel.router import router as router_panel
-from src.kanban.router import router as router_kanban
+from src import my_routers
 
 
 app = FastAPI(title="Kanban App")
@@ -29,10 +26,8 @@ app.include_router(
     tags=["users"],
 )
 
-app.include_router(router_workspace)
-app.include_router(router_panel)
-app.include_router(router_task)
-app.include_router(router_kanban)
+for router in my_routers:
+    app.include_router(router)
 
 
 origins = [

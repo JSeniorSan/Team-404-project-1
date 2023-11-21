@@ -1,8 +1,4 @@
-from marshmallow_sqlalchemy import SQLAlchemyAutoSchema
 from pydantic import BaseModel, ConfigDict
-# from src.task.schemas import TaskAll
-from src.panel.models import Panel
-from marshmallow_sqlalchemy.fields import Nested
 
 
 class PanelBase(BaseModel):

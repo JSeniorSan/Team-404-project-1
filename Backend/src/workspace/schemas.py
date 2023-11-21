@@ -1,10 +1,5 @@
 import uuid
 from pydantic import BaseModel, ConfigDict
-from marshmallow_sqlalchemy import SQLAlchemyAutoSchema
-# from src.panel.schemas import PanelAll
-from src.workspace.models import Workspace
-from marshmallow_sqlalchemy.fields import Nested
-
 
 
 class WorkspaceBase(BaseModel):
