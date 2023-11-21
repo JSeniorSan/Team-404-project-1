@@ -42,7 +42,6 @@ function TodosPageList() {
               kanbanData.panels[0] ? kanbanData.panels[0].id?.toString() : "1"
             }
           />
-          {/* <RightMenu /> */}
         </div>
       )}
     </>

@@ -4,14 +4,12 @@ import todoReduser from "./modal/modalSlice";
 import userReducer from "./user/UserSlice";
 import viewReducer from "./view/ViewSlice";
 import menuReducer from "entities/RightMenu/model/MenuSlice";
-import panelReducer from "widgets/todosList/model/PanelsSlice";
 const rootReducer = combineReducers({
   [todoApi.reducerPath]: todoApi.reducer,
   todoReduser,
   userReducer,
   viewReducer,
   menuReducer,
-  panelReducer,
 });
 
 export const store = configureStore({

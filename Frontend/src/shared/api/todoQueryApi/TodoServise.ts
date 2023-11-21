@@ -161,5 +161,10 @@ export const todoApi = createApi({
       }),
       invalidatesTags: ["DeletePanel"],
     }),
+    getOneTask: build.query<ITodo, number>({
+      query: (id) => ({
+        url: `/task/${id}`,
+      }),
+    }),
   }),
 });

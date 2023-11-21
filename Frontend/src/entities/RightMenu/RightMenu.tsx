@@ -1,13 +1,14 @@
 import cn from "classnames";
 import "./index.scss";
 import { useSelector } from "react-redux";
-import { selectMenuIsOpen } from "./model/MenuSliceSelectors";
+import { selectMenuIsOpen, selectMenuTodoId } from "./model/MenuSliceSelectors";
 import { useAppDispatch } from "shared/api/redux-hooks";
 import { switchState } from "./model/MenuSlice";
 import { AnimatePresence, motion } from "framer-motion";
 import Close from "shared/ui/close/Close";
 import Btn from "shared/ui/btns/Btn";
-import { selectCurrentTask } from "widgets/todosList/model/PanelsSelectors";
+import { todoApi } from "shared/api/todoQueryApi/TodoServise";
+import { useEffect } from "react";
 
 const menuAnimation = {
   initial: { opacity: 0, x: 100 },
@@ -18,13 +19,19 @@ const menuAnimation = {
 const RightMenu = () => {
   const dispatch = useAppDispatch();
   const menuState = useSelector(selectMenuIsOpen);
-  const menuData = useSelector(selectCurrentTask);
+  const taskId = useSelector(selectMenuTodoId);
+  const [getTask, { data: task }] = todoApi.useLazyGetOneTaskQuery();
   const handleClick = () => {
     dispatch(switchState({ isOpen: !menuState, todoId: null }));
   };
-  console.log("render", menuData);
+  useEffect(() => {
+    if (taskId) {
+      getTask(taskId);
+    }
+  }, [taskId, getTask]);
 
-  const handleSubmit = () => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
     console.log("patch");
   };
 
@@ -43,8 +50,8 @@ const RightMenu = () => {
               className="flex items-start flex-col gap-4 p-5 h-fit border mt-10 w-full rounded ml-5"
               onSubmit={handleSubmit}
             >
-              <div className="text-2xl font-medium">{menuData?.title}</div>
-              <div className="text-xl">{menuData?.description}</div>
+              <div className="text-2xl font-medium">{task?.title}</div>
+              <div className="text-xl">{task?.description}</div>
               <Btn>Save</Btn>
             </form>
             <div>Added</div>
