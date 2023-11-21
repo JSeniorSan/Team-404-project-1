@@ -14,15 +14,6 @@ export interface IPanel {
   tasks: ITodo[];
 }
 
-// export interface ITask {
-//   id: number;
-//   title: string;
-//   description: string;
-//   is_completed: boolean;
-//   created_at: string;
-//   updated_at: string;
-// }
-
 const initialState = {
   currentUser: {},
   currentUserWorkspace: {

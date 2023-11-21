@@ -1,31 +1,19 @@
-import { useRef } from "react";
-import { IWorkspaceData, todoApi } from "shared/api/todoQueryApi/TodoServise";
+import { AnimatePresence } from "framer-motion";
+import { useState } from "react";
+import { IWorkspaceData } from "shared/api/todoQueryApi/TodoServise";
 import Plus from "shared/asset/Plus.svg?react";
-import Btn from "shared/ui/btns/Btn";
+
+import DropPanel from "shared/ui/dropPanel/DropPanel";
+
 export interface INewWorkspace {
-  newWorkspace: boolean;
-  setNewWorkspace: (value: boolean) => void;
   allWorkspaces: IWorkspaceData[] | undefined;
 }
 
-const CreateNew: React.FC<INewWorkspace> = ({
-  setNewWorkspace,
-  newWorkspace,
-  allWorkspaces,
-}) => {
-  const ref = useRef<HTMLInputElement | null>(null);
-
-  const [createNewWorkspace] = todoApi.useCreateNewWorkspaceMutation();
+const CreateNew: React.FC<INewWorkspace> = () => {
+  const [newWorkspace, setNewWorkspace] = useState<boolean>(false);
 
   const handleSetNew = () => {
     setNewWorkspace(!newWorkspace);
-  };
-
-  const handleCreateNew = () => {
-    if (ref) {
-      createNewWorkspace({ name: ref.current?.value });
-      setNewWorkspace(false);
-    }
   };
 
   return (
@@ -38,15 +26,12 @@ const CreateNew: React.FC<INewWorkspace> = ({
         />
       </div>
       {newWorkspace && (
-        <div>
-          <input
-            type="text"
-            placeholder="Workspace name..."
-            name="workspace"
-            ref={ref}
+        <AnimatePresence>
+          <DropPanel
+            setNewWorkspace={setNewWorkspace}
+            newWorkspace={newWorkspace}
           />
-          <Btn onClick={handleCreateNew}>Save</Btn>
-        </div>
+        </AnimatePresence>
       )}
     </>
   );

@@ -11,7 +11,6 @@ import TodosBoard from "widgets/todosBoard/TodosBoard";
 import NewTodoComponent from "entities/NewTodo/NewTodoComponent";
 import FormCard from "entities/FormTask/ui/FormTask";
 import PageTitle from "entities/PageTitle/PageTitle";
-// import RightMenu from "entities/RightMenu/RightMenu";
 
 function TodosPageList() {
   const navigate = useNavigate();

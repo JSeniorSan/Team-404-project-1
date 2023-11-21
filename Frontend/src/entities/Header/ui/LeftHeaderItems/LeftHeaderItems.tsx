@@ -5,7 +5,6 @@ import { selectView } from "shared/api/view/viewSliceSelector";
 import { useAppDispatch } from "shared/api/redux-hooks";
 import { useNavigate } from "react-router-dom";
 import { switchWidget } from "shared/api/view/ViewSlice";
-import { useEffect } from "react";
 import ListLogo from "shared/asset/fatrows.svg?react";
 import BoardLogo from "shared/asset/kanban.svg?react";
 import Calendar from "shared/asset/calendar.svg?react";
@@ -24,10 +23,6 @@ const LeftHeaderItems = () => {
     dispatch(switchWidget("Board"));
     navigate("/dashboard/kanban");
   };
-
-  useEffect(() => {
-    dispatch(switchWidget("none"));
-  }, [dispatch]);
 
   return (
     <div className="flex gap-4 items-center">

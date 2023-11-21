@@ -11,7 +11,6 @@ const CardUi: React.FC<ICard> = ({ children, title, elemId }) => {
   const handleSideMenu = () => {
     dispatch(switchState({ isOpen: true, todoId: elemId }));
   };
-  console.log(elemId);
 
   return (
     <motion.div

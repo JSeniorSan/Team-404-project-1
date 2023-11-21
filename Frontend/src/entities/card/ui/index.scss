@@ -12,10 +12,6 @@
   }
 }
 
-.box__controll {
-  @apply gap-3 hidden absolute right-5 top-9 bg-teal-300 z-50 p-3;
-}
-
 .activeCardOptions {
   @apply block;
 }
