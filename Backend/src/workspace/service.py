@@ -20,9 +20,8 @@ class WorkspaceService:
         workspace = await self.workspace_repo.read_one(workspace_id)
         return workspace
 
-    async def read_all_workspaces(self, creator_id: uuid.UUID) -> list[Workspace]:
-        filter = {"creator_id": creator_id}
-        workspaces = await self.workspace_repo.read_all(filter)
+    async def read_all_workspaces(self, user_id: uuid.UUID) -> list[Workspace]:
+        workspaces = await self.workspace_repo.read_all(user_id)
         return workspaces
 
     async def delete_workspace(self, workspace_id: int) -> Workspace:
