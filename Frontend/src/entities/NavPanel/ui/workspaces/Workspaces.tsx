@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 import { selectView } from "shared/api/view/viewSliceSelector";
 import SpinLoading from "shared/ui/spin/Spin";
 import Workspace from "./workspace/Workspace";
-const Worspaces = () => {
+const Workspaces = () => {
   const template = useSelector(selectView);
   const [
     getWorkspaces,
@@ -17,12 +17,19 @@ const Worspaces = () => {
 
   return (
     <div className="spaces">
-      <CreateNew allWorkspaces={allWorkspaces} />
+      <CreateNew />
       {isWorkspacesFetching && <SpinLoading />}
       {!isWorkspacesFetching && (
         <ul className="spaces__list">
           {allWorkspaces?.map((name) => {
-            return <Workspace id={name.id} name={name.name} key={name.id} />;
+            return (
+              <Workspace
+                id={name.id}
+                name={name.name}
+                key={name.id}
+                color={name.hex ? name.hex : "#aabbcc"}
+              />
+            );
           })}
         </ul>
       )}
@@ -30,4 +37,4 @@ const Worspaces = () => {
   );
 };
 
-export default Worspaces;
+export default Workspaces;

@@ -9,6 +9,8 @@ import Close from "shared/ui/close/Close";
 import Btn from "shared/ui/btns/Btn";
 import { todoApi } from "shared/api/todoQueryApi/TodoServise";
 import { useEffect } from "react";
+import { DeleteIcon } from "@chakra-ui/icons";
+// import { format, parseISO } from "date-fns";
 
 const menuAnimation = {
   initial: { opacity: 0, x: 100 },
@@ -21,6 +23,7 @@ const RightMenu = () => {
   const menuState = useSelector(selectMenuIsOpen);
   const taskId = useSelector(selectMenuTodoId);
   const [getTask, { data: task }] = todoApi.useLazyGetOneTaskQuery();
+
   const handleClick = () => {
     dispatch(switchState({ isOpen: !menuState, todoId: null }));
   };
@@ -29,6 +32,14 @@ const RightMenu = () => {
       getTask(taskId);
     }
   }, [taskId, getTask]);
+
+  // const dat = new Date(`${task?.created_at}`);
+  // const f = new Intl.DateTimeFormat("en-US", {
+  //   dateStyle: "medium",
+  //   timeStyle: "short",
+  // });
+  // const newDate = f.format(dat);
+  // console.log(newDate);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -45,7 +56,8 @@ const RightMenu = () => {
           })}
         >
           <Close onClick={handleClick} />
-          <div className="flex items-center justify-between flex-col gap-4 h-full p-5">
+          <div className="flex items-center flex-col gap-4 h-full p-5">
+            <div>Редактировать</div>
             <form
               className="flex items-start flex-col gap-4 p-5 h-fit border mt-10 w-full rounded ml-5"
               onSubmit={handleSubmit}
@@ -54,7 +66,14 @@ const RightMenu = () => {
               <div className="text-xl">{task?.description}</div>
               <Btn>Save</Btn>
             </form>
-            <div>Added</div>
+            <div className="flex justify-between items-baseline gap-5 ">
+              <div className="text-sm">{`Created `}</div>
+              <DeleteIcon
+                color={"gray"}
+                boxSize={6}
+                className="hover:cursor-pointer"
+              />
+            </div>
           </div>
         </motion.div>
       )}

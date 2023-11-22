@@ -1,9 +1,11 @@
-import { useState } from "react";
 import { HexColorPicker } from "react-colorful";
 
-const HexColor = () => {
-  const [color, setColor] = useState("#aabbcc");
+export interface IHex {
+  color: string;
+  setColor: (value: string) => void;
+}
 
+const HexColor: React.FC<IHex> = ({ color, setColor }) => {
   return <HexColorPicker color={color} onChange={setColor} />;
 };
 

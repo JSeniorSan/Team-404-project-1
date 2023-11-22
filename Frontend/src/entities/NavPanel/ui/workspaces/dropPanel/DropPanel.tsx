@@ -1,23 +1,27 @@
 import { todoApi } from "shared/api/todoQueryApi/TodoServise";
-import Btn from "../btns/Btn";
-import HexColor from "../hexColor/HexColor";
-import { useRef } from "react";
+import Btn from "../../../../../shared/ui/btns/Btn";
+import HexColor from "../../../../../shared/ui/hexColor/HexColor";
+import { useRef, useState } from "react";
 import { motion } from "framer-motion";
-import Input from "../input/Input";
+import Input from "../../../../../shared/ui/input/Input";
 import cn from "classnames";
 
 const sidebarAimation = {
   initial: { opacity: 0, x: 100 },
   animate: { opacity: 1, x: 0 },
-  exit: { opacity: 0, x: 100 },
+  exit: {
+    opacity: 1,
+    x: -300,
+    transition: { duration: 0.5 },
+  },
 };
 
 export interface IDropPanel {
   setNewWorkspace: (value: boolean) => void;
-  newWorkspace: boolean;
 }
 
-const DropPanel: React.FC<IDropPanel> = ({ setNewWorkspace, newWorkspace }) => {
+const DropPanel: React.FC<IDropPanel> = ({ setNewWorkspace }) => {
+  const [color, setColor] = useState<string>("#aabbcc");
   const ref = useRef<HTMLInputElement | null>(null);
   const [createNewWorkspace] = todoApi.useCreateNewWorkspaceMutation();
 
@@ -41,7 +45,7 @@ const DropPanel: React.FC<IDropPanel> = ({ setNewWorkspace, newWorkspace }) => {
         variant="withoutLine"
         ref={ref}
       />
-      <HexColor />
+      <HexColor color={color} setColor={setColor} />
       <Btn onClick={handleCreateNew}>Save</Btn>
     </motion.div>
   );

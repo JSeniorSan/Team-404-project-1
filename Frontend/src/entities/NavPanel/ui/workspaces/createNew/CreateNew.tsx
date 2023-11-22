@@ -1,15 +1,9 @@
 import { AnimatePresence } from "framer-motion";
 import { useState } from "react";
-import { IWorkspaceData } from "shared/api/todoQueryApi/TodoServise";
 import Plus from "shared/asset/Plus.svg?react";
+import DropPanel from "entities/NavPanel/ui/workspaces/dropPanel/DropPanel";
 
-import DropPanel from "shared/ui/dropPanel/DropPanel";
-
-export interface INewWorkspace {
-  allWorkspaces: IWorkspaceData[] | undefined;
-}
-
-const CreateNew: React.FC<INewWorkspace> = () => {
+const CreateNew = () => {
   const [newWorkspace, setNewWorkspace] = useState<boolean>(false);
 
   const handleSetNew = () => {
@@ -25,14 +19,10 @@ const CreateNew: React.FC<INewWorkspace> = () => {
           className="cursor-pointer hover:bg-slate-100 rounded transition-all "
         />
       </div>
-      {newWorkspace && (
-        <AnimatePresence>
-          <DropPanel
-            setNewWorkspace={setNewWorkspace}
-            newWorkspace={newWorkspace}
-          />
-        </AnimatePresence>
-      )}
+
+      <AnimatePresence>
+        {newWorkspace && <DropPanel setNewWorkspace={setNewWorkspace} />}
+      </AnimatePresence>
     </>
   );
 };

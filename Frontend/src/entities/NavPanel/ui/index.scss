@@ -14,7 +14,7 @@
   .navig {
     grid-row: 2 / 3;
     border-bottom: 1px solid var(--lineColor);
-    @apply flex items-start flex-col pl-6 font-medium text-base  justify-center;
+    @apply flex items-start flex-col pl-6 font-medium text-base justify-center w-full;
   }
   .theme {
     grid-row: 4 / 5;

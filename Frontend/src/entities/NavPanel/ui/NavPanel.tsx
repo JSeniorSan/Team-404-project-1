@@ -4,7 +4,7 @@ import cn from "classnames";
 
 import MainTitle from "./mainTitle/MainTitle";
 import NavElements from "./navElements/NavElements";
-import Worspaces from "./workspaces/Worspaces";
+import Worspaces from "./workspaces/Workspaces";
 import ThemeSwitcher from "./themeSwitcher/ThemeSwitcher";
 
 export interface INavPanel

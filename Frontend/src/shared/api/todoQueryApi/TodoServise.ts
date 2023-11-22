@@ -35,6 +35,7 @@ export interface IWorkspaceData {
   name: string;
   id: number;
   user_id: string;
+  hex?: string;
 }
 
 export interface INewWorkspacePost {
