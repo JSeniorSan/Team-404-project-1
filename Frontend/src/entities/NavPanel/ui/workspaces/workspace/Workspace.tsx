@@ -9,6 +9,8 @@ import Dots from "shared/asset/tabler_dots.svg?react";
 import cn from "classnames";
 import { useEffect, useState } from "react";
 import { selectWorkspaceData } from "shared/api/user/userSelectors";
+import { switchState } from "entities/RightMenu/model/MenuSlice";
+import WorkspaceFeatures from "features/WorkspaceFeatures/WorkspaceFeatures";
 
 export interface IWorksapce {
   id: number;
@@ -18,10 +20,15 @@ export interface IWorksapce {
 
 const Workspace: React.FC<IWorksapce> = ({ id, name, color }) => {
   const [state, setState] = useState<boolean>(false);
+  const [stateDots, setStateDots] = useState<boolean>(false);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const template = useSelector(selectView);
   const getId = useSelector(selectWorkspaceData);
+
+  const handleClickDots = () => {
+    setStateDots(!stateDots);
+  };
 
   useEffect(() => {
     if (getId === id) {
@@ -34,6 +41,7 @@ const Workspace: React.FC<IWorksapce> = ({ id, name, color }) => {
   const handleClickToWorkspace = async (id: number, name: string) => {
     const optimizationString = name.split(" ").join("");
     dispatch(addWorkspace(id));
+    dispatch(switchState({ todoId: null, isOpen: false }));
     if (template === "List") {
       navigate(`/dashboard/list/${optimizationString}`);
     }
@@ -49,8 +57,8 @@ const Workspace: React.FC<IWorksapce> = ({ id, name, color }) => {
   return (
     <li
       onClick={() => handleClickToWorkspace(id, name)}
-      className={cn("flex justify-between w-52", {
-        ["bg-slate-200"]: state === true,
+      className={cn("flex w-full relative justify-between", {
+        ["bg-slate-100"]: state === true,
       })}
     >
       <div className="flex gap-2 items-center">
@@ -62,7 +70,11 @@ const Workspace: React.FC<IWorksapce> = ({ id, name, color }) => {
           {name}
         </Page>
       </div>
-      <Dots />
+      <div className="w-5" onClick={handleClickDots}>
+        <Dots />
+      </div>
+
+      <WorkspaceFeatures menu={stateDots} workspaceId={id} />
     </li>
   );
 };

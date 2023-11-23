@@ -1,5 +1,4 @@
 import Template from "features/Template/ui/Template";
-import { IProps } from "entities/PageTitle/PageTitle";
 import TaskTitle from "widgets/todosList/ui/TaskTitle";
 import NewPanel from "features/NewPanel/NewPanel";
 import ListSection from "./ui/ListSection";
@@ -9,8 +8,13 @@ import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { selectWorkspaceData } from "shared/api/user/userSelectors";
 import { switchWidget } from "shared/api/view/ViewSlice";
+import { IPanel } from "shared/api/user/UserSlice";
 
-const TodosList: React.FC<IProps> = ({ ...props }) => {
+export interface IPropsPanels {
+  kanbanDataPanels: IPanel[];
+}
+
+const TodosList: React.FC<IPropsPanels> = ({ kanbanDataPanels }) => {
   const dispatch = useAppDispatch();
   const workspaceId = useSelector(selectWorkspaceData);
   useEffect(() => {
@@ -19,8 +23,8 @@ const TodosList: React.FC<IProps> = ({ ...props }) => {
   return (
     <div className="flex flex-col gap-5 h-fit mb-3">
       <div className="flex h-fit flex-col gap-10">
-        {props.kanbanData.panels &&
-          props.kanbanData.panels.map((panel) => {
+        {kanbanDataPanels &&
+          kanbanDataPanels.map((panel) => {
             return (
               <Template className="template" key={panel.id}>
                 <TaskTitle

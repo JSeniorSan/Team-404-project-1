@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { IResponseAuth } from "../todoQueryApi/TodoServise";
+import { IResponseAuth } from "../todoQueryApi/todoInterfaces";
 import { ITodo } from "../todoQueryApi/todoInterfaces";
 
 export interface IWorkspace {

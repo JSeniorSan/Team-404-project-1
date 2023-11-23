@@ -1,5 +1,4 @@
 import { useLocation } from "react-router-dom";
-import { IWorkspace } from "shared/api/user/UserSlice";
 import Page from "shared/ui/p/Page";
 import "./index.scss";
 import Star from "shared/asset/star.svg?react";
@@ -9,21 +8,21 @@ import UserAvatar from "shared/asset/Group 3.svg?react";
 import Btn from "shared/ui/btns/Btn";
 
 export interface IProps {
-  kanbanData: IWorkspace;
+  kanbanDataName: string;
 }
 
-const PageTitle: React.FC<IProps> = ({ ...props }) => {
+const PageTitle: React.FC<IProps> = ({ kanbanDataName }) => {
   const location = useLocation();
   const pathArray = location.pathname.split("/")[2];
 
   return (
     <div className="p-12 flex flex-col">
       <Page color="gray" size="12px" weight="500">
-        {`Workspace / ${props.kanbanData.name} / ${pathArray}`}
+        {`Workspace / ${kanbanDataName} / ${pathArray}`}
       </Page>
       <div className="flex justify-between mt-4">
         <Page color="black" size="40px" weight="700">
-          {props.kanbanData.name}
+          {kanbanDataName}
         </Page>
         <div className="flex gap-2">
           <Btn type="activity">

@@ -1,61 +1,15 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { ITodo } from "./todoInterfaces";
+import {
+  IAuthNewUser,
+  INewWorkspacePost,
+  IPanel,
+  IPanelData,
+  IResponseAuth,
+  ITaskData,
+  ITodo,
+  IWorkspaceData,
+} from "./todoInterfaces";
 import { IWorkspace } from "../user/UserSlice";
-
-export interface ITodoPost {
-  title: string;
-  description: string | null;
-}
-
-export interface ITaskData {
-  infoData: ITodoPost;
-  id: string | undefined;
-}
-
-export interface IAuthNewUser {
-  username: string;
-  password: string;
-  email: string;
-}
-
-export interface IResponseAuth {
-  is_active: boolean;
-  is_superuser: boolean;
-  is_verified: boolean;
-  id?: string;
-  email: string;
-  username: string;
-}
-
-export interface IErrorAuth {
-  detail: string;
-}
-
-export interface IWorkspaceData {
-  name: string;
-  id: number;
-  user_id: string;
-  hex?: string;
-}
-
-export interface INewWorkspacePost {
-  name: string | undefined;
-}
-
-export interface IPanel {
-  name: string;
-  id: number;
-  workspace_id: number;
-}
-
-export interface IPanelTitle {
-  name: string | undefined;
-}
-
-export interface IPanelData {
-  id: number;
-  titleData: IPanelTitle;
-}
 
 const URL = "http://127.0.0.1:8000";
 
@@ -70,6 +24,7 @@ export const todoApi = createApi({
     "NewTask",
     "NewPanel",
     "DeletePanel",
+    "Trigger",
   ],
   endpoints: (build) => ({
     fetchAllTask: build.query<ITodo[], string>({
@@ -86,13 +41,7 @@ export const todoApi = createApi({
       }),
       invalidatesTags: ["NewTask"],
     }),
-    removeTask: build.mutation<ITodo, number>({
-      query: (id) => ({
-        url: `/task/${id}`,
-        method: "DELETE",
-      }),
-      invalidatesTags: ["Delete"],
-    }),
+
     registrationUser: build.mutation<IResponseAuth, IAuthNewUser>({
       query: (user) => ({
         url: "/auth/register",
@@ -128,6 +77,27 @@ export const todoApi = createApi({
         url: `/users/${id}`,
       }),
     }),
+    deletePanel: build.mutation<IPanel, number>({
+      query: (id) => ({
+        url: `/panel/${id}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["DeletePanel"],
+    }),
+    removeTask: build.mutation<ITodo, number>({
+      query: (id) => ({
+        url: `/task/${id}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["Delete"],
+    }),
+    deleteWorkspace: build.mutation<IWorkspaceData, number>({
+      query: (id) => ({
+        url: `/workspace/${id}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["NewWorkspace", "Trigger"],
+    }),
     getAllWorkspaces: build.query<IWorkspaceData[], string>({
       query: () => ({
         url: "/workspace/",
@@ -146,7 +116,13 @@ export const todoApi = createApi({
       query: (id) => ({
         url: `/kanban/${id}`,
       }),
-      providesTags: () => ["NewTask", "NewPanel", "Delete", "DeletePanel"],
+      providesTags: () => [
+        "NewTask",
+        "NewPanel",
+        "Delete",
+        "DeletePanel",
+        "Trigger",
+      ],
     }),
     newPanel: build.mutation<IPanel, IPanelData>({
       query: (data) => ({
@@ -156,13 +132,7 @@ export const todoApi = createApi({
       }),
       invalidatesTags: ["NewPanel"],
     }),
-    deletePanel: build.mutation<IPanel, number>({
-      query: (id) => ({
-        url: `/panel/${id}`,
-        method: "DELETE",
-      }),
-      invalidatesTags: ["DeletePanel"],
-    }),
+
     getOneTask: build.query<ITodo, number>({
       query: (id) => ({
         url: `/task/${id}`,

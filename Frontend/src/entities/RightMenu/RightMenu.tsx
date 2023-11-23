@@ -9,7 +9,7 @@ import Close from "shared/ui/close/Close";
 import Btn from "shared/ui/btns/Btn";
 import { todoApi } from "shared/api/todoQueryApi/TodoServise";
 import { useEffect } from "react";
-import { DeleteIcon } from "@chakra-ui/icons";
+import Delete from "shared/ui/delete/Delete";
 // import { format, parseISO } from "date-fns";
 
 const menuAnimation = {
@@ -68,11 +68,7 @@ const RightMenu = () => {
             </form>
             <div className="flex justify-between items-baseline gap-5 ">
               <div className="text-sm">{`Created `}</div>
-              <DeleteIcon
-                color={"gray"}
-                boxSize={6}
-                className="hover:cursor-pointer"
-              />
+              {taskId && <Delete taskId={taskId} />}
             </div>
           </div>
         </motion.div>

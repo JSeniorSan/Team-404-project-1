@@ -14,11 +14,13 @@ const Workspaces = () => {
   useEffect(() => {
     getWorkspaces("");
   }, [getWorkspaces, template]);
+  console.log(allWorkspaces);
 
   return (
     <div className="spaces">
       <CreateNew />
       {isWorkspacesFetching && <SpinLoading />}
+
       {!isWorkspacesFetching && (
         <ul className="spaces__list">
           {allWorkspaces?.map((name) => {

@@ -11,6 +11,7 @@ import TodosBoard from "widgets/todosBoard/TodosBoard";
 import NewTodoComponent from "entities/NewTodo/NewTodoComponent";
 import FormCard from "entities/FormTask/ui/FormTask";
 import PageTitle from "entities/PageTitle/PageTitle";
+// import EmptyUi from "shared/ui/empty/Empty";
 
 function TodosPageList() {
   const navigate = useNavigate();
@@ -21,19 +22,23 @@ function TodosPageList() {
     todoApi.useLazyGetKanbanQuery();
 
   useEffect(() => {
+    console.log(kanbanData);
+
     getKanban(workspaceId);
     if (!Object.keys(currentUser).length) {
       navigate("/account");
     }
-  }, [getKanban, workspaceId, navigate, currentUser]);
+  }, [getKanban, workspaceId, navigate, currentUser, kanbanData]);
 
   return (
     <>
       {isKanbanFetch && <SpinLoading />}
       {!isKanbanFetch && kanbanData && (
         <div className="list">
-          <PageTitle kanbanData={kanbanData} />
-          {pageState === "List" && <TodosList kanbanData={kanbanData} />}
+          <PageTitle kanbanDataName={kanbanData.name} />
+          {pageState === "List" && (
+            <TodosList kanbanDataPanels={kanbanData.panels} />
+          )}
           {pageState === "Board" && <TodosBoard />}
           <NewTodoComponent />
           <FormCard
