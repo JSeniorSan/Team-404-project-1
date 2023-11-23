@@ -4,6 +4,7 @@ from pydantic import BaseModel, ConfigDict
 
 class WorkspaceBase(BaseModel):
     name: str
+    hex: str | None
 
     model_config = ConfigDict(from_attributes=True)
 

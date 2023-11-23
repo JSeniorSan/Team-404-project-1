@@ -27,6 +27,7 @@ class MemberKanban(BaseModel):
 class WorkspaceKanban(BaseModel):
     id: int
     name: str
+    hex: str | None
     panels: list[PanelKanban]
-    members: list[MemberKanban]
+    # members: list[MemberKanban]
 
