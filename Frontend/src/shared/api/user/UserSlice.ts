@@ -15,7 +15,13 @@ export interface IPanel {
 }
 
 const initialState = {
-  currentUser: {},
+  currentUser: {
+    username: "",
+    email: "",
+    is_active: true,
+    is_superuser: false,
+    is_verified: false,
+  },
   currentUserWorkspace: {
     id: 1,
   },
@@ -29,7 +35,13 @@ const UserSlice = createSlice({
       state.currentUser = action.payload;
     },
     deleteCurrentUser: (state) => {
-      state.currentUser = {};
+      state.currentUser = {
+        username: "",
+        email: "",
+        is_active: true,
+        is_superuser: false,
+        is_verified: false,
+      };
     },
     addWorkspace: (state, action: PayloadAction<number>) => {
       state.currentUserWorkspace.id = action.payload;

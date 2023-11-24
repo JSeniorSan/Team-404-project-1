@@ -13,7 +13,7 @@ const Delete = ({ taskId }: { taskId: number }) => {
 
   return (
     <DeleteIcon
-      color={"gray"}
+      color={"white"}
       boxSize={6}
       className="hover:cursor-pointer"
       onClick={handleDelete}

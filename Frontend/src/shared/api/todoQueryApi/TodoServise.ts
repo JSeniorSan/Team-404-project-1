@@ -138,5 +138,13 @@ export const todoApi = createApi({
         url: `/task/${id}`,
       }),
     }),
+    changeTask: build.mutation<ITodo, ITaskData>({
+      query: (data) => ({
+        url: `/task/${data.id}`,
+        method: "PUT",
+        body: data.infoData,
+      }),
+      invalidatesTags: ["NewTask"],
+    }),
   }),
 });
