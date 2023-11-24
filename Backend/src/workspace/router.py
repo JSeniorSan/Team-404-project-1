@@ -53,7 +53,7 @@ async def get_workspace(workspace_id: int) -> Any:
     return workspace
 
 
-@router.put("/{workspace_id}", response_model=WorkspaceInDb)
+@router.patch("/{workspace_id}", response_model=WorkspaceInDb)
 async def update_workspace(workspace_id: int, new_data: WorkspaceUpdate) -> Any:
     '''
     Update **workspace** by ID.
@@ -62,7 +62,7 @@ async def update_workspace(workspace_id: int, new_data: WorkspaceUpdate) -> Any:
     return workspace
 
 
-@router.put("/{workspace_id}/add_new_member", response_model=WorkspaceInDb)
+@router.patch("/{workspace_id}/add_new_member", response_model=WorkspaceInDb)
 async def add_new_member_to_workspace(workspace_id: int, new_member_id: uuid.UUID) -> Any:
     '''
     Add new member to workspace.

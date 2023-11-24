@@ -7,7 +7,6 @@ class TaskKanban(BaseModel):
     id: int
     title: str
     description: str
-    is_completed: bool
     created_at: datetime
     updated_at: datetime | None
 

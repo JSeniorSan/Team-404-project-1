@@ -27,9 +27,5 @@ class TaskService:
         task = await self.task_repo.update_one(new_data_dict, task_id)
         return task
 
-    async def change_panel(self, new_panel_id: int, task_id: int) -> Task:
-        task = await self.task_repo.change_panel(new_panel_id, task_id)
-        return task
-
 
 task_service = TaskService(task_repository)

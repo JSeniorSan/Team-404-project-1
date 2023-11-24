@@ -1,0 +1,13 @@
+Workspace model:
+    change: user_id -> creator_id
+
+Task model:
+    удалил поле is_completed
+
+Endpoints:
+    Изменить название таски: был PUT запрос -> стал PATCH
+    Изменить название панели: был PUT запрос -> стал PATCH
+    Изменить название воркспейса: был PUT запрос -> стал PATCH
+
+
+

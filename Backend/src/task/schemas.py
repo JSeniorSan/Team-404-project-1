@@ -11,7 +11,6 @@ class TaskBase(BaseModel):
 
 class TaskInDb(TaskBase):
     id: int
-    is_completed: bool
     created_at: datetime | None
     updated_at: datetime | None
     panel_id: int
@@ -23,4 +22,4 @@ class TaskCreate(TaskBase):
 
 
 class TaskUpdate(TaskBase):
-    pass
+    panel_id: int
