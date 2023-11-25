@@ -26,9 +26,8 @@ const CardUi: React.FC<ICard> = ({ children, title, elemId, widgets }) => {
         ["cardBoard"]: viewType === "Board",
       })}
       onClick={handleSideMenu}
-      transition={{ duration: 0.02 }}
+      transition={{ duration: 0.1 }}
       whileTap={{ scale: 1.01 }}
-      whileDrag={{ rotateZ: 360 }}
     >
       <div className="flex justify-between">
         <div className="card__title">{title}</div>

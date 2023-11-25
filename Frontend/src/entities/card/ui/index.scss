@@ -17,7 +17,7 @@
 }
 
 .cardBoard {
-  @apply w-60 h-fit border-2 border-gray-100 rounded-lg pt-5 flex flex-col gap-2;
+  @apply w-60 h-fit border-2 border-gray-100 rounded-lg pt-5 flex flex-col gap-2 relative;
 
   .card__title {
     color: #1e293b;
