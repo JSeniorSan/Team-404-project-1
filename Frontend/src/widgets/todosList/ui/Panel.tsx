@@ -8,9 +8,11 @@ export interface ITaksTitle {
   panelTitle: string;
   todosCount: number;
   panelId: number;
+  className: string;
 }
 
-const TaskTitle: React.FC<ITaksTitle> = ({
+const Panel: React.FC<ITaksTitle> = ({
+  className,
   panelTitle,
   todosCount,
   panelId,
@@ -26,10 +28,7 @@ const TaskTitle: React.FC<ITaksTitle> = ({
   };
 
   return (
-    <div
-      className="flex justify-between pb-5 border-b-2 rounded-sm border-gray items-center gap-10 relative "
-      onMouseLeave={handleLeaveMouse}
-    >
+    <div className={className} onMouseLeave={handleLeaveMouse}>
       <div className="flex gap-2 items-center">
         <Page color="black" size="14px" weight="700">
           {panelTitle}
@@ -43,4 +42,4 @@ const TaskTitle: React.FC<ITaksTitle> = ({
   );
 };
 
-export default TaskTitle;
+export default Panel;

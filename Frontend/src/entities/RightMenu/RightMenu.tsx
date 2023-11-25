@@ -80,7 +80,7 @@ const RightMenu = () => {
             {!state && (
               <div className=" w-full flex flex-col ">
                 <form
-                  className="flex items-start flex-col gap-4 p-5 h-fit border mt-10 w-full rounded "
+                  className="flex items-start flex-col gap-4 p-5 h-fit border mt-10 w-full rounded"
                   onSubmit={handleSubmit}
                 >
                   <EditIcon
@@ -89,8 +89,10 @@ const RightMenu = () => {
                   />
                   <div>Заголовок</div>
                   <div className="text-2xl font-medium ">{task?.title}</div>
-                  <div>Описание</div>
-                  <div className="text-xl">{task?.description}</div>
+                  <div className="w-full flex">Описание</div>
+                  <div className="text-xl w-48  break-after-all">
+                    {task?.description}
+                  </div>
                 </form>
                 <div className="flex items-start p-5 h-fit border mt-3 w-full rounded ">
                   <div className="flex items-center gap-3 cursor-pointer">

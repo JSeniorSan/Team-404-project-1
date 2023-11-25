@@ -4,4 +4,5 @@ export interface ICard
   extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
   title: string;
   elemId: number;
+  widgets?: boolean;
 }

@@ -1,10 +1,16 @@
-import "./index.scss";
-import { ITemplate } from "./template.interfaces";
+import { DetailedHTMLProps, HTMLAttributes } from "react";
 
-const Template: React.FC<ITemplate> = ({ className, children, ...props }) => {
+export interface ITemplateType
+  extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> {}
+
+const Template: React.FC<ITemplateType> = ({
+  className,
+  children,
+  ...props
+}) => {
   return (
     <div className={className} {...props}>
-      <main className="template__todo">{children}</main>
+      <main className="h-fit w-full flex flex-col gap-5">{children}</main>
     </div>
   );
 };

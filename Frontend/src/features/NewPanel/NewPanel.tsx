@@ -7,7 +7,7 @@ const NewPanel = () => {
   const [InputFormStatus, setInputFormStatus] = useState<boolean>(false);
 
   return (
-    <div className="flex gap-4 mb-10 items-center">
+    <div className="flex gap-4 h-fit w-full mb-10">
       <ToggleText
         text="+ Create new panel"
         setStatus={setInputFormStatus}

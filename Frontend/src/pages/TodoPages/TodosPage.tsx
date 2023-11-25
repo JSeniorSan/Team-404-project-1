@@ -1,23 +1,18 @@
 import "./index.scss";
-import TodosList from "widgets/todosList/TodosList";
 import { useSelector } from "react-redux";
 import { todoApi } from "shared/api/todoQueryApi/TodoServise";
 import { useEffect } from "react";
 import { selectUser, selectWorkspaceData } from "shared/api/user/userSelectors";
 import { useNavigate } from "react-router-dom";
-import SpinLoading from "shared/ui/spin/Spin";
-import { selectView } from "shared/api/view/viewSliceSelector";
-import TodosBoard from "widgets/todosBoard/TodosBoard";
 import NewTodoComponent from "entities/NewTodo/NewTodoComponent";
 import FormCard from "entities/FormTask/ui/FormTask";
 import PageTitle from "entities/PageTitle/PageTitle";
-// import EmptyUi from "shared/ui/empty/Empty";
+import TodosWidget from "widgets/todosList/TodosWidget";
 
-function TodosPageList() {
+function TodosPage() {
   const navigate = useNavigate();
   const currentUser = useSelector(selectUser);
   const workspaceId = useSelector(selectWorkspaceData);
-  const pageState = useSelector(selectView);
   const [getKanban, { isFetching: isKanbanFetch, data: kanbanData }] =
     todoApi.useLazyGetKanbanQuery();
 
@@ -32,14 +27,10 @@ function TodosPageList() {
 
   return (
     <>
-      {isKanbanFetch && <SpinLoading />}
       {!isKanbanFetch && kanbanData && (
-        <div className="list">
+        <div className="todoPage">
           <PageTitle kanbanDataName={kanbanData.name} />
-          {pageState === "List" && (
-            <TodosList kanbanDataPanels={kanbanData.panels} />
-          )}
-          {pageState === "Board" && <TodosBoard />}
+          <TodosWidget kanbanDataPanels={kanbanData.panels} />
           <NewTodoComponent />
           <FormCard
             id={
@@ -52,4 +43,4 @@ function TodosPageList() {
   );
 }
 
-export default TodosPageList;
+export default TodosPage;
