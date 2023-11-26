@@ -4,11 +4,15 @@ import Tasks from "shared/asset/tasks.svg?react";
 import Cup from "shared/asset/cup.svg?react";
 import Members from "shared/asset/profile-2user.svg?react";
 import { useNavigate } from "react-router-dom";
+import { useAppDispatch } from "shared/api/redux-hooks";
+import { switchWidget } from "shared/api/view/ViewSlice";
 
 const NavElements = () => {
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const handleHomeClick = () => {
     navigate("/dashboard/home");
+    dispatch(switchWidget(""));
   };
   return (
     <div className="navig">

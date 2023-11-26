@@ -12,12 +12,23 @@ import CalendarIcon from "shared/asset/calendar.svg?react";
 import AvatarIcon from "shared/asset/Group 3.svg?react";
 import MessageIcon from "shared/asset/Chat.svg?react";
 import LinkIcon from "shared/asset/link-2.svg?react";
+// import { useSortable } from "@dnd-kit/sortable";
+// import { CSS } from "@dnd-kit/utilities";
+
 const CardUi: React.FC<ICard> = ({ children, title, elemId, widgets }) => {
   const { dispatch } = useMenu();
   const viewType = useSelector(selectView);
   const handleSideMenu = () => {
     dispatch(switchState({ isOpen: true, todoId: elemId }));
   };
+
+  // const { attributes, listeners, setNodeRef, transform, transition } =
+  //   useSortable({ id: elemId });
+
+  // const style = {
+  //   transform: CSS.Transform.toString(transform),
+  //   transition,
+  // };
 
   return (
     <motion.div

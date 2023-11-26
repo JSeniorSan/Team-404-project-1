@@ -15,13 +15,7 @@ export interface IPanel {
 }
 
 const initialState = {
-  currentUser: {
-    username: "",
-    email: "",
-    is_active: true,
-    is_superuser: false,
-    is_verified: false,
-  },
+  currentUser: {},
   currentUserWorkspace: {
     id: 1,
   },

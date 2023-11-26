@@ -9,6 +9,8 @@ import { selectView } from "shared/api/view/viewSliceSelector";
 import BoardSection from "widgets/todosBoard/ui/BoardSection";
 import cn from "classnames";
 import "./index.scss";
+import { DndContext } from "@dnd-kit/core";
+// import { SortableContext } from "@dnd-kit/sortable";
 
 export interface IPropsPanels {
   kanbanDataPanels: IPanel[];
@@ -16,36 +18,45 @@ export interface IPropsPanels {
 
 const TodosWidget: React.FC<IPropsPanels> = ({ kanbanDataPanels }) => {
   const viewType = useSelector(selectView);
+
+  // const columsId = kanbanDataPanels.map((_col, id) => id);
+  // console.log(columsId);
   return (
-    <div className="flex flex-col gap-5 h-fit mb-3">
-      <div
-        className={cn({
-          ["listPanelsFormat"]: viewType === "List",
-          ["boardPanelsFormat"]: viewType === "Board",
-        })}
-      >
-        {kanbanDataPanels &&
-          kanbanDataPanels.map((panel) => {
-            return (
-              <Template
-                className="flex flex-col gap-20 justify-center items-start px-12 w-full h-fit"
-                key={panel.id}
-              >
-                <Panel
-                  className="flex justify-between pb-5 border-b-2 rounded-sm items-center relative"
-                  panelTitle={panel.name}
-                  todosCount={panel.tasks.length}
-                  panelId={panel.id}
-                />
-                {viewType === "List" && <ListSection list={panel.tasks} />}
-                {viewType === "Board" && <BoardSection list={panel.tasks} />}
-              </Template>
-            );
+    <DndContext>
+      <div className="flex flex-col gap-5 h-full mb-3">
+        {/* <SortableContext items={columsId}> */}
+        <div
+          className={cn({
+            ["listPanelsFormat"]: viewType === "List",
+            ["boardPanelsFormat"]: viewType === "Board",
           })}
-        <NewPanel />
-        <RightMenu />
+        >
+          {kanbanDataPanels &&
+            kanbanDataPanels.map((panel) => {
+              return (
+                <Template
+                  className="flex flex-col gap-20 justify-center items-start px-12 w-full h-fit"
+                  panelId={panel.id}
+                  key={panel.id}
+                >
+                  <Panel
+                    className="flex justify-between pb-5 border-b-2 rounded-sm items-center relative"
+                    panelTitle={panel.name}
+                    todosCount={panel.tasks.length}
+                    panelId={panel.id}
+                  />
+                  {viewType === "List" && <ListSection list={panel.tasks} />}
+                  {viewType === "Board" && <BoardSection list={panel.tasks} />}
+                </Template>
+              );
+            })}
+
+          <NewPanel />
+          <RightMenu />
+        </div>
+        {/* </SortableContext> */}
       </div>
-    </div>
+    </DndContext>
   );
 };
 export default TodosWidget;

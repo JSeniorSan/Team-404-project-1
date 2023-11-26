@@ -48,7 +48,7 @@ const Workspace: React.FC<IWorksapce> = ({ id, name, color }) => {
     if (template === "Board") {
       navigate(`/dashboard/kanban/${optimizationString}`);
     }
-    if (template === "none") {
+    if (template === "") {
       dispatch(switchWidget("List"));
       navigate(`/dashboard/list/${optimizationString}`);
     }
