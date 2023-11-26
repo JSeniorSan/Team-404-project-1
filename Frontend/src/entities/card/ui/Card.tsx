@@ -4,7 +4,7 @@ import { ICard } from "./card.interface";
 import "./index.scss";
 import useMenu from "shared/hooks/useMenu";
 import { motion } from "framer-motion";
-import { switchState } from "entities/RightMenu/model/MenuSlice";
+import { switchState } from "widgets/rightWidgetMenu/model/MenuSlice";
 import { useSelector } from "react-redux";
 import { selectView } from "shared/api/view/viewSliceSelector";
 import Page from "shared/ui/p/Page";

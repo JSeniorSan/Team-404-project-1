@@ -1,6 +1,6 @@
 import { Outlet } from "react-router";
-import Header from "../entities/Header/ui/Header";
-import NavPanel from "../entities/NavPanel/ui/NavPanel";
+import Header from "../widgets/header/Header";
+import NavPanel from "../widgets/navPanel/NavPanel";
 import "./index.scss";
 
 const Layout = () => {

@@ -4,9 +4,9 @@ import { todoApi } from "shared/api/todoQueryApi/TodoServise";
 import { useEffect } from "react";
 import { selectUser, selectWorkspaceData } from "shared/api/user/userSelectors";
 import { useNavigate } from "react-router-dom";
-import NewTodoComponent from "entities/NewTodo/NewTodoComponent";
-import FormCard from "entities/FormTask/ui/FormTask";
-import PageTitle from "entities/PageTitle/PageTitle";
+import NewTodoComponent from "shared/ui/btns/addons/NewTodoBtn/NewTodoComponent";
+import FormCard from "features/NewTodoModalWindow/FormTask";
+import PageTitle from "widgets/titleListOrBoard/PageTitle";
 import TodosWidget from "widgets/todosList/TodosWidget";
 
 function TodosPage() {

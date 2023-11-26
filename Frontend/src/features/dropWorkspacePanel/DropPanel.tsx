@@ -1,9 +1,9 @@
 import { todoApi } from "shared/api/todoQueryApi/TodoServise";
-import Btn from "../../../../../shared/ui/btns/Btn";
-import HexColor from "../../../../../shared/ui/hexColor/HexColor";
+import Btn from "../../shared/ui/btns/Btn";
+import HexColor from "../../shared/ui/hexColor/HexColor";
 import { useRef, useState } from "react";
 import { motion } from "framer-motion";
-import Input from "../../../../../shared/ui/input/Input";
+import Input from "../../shared/ui/input/Input";
 import cn from "classnames";
 
 const sidebarAimation = {

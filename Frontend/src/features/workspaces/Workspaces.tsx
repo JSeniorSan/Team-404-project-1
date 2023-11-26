@@ -1,9 +1,9 @@
 import { useEffect } from "react";
 import { todoApi } from "shared/api/todoQueryApi/TodoServise";
-import CreateNew from "./createNew/CreateNew";
+import CreateNew from "../createNewWorkspace/CreateNew";
 import { useSelector } from "react-redux";
 import { selectView } from "shared/api/view/viewSliceSelector";
-import Workspace from "./workspace/Workspace";
+import Workspace from "../../entities/workspace/Workspace";
 const Workspaces = () => {
   const template = useSelector(selectView);
   const [
@@ -13,12 +13,10 @@ const Workspaces = () => {
   useEffect(() => {
     getWorkspaces("");
   }, [getWorkspaces, template]);
-  console.log(allWorkspaces);
 
   return (
     <div className="spaces">
       <CreateNew />
-
       {!isWorkspacesFetching && (
         <ul className="spaces__list">
           {allWorkspaces?.map((name) => {

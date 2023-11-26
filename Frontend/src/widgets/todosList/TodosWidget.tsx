@@ -1,7 +1,7 @@
-import Template from "features/Template/ui/Template";
+import Template from "entities/Template/ui/Template";
 import NewPanel from "features/NewPanel/NewPanel";
 import ListSection from "./ui/ListSection";
-import RightMenu from "entities/RightMenu/RightMenu";
+import RightMenu from "widgets/rightWidgetMenu/RightMenu";
 import { useSelector } from "react-redux";
 import { IPanel } from "shared/api/user/UserSlice";
 import Panel from "widgets/todosList/ui/Panel";
@@ -36,7 +36,7 @@ const TodosWidget: React.FC<IPropsPanels> = ({ kanbanDataPanels }) => {
               return (
                 <Template
                   className="flex flex-col gap-20 justify-center items-start px-12 w-full h-fit"
-                  panelId={panel.id}
+                  // panelId={panel.id}
                   key={panel.id}
                 >
                   <Panel

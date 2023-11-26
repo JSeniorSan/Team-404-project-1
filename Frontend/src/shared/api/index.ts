@@ -3,7 +3,7 @@ import { todoApi } from "./todoQueryApi/TodoServise";
 import todoReduser from "./modal/modalSlice";
 import userReducer from "./user/UserSlice";
 import viewReducer from "./view/ViewSlice";
-import menuReducer from "entities/RightMenu/model/MenuSlice";
+import menuReducer from "widgets/rightWidgetMenu/model/MenuSlice";
 import {
   persistStore,
   persistReducer,

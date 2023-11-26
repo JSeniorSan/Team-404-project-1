@@ -2,8 +2,8 @@ import "./index.scss";
 import cn from "classnames";
 import { DetailedHTMLProps, HTMLAttributes } from "react";
 
-import LeftHeaderItems from "./LeftHeaderItems/LeftHeaderItems";
-import RightHeaderItems from "./RightHeaderItems/RightHeaderItems";
+import LeftHeaderItems from "../../entities/LeftHeaderItems/LeftHeaderItems";
+import RightHeaderItems from "../../entities/RightHeaderItems/RightHeaderItems";
 export interface IHeader
   extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> {}
 

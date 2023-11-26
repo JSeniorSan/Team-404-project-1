@@ -1,5 +1,5 @@
 import { DeleteIcon } from "@chakra-ui/icons";
-import { switchState } from "entities/RightMenu/model/MenuSlice";
+import { switchState } from "widgets/rightWidgetMenu/model/MenuSlice";
 import { useAppDispatch } from "shared/api/redux-hooks";
 import { todoApi } from "shared/api/todoQueryApi/TodoServise";
 

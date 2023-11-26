@@ -9,8 +9,8 @@ import Dots from "shared/asset/tabler_dots.svg?react";
 import cn from "classnames";
 import { useEffect, useState } from "react";
 import { selectWorkspaceData } from "shared/api/user/userSelectors";
-import { switchState } from "entities/RightMenu/model/MenuSlice";
-import WorkspaceFeatures from "features/WorkspaceFeatures/WorkspaceFeatures";
+import { switchState } from "widgets/rightWidgetMenu/model/MenuSlice";
+import WorkspaceFeatures from "shared/ui/miniMenu/addons/WorkspaceDropMenu/WorkspaceDropMenu";
 
 export interface IWorksapce {
   id: number;
@@ -42,15 +42,12 @@ const Workspace: React.FC<IWorksapce> = ({ id, name, color }) => {
     const optimizationString = name.split(" ").join("");
     dispatch(addWorkspace(id));
     dispatch(switchState({ todoId: null, isOpen: false }));
-    if (template === "List") {
-      navigate(`/dashboard/list/${optimizationString}`);
-    }
+
     if (template === "Board") {
       navigate(`/dashboard/kanban/${optimizationString}`);
-    }
-    if (template === "") {
-      dispatch(switchWidget("List"));
+    } else {
       navigate(`/dashboard/list/${optimizationString}`);
+      dispatch(switchWidget("List"));
     }
   };
 

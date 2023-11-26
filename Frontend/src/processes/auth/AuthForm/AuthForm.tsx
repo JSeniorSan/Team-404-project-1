@@ -1,7 +1,7 @@
 import { SubmitHandler, useForm } from "react-hook-form";
 import Btn from "shared/ui/btns/Btn";
 import useRegister from "shared/hooks/useRegister";
-import Status from "features/Status/Status";
+import Status from "shared/ui/Status/Status";
 import { todoApi } from "shared/api/todoQueryApi/TodoServise";
 
 export interface IAuth {

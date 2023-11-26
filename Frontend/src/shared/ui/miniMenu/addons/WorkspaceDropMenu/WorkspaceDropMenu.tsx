@@ -1,11 +1,11 @@
 import { todoApi } from "shared/api/todoQueryApi/TodoServise";
-import OptionsMenu from "shared/ui/optionsMenu/OptionsMenu";
+import OptionsMenu from "shared/ui/miniMenu/OptionsMenu";
 
 export interface IWorkspaceFeatures {
   menu: boolean;
   workspaceId: number;
 }
-const WorkspaceFeatures: React.FC<IWorkspaceFeatures> = ({
+const WorkspaceDropMenu: React.FC<IWorkspaceFeatures> = ({
   menu,
   workspaceId,
 }) => {
@@ -23,4 +23,4 @@ const WorkspaceFeatures: React.FC<IWorkspaceFeatures> = ({
   );
 };
 
-export default WorkspaceFeatures;
+export default WorkspaceDropMenu;

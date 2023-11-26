@@ -3,7 +3,7 @@ import { DetailedHTMLProps, HTMLAttributes } from "react";
 // import { CSS } from "@dnd-kit/utilities";
 export interface ITemplateType
   extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
-  panelId: number;
+  // panelId: number;
 }
 
 const Template: React.FC<ITemplateType> = ({

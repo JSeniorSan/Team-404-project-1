@@ -1,7 +1,7 @@
 import { AnimatePresence } from "framer-motion";
 import { useState } from "react";
 import Plus from "shared/asset/Plus.svg?react";
-import DropPanel from "entities/NavPanel/ui/workspaces/dropPanel/DropPanel";
+import DropPanel from "features/dropWorkspacePanel/DropPanel";
 
 const CreateNew = () => {
   const [newWorkspace, setNewWorkspace] = useState<boolean>(false);

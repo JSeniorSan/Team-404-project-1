@@ -1,6 +1,6 @@
 import { todoApi } from "shared/api/todoQueryApi/TodoServise";
 import "./index.scss";
-import OptionsMenu from "shared/ui/optionsMenu/OptionsMenu";
+import OptionsMenu from "shared/ui/miniMenu/OptionsMenu";
 
 export interface IMenuProps {
   menu: boolean;

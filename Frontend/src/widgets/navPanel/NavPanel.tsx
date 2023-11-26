@@ -2,10 +2,10 @@ import { DetailedHTMLProps, HTMLAttributes } from "react";
 import "./index.scss";
 import cn from "classnames";
 
-import MainTitle from "./mainTitle/MainTitle";
-import NavElements from "./navElements/NavElements";
-import Worspaces from "./workspaces/Workspaces";
-import ThemeSwitcher from "./themeSwitcher/ThemeSwitcher";
+import MainTitle from "../../shared/ui/mainTitle/MainTitle";
+import NavElements from "../../entities/navElements/NavElements";
+import Worspaces from "../../features/workspaces/Workspaces";
+import ThemeSwitcher from "../../features/themeSwitcher/ThemeSwitcher";
 
 export interface INavPanel
   extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> {}

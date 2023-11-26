@@ -27,7 +27,6 @@ const FormCard: React.FC<ITodoTask> = ({ ...props }) => {
     await createTodo(createNewObjectData);
     dispatch(switchModalWindow(false));
   };
-  console.log(modalStatus);
 
   return (
     <div
