@@ -14,10 +14,20 @@ export interface IPanel {
   tasks: ITodo[];
 }
 
+// export interface IInit {
+//   currentUser: IResponseAuth;
+//   currentUserWorkspace: {
+//     id: number;
+//     empty: boolean;
+//   };
+// }
+
 const initialState = {
   currentUser: {},
   currentUserWorkspace: {
     id: 1,
+    empty: false,
+    maxId: 1,
   },
 };
 
@@ -40,7 +50,16 @@ const UserSlice = createSlice({
     addWorkspace: (state, action: PayloadAction<number>) => {
       state.currentUserWorkspace.id = action.payload;
     },
+    setEmpty: (state, action: PayloadAction<boolean>) => {
+      state.currentUserWorkspace.empty = action.payload;
+    },
+    setMaxId: (state, action: PayloadAction<number>) => {
+      if (state.currentUserWorkspace.maxId < action.payload) {
+        state.currentUserWorkspace.maxId = action.payload;
+      }
+    },
   },
 });
 export default UserSlice.reducer;
-export const { saveUser, deleteCurrentUser, addWorkspace } = UserSlice.actions;
+export const { saveUser, deleteCurrentUser, addWorkspace, setEmpty, setMaxId } =
+  UserSlice.actions;

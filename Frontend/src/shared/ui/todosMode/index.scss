@@ -4,3 +4,7 @@
     @apply bg-slate-100 cursor-pointer text-blue-700;
   }
 }
+
+.todosModeActive {
+  @apply bg-slate-300;
+}

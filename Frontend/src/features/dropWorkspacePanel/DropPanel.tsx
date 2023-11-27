@@ -5,6 +5,10 @@ import { useRef, useState } from "react";
 import { motion } from "framer-motion";
 import Input from "../../shared/ui/input/Input";
 import cn from "classnames";
+import { useAppDispatch } from "shared/api/redux-hooks";
+import { addWorkspace, setEmpty } from "shared/api/user/UserSlice";
+import { useSelector } from "react-redux";
+import { selectMaxId } from "shared/api/user/userSelectors";
 
 const sidebarAimation = {
   initial: { opacity: 0, x: 100 },
@@ -21,14 +25,18 @@ export interface IDropPanel {
 }
 
 const DropPanel: React.FC<IDropPanel> = ({ setNewWorkspace }) => {
+  const dispatch = useAppDispatch();
+  const maxId = useSelector(selectMaxId);
   const [color, setColor] = useState<string>("#aabbcc");
   const ref = useRef<HTMLInputElement | null>(null);
   const [createNewWorkspace] = todoApi.useCreateNewWorkspaceMutation();
 
-  const handleCreateNew = () => {
+  const handleCreateNew = async () => {
     if (ref) {
-      createNewWorkspace({ name: ref.current?.value });
+      await createNewWorkspace({ name: ref.current?.value });
       setNewWorkspace(false);
+      dispatch(addWorkspace(maxId + 1));
+      dispatch(setEmpty(false));
     }
   };
 

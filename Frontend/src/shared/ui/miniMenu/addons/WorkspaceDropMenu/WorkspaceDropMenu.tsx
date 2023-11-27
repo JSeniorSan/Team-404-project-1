@@ -1,7 +1,7 @@
 import { useAppDispatch } from "shared/api/redux-hooks";
 import { todoApi } from "shared/api/todoQueryApi/TodoServise";
 import { IWorkspaceData } from "shared/api/todoQueryApi/todoInterfaces";
-import { addWorkspace } from "shared/api/user/UserSlice";
+import { addWorkspace, setEmpty } from "shared/api/user/UserSlice";
 import OptionsMenu from "shared/ui/miniMenu/OptionsMenu";
 
 export interface IWorkspaceFeatures {
@@ -14,14 +14,16 @@ const WorkspaceDropMenu: React.FC<IWorkspaceFeatures> = ({
   workspaceId,
   allWorkspaces,
 }) => {
-  // const [getKanbanData] = todoApi.useLazyGetKanbanQuery();
   const dispatch = useAppDispatch();
   const [deleteWorkspace] = todoApi.useDeleteWorkspaceMutation();
   const handleDeleteWorkspace = async () => {
     await deleteWorkspace(workspaceId);
-    // await getKanbanData(allWorkspaces[allWorkspaces.length - 1].id);
+
     if (workspaceId !== allWorkspaces[allWorkspaces.length - 1].id) {
       dispatch(addWorkspace(allWorkspaces[allWorkspaces.length - 1].id));
+    } else if (allWorkspaces.length === 1) {
+      console.log("0");
+      dispatch(setEmpty(true));
     } else {
       dispatch(addWorkspace(allWorkspaces[allWorkspaces.length - 2].id));
     }
