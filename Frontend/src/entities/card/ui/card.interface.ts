@@ -5,5 +5,5 @@ export interface ICard
   title: string;
   elemId: number;
   widgets?: boolean;
-  listId: number;
+  // listId: number;
 }

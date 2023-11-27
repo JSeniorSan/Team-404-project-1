@@ -3,7 +3,7 @@ import "./index.scss";
 import cn from "classnames";
 
 import MainTitle from "../../shared/ui/mainTitle/MainTitle";
-import NavElements from "../../entities/navElements/NavElements";
+import NavElements from "../../entities/NavElements/NavElements";
 import Worspaces from "../../features/workspaces/Workspaces";
 import ThemeSwitcher from "../../features/themeSwitcher/ThemeSwitcher";
 

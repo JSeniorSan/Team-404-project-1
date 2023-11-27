@@ -8,7 +8,7 @@ const Workspaces = () => {
   const template = useSelector(selectView);
   const [
     getWorkspaces,
-    { isFetching: isWorkspacesFetching, data: allWorkspaces },
+    { isFetching: isWorkspacesFetching, data: allWorkspaces, isError: errWork },
   ] = todoApi.useLazyGetAllWorkspacesQuery();
   useEffect(() => {
     getWorkspaces("");
@@ -17,15 +17,20 @@ const Workspaces = () => {
   return (
     <div className="spaces">
       <CreateNew />
+      {errWork && <p>error</p>}
+      {typeof allWorkspaces === "undefined" && <p>End</p>}
       {!isWorkspacesFetching && (
         <ul className="spaces__list">
           {allWorkspaces?.map((name) => {
+            console.log(allWorkspaces);
+
             return (
               <Workspace
                 id={name.id}
                 name={name.name}
                 key={name.id}
                 color={name.hex ? name.hex : "#aabbcc"}
+                allWorkspaces={allWorkspaces}
               />
             );
           })}

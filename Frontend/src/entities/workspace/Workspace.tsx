@@ -11,14 +11,21 @@ import { useEffect, useState } from "react";
 import { selectWorkspaceData } from "shared/api/user/userSelectors";
 import { switchState } from "widgets/rightWidgetMenu/model/MenuSlice";
 import WorkspaceFeatures from "shared/ui/miniMenu/addons/WorkspaceDropMenu/WorkspaceDropMenu";
+import { IWorkspaceData } from "shared/api/todoQueryApi/todoInterfaces";
 
 export interface IWorksapce {
   id: number;
   name: string;
   color: string;
+  allWorkspaces: IWorkspaceData[];
 }
 
-const Workspace: React.FC<IWorksapce> = ({ id, name, color }) => {
+const Workspace: React.FC<IWorksapce> = ({
+  id,
+  name,
+  color,
+  allWorkspaces,
+}) => {
   const [state, setState] = useState<boolean>(false);
   const [stateDots, setStateDots] = useState<boolean>(false);
   const dispatch = useAppDispatch();
@@ -71,7 +78,11 @@ const Workspace: React.FC<IWorksapce> = ({ id, name, color }) => {
         <Dots />
       </div>
 
-      <WorkspaceFeatures menu={stateDots} workspaceId={id} />
+      <WorkspaceFeatures
+        menu={stateDots}
+        workspaceId={id}
+        allWorkspaces={allWorkspaces}
+      />
     </li>
   );
 };
