@@ -39,12 +39,11 @@ const BoardSection: React.FC<IBoardSection> = ({ list }) => {
     // <DndContext collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
     <section className="flex flex-col gap-4">
       {/* <SortableContext items={list} strategy={verticalListSortingStrategy}> */}
-      {tasks.map((task, listId) => {
+      {tasks.map((task) => {
         return (
           <Card
             title={task.title}
             elemId={task.id}
-            listId={listId}
             key={task.id}
             widgets={true}
           >

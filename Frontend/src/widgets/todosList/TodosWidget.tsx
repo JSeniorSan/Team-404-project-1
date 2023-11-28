@@ -6,7 +6,7 @@ import { useSelector } from "react-redux";
 import { IPanel } from "shared/api/user/UserSlice";
 import Panel from "widgets/todosList/ui/Panel";
 import { selectView } from "shared/api/view/viewSliceSelector";
-import BoardSection from "widgets/todosBoard/ui/BoardSection";
+import BoardSection from "widgets/todosList/ui/BoardSection";
 import cn from "classnames";
 import "./index.scss";
 import { DndContext } from "@dnd-kit/core";
