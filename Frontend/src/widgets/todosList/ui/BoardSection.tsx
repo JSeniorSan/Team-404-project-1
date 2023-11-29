@@ -37,7 +37,7 @@ const BoardSection: React.FC<IBoardSection> = ({ list }) => {
 
   return (
     // <DndContext collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
-    <section className="flex flex-col gap-4">
+    <section className="flex h-fit w-full">
       {/* <SortableContext items={list} strategy={verticalListSortingStrategy}> */}
       {tasks.map((task) => {
         return (

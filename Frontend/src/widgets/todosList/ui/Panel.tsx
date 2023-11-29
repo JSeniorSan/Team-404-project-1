@@ -16,6 +16,7 @@ const Panel: React.FC<ITaksTitle> = ({
   panelTitle,
   todosCount,
   panelId,
+  ...props
 }) => {
   const [menu, setMenu] = useState<boolean>(false);
 
@@ -28,7 +29,7 @@ const Panel: React.FC<ITaksTitle> = ({
   };
 
   return (
-    <div className={className} onMouseLeave={handleLeaveMouse}>
+    <div className={className} onMouseLeave={handleLeaveMouse} {...props}>
       <div className="flex gap-2 items-center">
         <Page color="black" size="14px" weight="700">
           {panelTitle}

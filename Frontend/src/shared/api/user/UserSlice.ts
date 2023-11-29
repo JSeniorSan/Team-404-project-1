@@ -14,14 +14,6 @@ export interface IPanel {
   tasks: ITodo[];
 }
 
-// export interface IInit {
-//   currentUser: IResponseAuth;
-//   currentUserWorkspace: {
-//     id: number;
-//     empty: boolean;
-//   };
-// }
-
 const initialState = {
   currentUser: {},
   currentUserWorkspace: {

@@ -1,16 +1,16 @@
-import Template from "entities/Template/ui/Template";
 import NewPanel from "features/NewPanel/NewPanel";
-import ListSection from "./ui/ListSection";
 import RightMenu from "widgets/rightWidgetMenu/RightMenu";
 import { useSelector } from "react-redux";
-import { IPanel } from "shared/api/user/UserSlice";
-import Panel from "widgets/todosList/ui/Panel";
+
 import { selectView } from "shared/api/view/viewSliceSelector";
-import BoardSection from "widgets/todosList/ui/BoardSection";
 import cn from "classnames";
 import "./index.scss";
-import { DndContext } from "@dnd-kit/core";
-// import { SortableContext } from "@dnd-kit/sortable";
+import { DndContext, DragOverlay, DragStartEvent } from "@dnd-kit/core";
+import { useMemo, useState } from "react";
+import PanelsList from "./ui/PanelsList";
+import { SortableContext } from "@dnd-kit/sortable";
+import { IPanel } from "shared/api/user/UserSlice";
+import { createPortal } from "react-dom";
 
 export interface IPropsPanels {
   kanbanDataPanels: IPanel[];
@@ -19,44 +19,46 @@ export interface IPropsPanels {
 const TodosWidget: React.FC<IPropsPanels> = ({ kanbanDataPanels }) => {
   const viewType = useSelector(selectView);
 
-  // const columsId = kanbanDataPanels.map((_col, id) => id);
-  // console.log(columsId);
+  const columsId = useMemo(
+    () => kanbanDataPanels.map((col) => col.id),
+    [kanbanDataPanels]
+  );
+
+  const [activePanel, setActivePanel] = useState<IPanel | null>(null);
+
+  function onDragStart(event: DragStartEvent) {
+    console.log("drag start", event);
+    if (event.active.data.current?.type === "Column") {
+      setActivePanel(event.active.data.current?.panel);
+    }
+  }
+
   return (
-    <DndContext>
-      <div className="flex flex-col gap-5 h-full mb-3">
-        {/* <SortableContext items={columsId}> */}
+    <div className="flex flex-col gap-5 h-full mb-3">
+      <DndContext onDragStart={onDragStart}>
         <div
           className={cn({
             ["listPanelsFormat"]: viewType === "List",
             ["boardPanelsFormat"]: viewType === "Board",
           })}
         >
-          {kanbanDataPanels &&
-            kanbanDataPanels.map((panel) => {
-              return (
-                <Template
-                  className="flex flex-col gap-20 justify-center items-start px-12 w-full h-fit"
-                  // panelId={panel.id}
-                  key={panel.id}
-                >
-                  <Panel
-                    className="flex justify-between pb-5 border-b-2 rounded-sm items-center relative"
-                    panelTitle={panel.name}
-                    todosCount={panel.tasks.length}
-                    panelId={panel.id}
-                  />
-                  {viewType === "List" && <ListSection list={panel.tasks} />}
-                  {viewType === "Board" && <BoardSection list={panel.tasks} />}
-                </Template>
-              );
-            })}
-
+          <SortableContext items={columsId}>
+            {kanbanDataPanels &&
+              kanbanDataPanels.map((panel) => {
+                return <PanelsList panel={panel} key={panel.id} />;
+              })}
+          </SortableContext>
           <NewPanel />
           <RightMenu />
         </div>
-        {/* </SortableContext> */}
-      </div>
-    </DndContext>
+        {createPortal(
+          <DragOverlay>
+            {activePanel && <PanelsList panel={activePanel} />}
+          </DragOverlay>,
+          document.body
+        )}
+      </DndContext>
+    </div>
   );
 };
 export default TodosWidget;
