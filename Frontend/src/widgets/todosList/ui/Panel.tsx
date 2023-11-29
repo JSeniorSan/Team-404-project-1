@@ -28,11 +28,15 @@ const Panel: React.FC<ITaksTitle> = ({
     setMenu(false);
   };
 
+  function textFormater(text: string): string {
+    return text.toUpperCase();
+  }
+
   return (
     <div className={className} onMouseLeave={handleLeaveMouse} {...props}>
       <div className="flex gap-2 items-center">
         <Page color="black" size="14px" weight="700">
-          {panelTitle}
+          {textFormater(panelTitle)}
         </Page>
 
         <Tag count={todosCount} />

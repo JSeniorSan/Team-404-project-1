@@ -12,7 +12,7 @@ import NewTodoComponent from "shared/ui/btns/addons/NewTodoBtn/NewTodoComponent"
 import FormCard from "features/NewTodoModalWindow/FormTask";
 import PageTitle from "widgets/titleListOrBoard/PageTitle";
 import TodosWidget from "widgets/todosList/TodosWidget";
-import { Empty } from "antd";
+import Empty from "shared/ui/empty/Empty";
 
 function TodosPage() {
   const navigate = useNavigate();

@@ -5,7 +5,15 @@ import { useSelector } from "react-redux";
 import { selectView } from "shared/api/view/viewSliceSelector";
 import cn from "classnames";
 import "./index.scss";
-import { DndContext, DragOverlay, DragStartEvent } from "@dnd-kit/core";
+import {
+  DndContext,
+  DragEndEvent,
+  DragOverlay,
+  DragStartEvent,
+  PointerSensor,
+  useSensor,
+  useSensors,
+} from "@dnd-kit/core";
 import { useMemo, useState } from "react";
 import PanelsList from "./ui/PanelsList";
 import { SortableContext } from "@dnd-kit/sortable";
@@ -17,6 +25,9 @@ export interface IPropsPanels {
 }
 
 const TodosWidget: React.FC<IPropsPanels> = ({ kanbanDataPanels }) => {
+  // const [colums, setColums] = useState<>(kanbanDataPanels.)
+  console.log("");
+
   const viewType = useSelector(selectView);
 
   const columsId = useMemo(
@@ -33,9 +44,25 @@ const TodosWidget: React.FC<IPropsPanels> = ({ kanbanDataPanels }) => {
     }
   }
 
+  function onDragEnd(event: DragEndEvent) {
+    console.log(event);
+  }
+
+  const sensors = useSensors(
+    useSensor(PointerSensor, {
+      activationConstraint: {
+        distance: 5,
+      },
+    })
+  );
+
   return (
     <div className="flex flex-col gap-5 h-full mb-3">
-      <DndContext onDragStart={onDragStart}>
+      <DndContext
+        sensors={sensors}
+        onDragStart={onDragStart}
+        onDragEnd={onDragEnd}
+      >
         <div
           className={cn({
             ["listPanelsFormat"]: viewType === "List",
@@ -45,7 +72,9 @@ const TodosWidget: React.FC<IPropsPanels> = ({ kanbanDataPanels }) => {
           <SortableContext items={columsId}>
             {kanbanDataPanels &&
               kanbanDataPanels.map((panel) => {
-                return <PanelsList panel={panel} key={panel.id} />;
+                return (
+                  <PanelsList panel={panel} type={viewType} key={panel.id} />
+                );
               })}
           </SortableContext>
           <NewPanel />
@@ -53,7 +82,7 @@ const TodosWidget: React.FC<IPropsPanels> = ({ kanbanDataPanels }) => {
         </div>
         {createPortal(
           <DragOverlay>
-            {activePanel && <PanelsList panel={activePanel} />}
+            {activePanel && <PanelsList panel={activePanel} type={viewType} />}
           </DragOverlay>,
           document.body
         )}
