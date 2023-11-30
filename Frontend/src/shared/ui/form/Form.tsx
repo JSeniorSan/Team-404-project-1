@@ -2,7 +2,7 @@ import { useForm } from "react-hook-form";
 import Btn from "../btns/Btn";
 import Input from "../input/Input";
 import { SubmitHandler } from "react-hook-form";
-import { IFormData } from "entities/FormTask/ui/formTask.interfaces";
+import { IFormData } from "features/NewTodoModalWindow/formTask.interfaces";
 
 export interface IForm extends IFormData {
   onSubmit: SubmitHandler<IFormData>;

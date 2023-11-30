@@ -1,6 +1,10 @@
 .todosMode {
-  @apply flex gap-4 items-center p-4;
+  @apply flex gap-4 items-center p-4 w-full;
   &:hover {
     @apply bg-slate-100 cursor-pointer text-blue-700;
   }
+}
+
+.todosModeActive {
+  @apply bg-slate-300;
 }

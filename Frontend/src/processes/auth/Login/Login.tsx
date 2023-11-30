@@ -2,12 +2,16 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import Page from "shared/ui/p/Page";
 import Btn from "shared/ui/btns/Btn";
 import useLogin from "shared/hooks/useLogin";
+import { useAppDispatch } from "shared/api/redux-hooks";
+import { deleteCurrentUser } from "shared/api/user/UserSlice";
 export interface IInputs {
   username: string;
   password: string;
 }
 
 const Login: React.FC = () => {
+  const dispatch = useAppDispatch();
+
   const {
     handleSubmit,
     register,
@@ -23,7 +27,7 @@ const Login: React.FC = () => {
       await getMe("");
     } catch (err) {
       if (err instanceof Error) {
-        console.log(err.message);
+        dispatch(deleteCurrentUser());
       }
     }
   };

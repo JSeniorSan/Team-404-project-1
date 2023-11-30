@@ -1,4 +1,4 @@
-.card {
+.cardList {
   @apply h-20 border shadow-md  border-l-4 border-l-blue-300 rounded-md p-3 transition-all pl-4 backdrop-blur-md cursor-pointer;
   background-color: rgba(225, 232, 233, 0.349);
   width: calc(100vw - 400px);
@@ -12,10 +12,31 @@
   }
 }
 
-.box__controll {
-  @apply gap-3 hidden absolute right-5 top-9 bg-teal-300 z-50 p-3;
-}
-
 .activeCardOptions {
   @apply block;
+}
+
+.cardBoard {
+  @apply w-60 h-fit border-2 border-gray-100 rounded-lg pt-5 flex flex-col gap-2 relative;
+
+  .card__title {
+    color: #1e293b;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    letter-spacing: 0.2px;
+    padding: 0px 16px 8px 16px;
+  }
+
+  .card__box {
+    @apply gap-3 break-after-all max-h-40;
+    color: #94a3b8;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 140%;
+    letter-spacing: 0.2px;
+    padding: 0px 16px 16px 16px;
+  }
 }

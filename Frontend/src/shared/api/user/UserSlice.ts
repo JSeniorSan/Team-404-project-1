@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { IResponseAuth } from "../todoQueryApi/TodoServise";
+import { IResponseAuth } from "../todoQueryApi/todoInterfaces";
 import { ITodo } from "../todoQueryApi/todoInterfaces";
 
 export interface IWorkspace {
@@ -14,19 +14,12 @@ export interface IPanel {
   tasks: ITodo[];
 }
 
-// export interface ITask {
-//   id: number;
-//   title: string;
-//   description: string;
-//   is_completed: boolean;
-//   created_at: string;
-//   updated_at: string;
-// }
-
 const initialState = {
   currentUser: {},
   currentUserWorkspace: {
     id: 1,
+    empty: false,
+    maxId: 1,
   },
 };
 
@@ -38,12 +31,27 @@ const UserSlice = createSlice({
       state.currentUser = action.payload;
     },
     deleteCurrentUser: (state) => {
-      state.currentUser = {};
+      state.currentUser = {
+        username: "",
+        email: "",
+        is_active: true,
+        is_superuser: false,
+        is_verified: false,
+      };
     },
     addWorkspace: (state, action: PayloadAction<number>) => {
       state.currentUserWorkspace.id = action.payload;
     },
+    setEmpty: (state, action: PayloadAction<boolean>) => {
+      state.currentUserWorkspace.empty = action.payload;
+    },
+    setMaxId: (state, action: PayloadAction<number>) => {
+      if (state.currentUserWorkspace.maxId < action.payload) {
+        state.currentUserWorkspace.maxId = action.payload;
+      }
+    },
   },
 });
 export default UserSlice.reducer;
-export const { saveUser, deleteCurrentUser, addWorkspace } = UserSlice.actions;
+export const { saveUser, deleteCurrentUser, addWorkspace, setEmpty, setMaxId } =
+  UserSlice.actions;

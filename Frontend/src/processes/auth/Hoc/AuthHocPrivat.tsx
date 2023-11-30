@@ -7,8 +7,10 @@ export interface IAuthHoc {
 }
 
 const AuthHocPrivat: React.FC<IAuthHoc> = ({ children }) => {
-  const location = useLocation();
   const { data: userObj } = todoApi.useGetMeQuery("");
+  const location = useLocation();
+
+  console.log(userObj);
 
   if (!userObj) {
     return <Navigate to={"/account"} state={{ from: location }} replace />;
