@@ -49,10 +49,9 @@ class UserManager(UUIDIDMixin, BaseUserManager[User, uuid.UUID]):
         '''
         Creates welcome **workspace**.
         '''
-        
         async with Session() as session:
 
-            workspace = Workspace(name="Привет, это твой первый проект!", user_id=user.id)
+            workspace = Workspace(name="Привет, это твой первый проект!", creator_id=user.id)
             session.add(workspace)
             await session.commit()
             await session.refresh(workspace)

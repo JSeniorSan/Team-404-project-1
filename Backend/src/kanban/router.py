@@ -17,7 +17,7 @@ router = APIRouter(
 )
 
 
-@router.get("/{id}", response_model=WorkspaceKanban)
+@router.get("/{id}", response_model=WorkspaceKanban, deprecated=True)
 async def get_everything_in_workspace(id: int, db: AsyncSession = Depends(get_db)) -> Any:
     '''
     Get all info wrom **workspace**.

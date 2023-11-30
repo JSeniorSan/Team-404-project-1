@@ -1,5 +1,5 @@
 from src.panel.models import Panel
-from src.panel.schemas import PanelCreate, PanelUpdate
+from src.panel.schemas import PanelCreate, PanelInDb, PanelUpdate
 from src.panel.repository import PanelRepository, panel_repository
 
 
@@ -15,7 +15,8 @@ class PanelService:
         return panel
     
     async def read_panel(self, panel_id: int) -> Panel:
-        panel = await self.panel_repo.read_one(panel_id)
+        result = await self.panel_repo.read_one(panel_id)
+        panel = PanelInDb.model_validate(result, from_attributes=True)
         return panel
     
     async def delete_panel(self, panel_id: int) -> Panel:

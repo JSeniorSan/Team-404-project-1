@@ -43,19 +43,10 @@ async def delete_one_task(task_id: int) -> Any:
     return task
 
 
-@router.put("/{task_id}", response_model=TaskInDb)
+@router.patch("/{task_id}", response_model=TaskInDb)
 async def update_task(task_id: int, new_data: TaskUpdate) -> Any:
     '''
-    Update **task's** title and/or description by ID.
+    Update **task's** title and/or description by ID, also you can move task to other panel.
     '''
     task = await task_service.update_task(new_data, task_id)
-    return task
-
-
-@router.patch("/{task_id}", response_model=TaskInDb)
-async def change_panel(id: int, new_panel_id: int) -> Any:
-    '''
-    Change the **panel** in which the **task** is contained (consider its a change of status of **task**).
-    '''
-    task = await task_service.change_panel(new_panel_id, id)
     return task

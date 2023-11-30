@@ -41,7 +41,7 @@ async def get_panel(panel_id: int) -> Any:
     return panel
 
 
-@router.put("/{panel_id}", response_model=PanelInDb)
+@router.patch("/{panel_id}", response_model=PanelInDb)
 async def update_panel(new_data: PanelUpdate, panel_id: int) -> Any:
     '''
     Update **panel** by ID.
