@@ -1,7 +1,7 @@
 import uuid
 from src.auth.models import User
 from src.workspace.models import Workspace
-from src.workspace.schemas import WorkspaceCreate, WorkspaceUpdate
+from src.workspace.schemas import WorkspaceCreate, WorkspaceUpdate, WorkspaceInDb
 from src.workspace.repository import WorkspaceRepository, workspace_repository
 
 
@@ -17,7 +17,8 @@ class WorkspaceService:
         return workspace
 
     async def read_workspace(self, workspace_id: int) -> Workspace:
-        workspace = await self.workspace_repo.read_one(workspace_id)
+        result = await self.workspace_repo.read_one(workspace_id)
+        workspace = WorkspaceInDb.model_validate(result, from_attributes=True)
         return workspace
 
     async def read_all_workspaces(self, user_id: uuid.UUID) -> list[Workspace]:

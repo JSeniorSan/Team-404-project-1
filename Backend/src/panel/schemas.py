@@ -1,4 +1,5 @@
 from pydantic import BaseModel, ConfigDict
+from src.task.schemas import TaskInDb
 
 
 class PanelBase(BaseModel):
@@ -10,7 +11,7 @@ class PanelBase(BaseModel):
 class PanelInDb(PanelBase):
     id: int
     workspace_id: int
-
+    tasks: list[TaskInDb]
 
 class PanelCreate(PanelBase):
     pass

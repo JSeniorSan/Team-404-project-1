@@ -1,7 +1,7 @@
 from typing import Optional
 import uuid
 from fastapi_users import schemas
-from pydantic import ConfigDict, EmailStr
+from pydantic import BaseModel, ConfigDict, EmailStr
 from src.task.models import Task
 
 
@@ -30,3 +30,8 @@ class UserUpdate(schemas.BaseUserUpdate):
     is_active: Optional[bool] = None
     is_superuser: Optional[bool] = None
     is_verified: Optional[bool] = None
+
+class UserSimple(BaseModel):
+    id: uuid.UUID
+    username: str
+    email: EmailStr

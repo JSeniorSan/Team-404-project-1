@@ -1,5 +1,7 @@
 import uuid
 from pydantic import BaseModel, ConfigDict
+from src.auth.schemas import UserSimple
+from src.panel.schemas import PanelInDb
 
 
 class WorkspaceBase(BaseModel):
@@ -12,7 +14,8 @@ class WorkspaceBase(BaseModel):
 class WorkspaceInDb(WorkspaceBase):
     id: int
     creator_id: uuid.UUID
-
+    panels: list[PanelInDb]
+    members: list[UserSimple]
 
 class WorkspaceCreate(WorkspaceBase):
     pass
