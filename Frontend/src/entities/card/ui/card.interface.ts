@@ -1,9 +1,8 @@
 import { DetailedHTMLProps, HTMLAttributes } from "react";
+import { ITodo } from "shared/api/todoQueryApi/todoInterfaces";
 
 export interface ICard
   extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
-  title: string;
-  elemId: number;
   widgets?: boolean;
-  // listId: number;
+  task: ITodo;
 }

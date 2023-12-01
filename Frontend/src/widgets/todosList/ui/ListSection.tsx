@@ -1,4 +1,4 @@
-import Card from "entities/card/ui/Card";
+import CardUi from "entities/card/ui/Card";
 import React from "react";
 import { ITodo } from "shared/api/todoQueryApi/todoInterfaces";
 export interface IListSection {
@@ -10,9 +10,9 @@ const ListSection: React.FC<IListSection> = ({ list }) => {
     <section className="flex flex-col gap-4">
       {list.map((task) => {
         return (
-          <Card title={task.title} elemId={task.id} key={task.id}>
+          <CardUi title={task.title} key={task.id} task={task}>
             {task.description}
-          </Card>
+          </CardUi>
         );
       })}
     </section>

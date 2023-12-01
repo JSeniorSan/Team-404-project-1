@@ -1,18 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { IResponseAuth } from "../todoQueryApi/todoInterfaces";
-import { ITodo } from "../todoQueryApi/todoInterfaces";
-
-export interface IWorkspace {
-  id: number;
-  name: string;
-  panels: IPanel[];
-}
-
-export interface IPanel {
-  id: number;
-  name: string;
-  tasks: ITodo[];
-}
 
 const initialState = {
   currentUser: {},

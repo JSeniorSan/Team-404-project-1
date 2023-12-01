@@ -33,7 +33,7 @@ const DropPanel: React.FC<IDropPanel> = ({ setNewWorkspace }) => {
 
   const handleCreateNew = async () => {
     if (ref) {
-      await createNewWorkspace({ name: ref.current?.value });
+      await createNewWorkspace({ name: ref.current?.value, hex: color });
       setNewWorkspace(false);
       dispatch(addWorkspace(maxId + 1));
       dispatch(setEmpty(false));

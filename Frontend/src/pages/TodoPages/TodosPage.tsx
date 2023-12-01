@@ -28,11 +28,12 @@ function TodosPage() {
       navigate("/account");
     }
   }, [getKanban, workspaceId, navigate, currentUser, kanbanData]);
+  console.log("data", kanbanData);
 
   return (
     <>
       {isEmpty && <Empty />}
-      {!isEmpty && !isKanbanFetch && kanbanData && (
+      {!isEmpty && !isKanbanFetch && !!kanbanData && (
         <div className="todoPage">
           <PageTitle kanbanDataName={kanbanData.name} />
           <TodosWidget kanbanDataPanels={kanbanData.panels} />

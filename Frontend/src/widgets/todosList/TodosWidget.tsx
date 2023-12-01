@@ -1,13 +1,13 @@
 import NewPanel from "features/NewPanel/NewPanel";
 import RightMenu from "widgets/rightWidgetMenu/RightMenu";
 import { useSelector } from "react-redux";
-
 import { selectView } from "shared/api/view/viewSliceSelector";
 import cn from "classnames";
 import "./index.scss";
 import {
   DndContext,
   DragEndEvent,
+  DragOverEvent,
   DragOverlay,
   DragStartEvent,
   PointerSensor,
@@ -16,36 +16,97 @@ import {
 } from "@dnd-kit/core";
 import { useMemo, useState } from "react";
 import PanelsList from "./ui/PanelsList";
-import { SortableContext } from "@dnd-kit/sortable";
-import { IPanel } from "shared/api/user/UserSlice";
+import { SortableContext, arrayMove } from "@dnd-kit/sortable";
+
 import { createPortal } from "react-dom";
+import { IPanel, ITodo } from "shared/api/todoQueryApi/todoInterfaces";
+import CardUi from "entities/card/ui/Card";
 
 export interface IPropsPanels {
   kanbanDataPanels: IPanel[];
 }
 
 const TodosWidget: React.FC<IPropsPanels> = ({ kanbanDataPanels }) => {
-  // const [colums, setColums] = useState<>(kanbanDataPanels.)
-  console.log("");
+  console.log("panels", kanbanDataPanels);
 
-  const viewType = useSelector(selectView);
+  const [colums, setColums] = useState<IPanel[]>(kanbanDataPanels);
+  const tasksInPanels = kanbanDataPanels.map((panel) => panel.tasks);
+  const todos = tasksInPanels?.flat();
+  console.log("todos", todos);
 
-  const columsId = useMemo(
-    () => kanbanDataPanels.map((col) => col.id),
-    [kanbanDataPanels]
-  );
+  const [tasks, setTasks] = useState<ITodo[]>(todos);
+  console.log("tasks", tasks);
 
   const [activePanel, setActivePanel] = useState<IPanel | null>(null);
+  const [activeTask, setActiveTask] = useState<ITodo | null>(null);
+  const columsId = useMemo(() => colums.map((col) => col.id), [colums]);
+  const viewType = useSelector(selectView);
 
   function onDragStart(event: DragStartEvent) {
-    console.log("drag start", event);
     if (event.active.data.current?.type === "Column") {
       setActivePanel(event.active.data.current?.panel);
+    }
+    if (event.active.data.current?.type === "Task") {
+      setActiveTask(event.active.data.current?.task);
     }
   }
 
   function onDragEnd(event: DragEndEvent) {
+    setActivePanel(null);
+    setActiveTask(null);
     console.log(event);
+    const { over, active } = event;
+    if (!over) return;
+    const activeColumnId = active.id;
+    const overColumnId = over?.id;
+
+    if (activeColumnId === overColumnId) return;
+
+    setColums((colums) => {
+      const activeColumnIndex = colums.findIndex(
+        (col) => col.id === activeColumnId
+      );
+      const overColumnIndex = colums.findIndex(
+        (col) => col.id === overColumnId
+      );
+      setActivePanel(null);
+
+      return arrayMove(colums, activeColumnIndex, overColumnIndex);
+    });
+  }
+
+  function onDragOver(event: DragOverEvent) {
+    const { over, active } = event;
+    const activeId = active?.id;
+    const overId = over?.id;
+    if (!over) return;
+    if (activeId === overId) return;
+    if (!activeTask) return;
+
+    const isActiveTask = event.active?.data.current?.type === "Task";
+    const isOverTask = event.over?.data.current?.type === "Task";
+
+    // I'm drag over task
+    if (isActiveTask && isOverTask) {
+      setTasks((ts) => {
+        const activeIndex = ts.findIndex((t) => t.id === activeId);
+        const overIndex = ts.findIndex((t) => t.id === overId);
+        ts[activeIndex].panel_id === ts[overIndex].panel_id;
+        return arrayMove(ts, activeIndex, overIndex);
+      });
+    }
+
+    const isOverAColumn = over?.data.current?.type === "Column";
+
+    // I'm drag over column
+    if (isActiveTask && isOverAColumn) {
+      setTasks((ts) => {
+        const activeIndex = ts.findIndex((t) => t.id === activeId);
+
+        ts[activeIndex].panel_id === overId;
+        return arrayMove(ts, activeIndex, activeIndex);
+      });
+    }
   }
 
   const sensors = useSensors(
@@ -62,6 +123,7 @@ const TodosWidget: React.FC<IPropsPanels> = ({ kanbanDataPanels }) => {
         sensors={sensors}
         onDragStart={onDragStart}
         onDragEnd={onDragEnd}
+        onDragOver={onDragOver}
       >
         <div
           className={cn({
@@ -70,10 +132,19 @@ const TodosWidget: React.FC<IPropsPanels> = ({ kanbanDataPanels }) => {
           })}
         >
           <SortableContext items={columsId}>
-            {kanbanDataPanels &&
-              kanbanDataPanels.map((panel) => {
+            {colums &&
+              colums.map((panel) => {
+                const filt = tasks.filter((ts) => {
+                  return ts.panel_id == panel.id;
+                });
+
                 return (
-                  <PanelsList panel={panel} type={viewType} key={panel.id} />
+                  <PanelsList
+                    panel={panel}
+                    type={viewType}
+                    key={panel.id}
+                    tasks={filt}
+                  />
                 );
               })}
           </SortableContext>
@@ -82,7 +153,18 @@ const TodosWidget: React.FC<IPropsPanels> = ({ kanbanDataPanels }) => {
         </div>
         {createPortal(
           <DragOverlay>
-            {activePanel && <PanelsList panel={activePanel} type={viewType} />}
+            {activePanel && (
+              <PanelsList
+                panel={activePanel}
+                type={viewType}
+                tasks={tasks.filter((ts) => ts)}
+              />
+            )}
+            {activeTask && (
+              <CardUi task={activeTask} widgets={true}>
+                {activeTask.description}
+              </CardUi>
+            )}
           </DragOverlay>,
           document.body
         )}

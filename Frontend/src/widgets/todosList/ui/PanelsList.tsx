@@ -6,13 +6,17 @@ import cn from "classnames";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import { IPanel } from "shared/api/user/UserSlice";
+import { ITodo } from "shared/api/todoQueryApi/todoInterfaces";
 
 export interface IPanelList {
   panel: IPanel;
   type: string;
+  tasks: ITodo[];
 }
 
-const PanelsList: React.FC<IPanelList> = ({ panel, type }) => {
+const PanelsList: React.FC<IPanelList> = ({ panel, type, tasks }) => {
+  console.log("list tasks", tasks);
+
   const {
     setNodeRef,
     transform,
@@ -60,7 +64,7 @@ const PanelsList: React.FC<IPanelList> = ({ panel, type }) => {
       className={cn({
         ["w-[250px] min-h-full h-fit backdrop-blur-md opacity-90 rounded-lg mr-5"]:
           type === "Board",
-        ["w-[calc(100vw-400px)] border ml-12 flex-shrink-0 flex-grow-0"]:
+        ["w-[calc(100vw-400px)]  ml-12 flex-shrink-0 flex-grow-0"]:
           type === "List",
       })}
     >
@@ -72,13 +76,13 @@ const PanelsList: React.FC<IPanelList> = ({ panel, type }) => {
             type === "List",
         })}
         panelTitle={panel.name}
-        todosCount={panel.tasks.length}
+        todosCount={tasks.length}
         panelId={panel.id}
         {...attributes}
         {...listeners}
       />
-      {type === "List" && <ListSection list={panel.tasks} />}
-      {type === "Board" && <BoardSection list={panel.tasks} />}
+      {type === "List" && <ListSection list={tasks} />}
+      {type === "Board" && <BoardSection list={tasks} />}
     </Template>
   );
 };
