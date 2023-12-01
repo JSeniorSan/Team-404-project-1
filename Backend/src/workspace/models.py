@@ -8,8 +8,8 @@ import uuid
 workspace_members = Table(
     "workspace_members",
     Base.metadata,
-    Column("workspace_id", Integer, ForeignKey("workspaces.id")),
-    Column("member_id", UUID, ForeignKey("user.id")),
+    Column("workspace_id", Integer, ForeignKey("workspaces.id", ondelete="CASCADE")),
+    Column("member_id", UUID, ForeignKey("user.id", ondelete="CASCADE")),
 )
 
 
