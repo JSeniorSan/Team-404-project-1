@@ -12,23 +12,45 @@ import CalendarIcon from "shared/asset/calendar.svg?react";
 import AvatarIcon from "shared/asset/Group 3.svg?react";
 import MessageIcon from "shared/asset/Chat.svg?react";
 import LinkIcon from "shared/asset/link-2.svg?react";
-// import { useSortable } from "@dnd-kit/sortable";
-// import { CSS } from "@dnd-kit/utilities";
+import { useSortable } from "@dnd-kit/sortable";
+import { CSS } from "@dnd-kit/utilities";
 
-const CardUi: React.FC<ICard> = ({ children, title, elemId, widgets }) => {
+const CardUi: React.FC<ICard> = ({ children, task, widgets }) => {
   const { dispatch } = useMenu();
   const viewType = useSelector(selectView);
   const handleSideMenu = () => {
-    dispatch(switchState({ isOpen: true, todoId: elemId }));
+    dispatch(switchState({ isOpen: true, todoId: task.id }));
   };
 
-  // const { attributes, listeners, setNodeRef, transform, transition } =
-  //   useSortable({ id: elemId });
+  const {
+    attributes,
+    listeners,
+    setNodeRef,
+    transform,
+    transition,
+    isDragging,
+  } = useSortable({
+    id: task.id,
+    data: {
+      type: "Task",
+      task,
+    },
+  });
 
-  // const style = {
-  //   transform: CSS.Transform.toString(transform),
-  //   transition,
-  // };
+  const style = {
+    transform: CSS.Transform.toString(transform),
+    transition,
+  };
+
+  if (isDragging) {
+    return (
+      <div
+        ref={setNodeRef}
+        style={style}
+        className="w-60 h-[210px] border-2 border-purple-100 rounded-lg pt-5 gap-2 relative flex-shrink-0 flex-grow-0"
+      ></div>
+    );
+  }
 
   return (
     <motion.div
@@ -39,9 +61,13 @@ const CardUi: React.FC<ICard> = ({ children, title, elemId, widgets }) => {
       onClick={handleSideMenu}
       transition={{ duration: 0.1 }}
       whileTap={{ scale: 1.01 }}
+      ref={setNodeRef}
+      style={style}
+      {...attributes}
+      {...listeners}
     >
       <div className="flex justify-between">
-        <div className="card__title">{title}</div>
+        <div className="card__title">{task.title}</div>
       </div>
       <div className="card__box">{children}</div>
       {widgets && (

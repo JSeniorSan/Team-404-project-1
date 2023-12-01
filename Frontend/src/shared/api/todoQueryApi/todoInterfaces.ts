@@ -4,8 +4,7 @@ export interface ITodo {
   description: string;
   updated_at: Date;
   created_at: Date;
-  is_completed: boolean;
-  panel_id: string;
+  panel_id: number;
 }
 
 export interface IPost {
@@ -43,18 +42,28 @@ export interface IErrorAuth {
 export interface IWorkspaceData {
   name: string;
   id: number;
-  user_id: string;
-  hex?: string;
+  creator_id: string;
+  hex: string;
+  panels: IPanel[];
+  members: IMembers[];
+}
+
+export interface IMembers {
+  id: string;
+  username: string;
+  email: string;
 }
 
 export interface INewWorkspacePost {
   name: string | undefined;
+  hex: string;
 }
 
 export interface IPanel {
   name: string;
   id: number;
   workspace_id: number;
+  tasks: ITodo[];
 }
 
 export interface IPanelTitle {

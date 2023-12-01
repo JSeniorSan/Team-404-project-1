@@ -9,7 +9,6 @@ import {
   ITodo,
   IWorkspaceData,
 } from "./todoInterfaces";
-import { IWorkspace } from "../user/UserSlice";
 
 const URL = "http://127.0.0.1:8000";
 
@@ -104,7 +103,7 @@ export const todoApi = createApi({
       }),
       providesTags: () => ["NewWorkspace"],
     }),
-    createNewWorkspace: build.mutation<IWorkspace, INewWorkspacePost>({
+    createNewWorkspace: build.mutation<IWorkspaceData, INewWorkspacePost>({
       query: (obj) => ({
         url: "/workspace/",
         method: "POST",
@@ -112,9 +111,9 @@ export const todoApi = createApi({
       }),
       invalidatesTags: ["NewWorkspace"],
     }),
-    getKanban: build.query<IWorkspace, number>({
+    getKanban: build.query<IWorkspaceData, number>({
       query: (id) => ({
-        url: `/kanban/${id}`,
+        url: `/workspace/${id}`,
       }),
       providesTags: () => [
         "NewTask",
@@ -141,7 +140,7 @@ export const todoApi = createApi({
     changeTask: build.mutation<ITodo, ITaskData>({
       query: (data) => ({
         url: `/task/${data.id}`,
-        method: "PUT",
+        method: "PATCH",
         body: data.infoData,
       }),
       invalidatesTags: ["NewTask"],

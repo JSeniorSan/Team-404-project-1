@@ -13,14 +13,14 @@ import { switchState } from "widgets/rightWidgetMenu/model/MenuSlice";
 import WorkspaceFeatures from "shared/ui/miniMenu/addons/WorkspaceDropMenu/WorkspaceDropMenu";
 import { IWorkspaceData } from "shared/api/todoQueryApi/todoInterfaces";
 
-export interface IWorksapce {
+export interface IModuleWorkspace {
   id: number;
   name: string;
   color: string;
   allWorkspaces: IWorkspaceData[];
 }
 
-const Workspace: React.FC<IWorksapce> = ({
+const Workspace: React.FC<IModuleWorkspace> = ({
   id,
   name,
   color,
