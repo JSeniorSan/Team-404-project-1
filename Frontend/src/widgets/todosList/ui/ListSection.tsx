@@ -1,4 +1,4 @@
-import CardUi from "entities/card/ui/Card";
+import CardUi from "entities/card/ui/CardUi";
 import React from "react";
 import { ITodo } from "shared/api/todoQueryApi/todoInterfaces";
 export interface IListSection {

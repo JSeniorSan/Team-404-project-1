@@ -1,4 +1,3 @@
-import NewPanel from "features/NewPanel/NewPanel";
 import RightMenu from "widgets/rightWidgetMenu/RightMenu";
 import { useSelector } from "react-redux";
 import { selectView } from "shared/api/view/viewSliceSelector";
@@ -20,7 +19,7 @@ import { SortableContext, arrayMove } from "@dnd-kit/sortable";
 
 import { createPortal } from "react-dom";
 import { IPanel, ITodo } from "shared/api/todoQueryApi/todoInterfaces";
-import CardUi from "entities/card/ui/Card";
+import CardUi from "entities/card/ui/CardUi";
 
 export interface IPropsPanels {
   kanbanDataPanels: IPanel[];
@@ -102,7 +101,6 @@ const TodosWidget: React.FC<IPropsPanels> = ({ kanbanDataPanels }) => {
     if (isActiveTask && isOverAColumn) {
       setTasks((ts) => {
         const activeIndex = ts.findIndex((t) => t.id === activeId);
-
         ts[activeIndex].panel_id === overId;
         return arrayMove(ts, activeIndex, activeIndex);
       });
@@ -148,7 +146,6 @@ const TodosWidget: React.FC<IPropsPanels> = ({ kanbanDataPanels }) => {
                 );
               })}
           </SortableContext>
-          <NewPanel />
           <RightMenu />
         </div>
         {createPortal(
@@ -157,7 +154,7 @@ const TodosWidget: React.FC<IPropsPanels> = ({ kanbanDataPanels }) => {
               <PanelsList
                 panel={activePanel}
                 type={viewType}
-                tasks={tasks.filter((ts) => ts)}
+                tasks={tasks.filter((ts) => ts.panel_id === activePanel.id)}
               />
             )}
             {activeTask && (

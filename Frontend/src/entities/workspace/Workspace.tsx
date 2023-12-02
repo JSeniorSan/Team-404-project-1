@@ -33,7 +33,8 @@ const Workspace: React.FC<IModuleWorkspace> = ({
   const template = useSelector(selectView);
   const getId = useSelector(selectWorkspaceData);
 
-  const handleClickDots = () => {
+  const handleClickDots = (event: React.MouseEvent) => {
+    event.stopPropagation();
     setStateDots(!stateDots);
   };
 
@@ -58,12 +59,23 @@ const Workspace: React.FC<IModuleWorkspace> = ({
     }
   };
 
+  function handleClick() {
+    handleClickToWorkspace(id, name);
+  }
+
+  function handleLeaveMouse() {
+    if (stateDots) {
+      setStateDots(!stateDots);
+    }
+  }
+
   return (
     <li
-      onClick={() => handleClickToWorkspace(id, name)}
-      className={cn("flex w-full relative justify-between", {
+      onClick={handleClick}
+      className={cn("flex w-full relative", {
         ["bg-slate-100"]: state === true,
       })}
+      onMouseLeave={handleLeaveMouse}
     >
       <div className="flex gap-2 items-center">
         <div
@@ -74,10 +86,9 @@ const Workspace: React.FC<IModuleWorkspace> = ({
           {name}
         </Page>
       </div>
-      <div className="w-5" onClick={handleClickDots}>
+      <div className="w-5 absolute right-5" onClick={handleClickDots}>
         <Dots />
       </div>
-
       <WorkspaceFeatures
         menu={stateDots}
         workspaceId={id}

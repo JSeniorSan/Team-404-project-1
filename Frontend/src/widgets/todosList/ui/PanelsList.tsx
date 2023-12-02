@@ -5,8 +5,8 @@ import BoardSection from "./BoardSection";
 import cn from "classnames";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
-import { IPanel } from "shared/api/user/UserSlice";
-import { ITodo } from "shared/api/todoQueryApi/todoInterfaces";
+
+import { IPanel, ITodo } from "shared/api/todoQueryApi/todoInterfaces";
 
 export interface IPanelList {
   panel: IPanel;
@@ -82,7 +82,7 @@ const PanelsList: React.FC<IPanelList> = ({ panel, type, tasks }) => {
         {...listeners}
       />
       {type === "List" && <ListSection list={tasks} />}
-      {type === "Board" && <BoardSection list={tasks} />}
+      {type === "Board" && <BoardSection list={tasks} panelId={panel.id} />}
     </Template>
   );
 };

@@ -5,6 +5,7 @@ import { todoApi } from "shared/api/todoQueryApi/TodoServise";
 import { useSelector } from "react-redux";
 import { selectWorkspaceData } from "shared/api/user/userSelectors";
 import { useRef } from "react";
+import { motion } from "framer-motion";
 
 export interface ISavePanel {
   inputForm: boolean;
@@ -23,22 +24,23 @@ const NewPanelForm: React.FC<ISavePanel> = ({ inputForm }) => {
         name: ref.current?.value,
       },
     };
-
     await createPanel(newPanelFetchData);
   };
 
   return (
-    <form
+    <motion.form
+      animate={{ transition: { delay: 2 } }}
       onSubmit={handleSavePanel}
-      className={cn("panelInputDiv", {
-        ["activePanelInput"]: inputForm,
+      className={cn({
+        ["hidden"]: !inputForm,
+        ["flex gap-3"]: inputForm,
       })}
     >
       <Input placeholder="Panel title" type="text" variant="input" ref={ref} />
       <Btn type="newTodo" color="white">
         Submit
       </Btn>
-    </form>
+    </motion.form>
   );
 };
 

@@ -8,13 +8,16 @@ import {
   selectWorkspaceData,
 } from "shared/api/user/userSelectors";
 import { useNavigate } from "react-router-dom";
-import NewTodoComponent from "shared/ui/btns/addons/NewTodoBtn/NewTodoComponent";
-import FormCard from "features/NewTodoModalWindow/FormTask";
+
 import PageTitle from "widgets/titleListOrBoard/PageTitle";
 import TodosWidget from "widgets/todosList/TodosWidget";
 import Empty from "shared/ui/empty/Empty";
+import FormCard from "features/NewTodoModalWindow/FormCard";
+import { selectModalWindowState } from "./model/ModalWindowSelector";
+import NewPanel from "shared/ui/btns/addons/NewTodoBtn/NewPanel";
 
 function TodosPage() {
+  const selectColumnModalId = useSelector(selectModalWindowState);
   const navigate = useNavigate();
   const currentUser = useSelector(selectUser);
   const workspaceId = useSelector(selectWorkspaceData);
@@ -37,12 +40,8 @@ function TodosPage() {
         <div className="todoPage">
           <PageTitle kanbanDataName={kanbanData.name} />
           <TodosWidget kanbanDataPanels={kanbanData.panels} />
-          <NewTodoComponent />
-          <FormCard
-            id={
-              kanbanData.panels[0] ? kanbanData.panels[0].id?.toString() : "1"
-            }
-          />
+          <NewPanel />
+          <FormCard columnId={selectColumnModalId} />
         </div>
       )}
     </>

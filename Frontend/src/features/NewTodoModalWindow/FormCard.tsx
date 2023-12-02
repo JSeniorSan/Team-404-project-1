@@ -22,7 +22,7 @@ const FormCard: React.FC<ITodoTask> = ({ ...props }) => {
   const onSubmit: SubmitHandler<IFormData> = async (data) => {
     const createNewObjectData = {
       infoData: data,
-      id: `${props.id}`,
+      id: `${props.columnId}`,
     };
     await createTodo(createNewObjectData);
     dispatch(switchModalWindow(false));

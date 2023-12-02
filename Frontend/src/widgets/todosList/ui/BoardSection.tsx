@@ -1,22 +1,24 @@
 import { SortableContext } from "@dnd-kit/sortable";
-import Card from "entities/card/ui/Card";
-
+import CardUi from "entities/card/ui/CardUi";
+import NewTask from "shared/ui/newTask/NewTask";
 import { IListSection } from "widgets/todosList/ui/ListSection";
+export interface IBoardSection extends IListSection {
+  panelId: number;
+}
 
-export interface IBoardSection extends IListSection {}
-
-const BoardSection: React.FC<IBoardSection> = ({ list }) => {
+const BoardSection: React.FC<IBoardSection> = ({ list, panelId }) => {
   return (
     <section className="flex h-fit items-center flex-col gap-3 ">
       <SortableContext items={list}>
         {list.map((task) => {
           return (
-            <Card task={task} key={task.id} widgets={true}>
+            <CardUi task={task} key={task.id} widgets={true}>
               {task.description}
-            </Card>
+            </CardUi>
           );
         })}
       </SortableContext>
+      <NewTask columnId={panelId} />
     </section>
   );
 };
