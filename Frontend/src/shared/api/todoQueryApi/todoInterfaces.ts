@@ -13,6 +13,7 @@ export interface IPost {
 export interface ITodoPost {
   title: string;
   description: string | null;
+  panel_id: number;
 }
 
 export interface ITaskData {

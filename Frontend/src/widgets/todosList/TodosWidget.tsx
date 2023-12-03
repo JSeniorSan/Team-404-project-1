@@ -53,7 +53,7 @@ const TodosWidget: React.FC<IPropsPanels> = ({ kanbanDataPanels }) => {
   function onDragEnd(event: DragEndEvent) {
     setActivePanel(null);
     setActiveTask(null);
-    console.log(event);
+
     const { over, active } = event;
     if (!over) return;
     const activeColumnId = active.id;
@@ -68,7 +68,6 @@ const TodosWidget: React.FC<IPropsPanels> = ({ kanbanDataPanels }) => {
       const overColumnIndex = colums.findIndex(
         (col) => col.id === overColumnId
       );
-      setActivePanel(null);
 
       return arrayMove(colums, activeColumnIndex, overColumnIndex);
     });
@@ -90,7 +89,9 @@ const TodosWidget: React.FC<IPropsPanels> = ({ kanbanDataPanels }) => {
       setTasks((ts) => {
         const activeIndex = ts.findIndex((t) => t.id === activeId);
         const overIndex = ts.findIndex((t) => t.id === overId);
-        ts[activeIndex].panel_id === ts[overIndex].panel_id;
+        const obj1 = { ...ts[activeIndex] };
+        obj1.panel_id = ts[overIndex].panel_id;
+        ts[activeIndex] = obj1;
         return arrayMove(ts, activeIndex, overIndex);
       });
     }
@@ -101,7 +102,9 @@ const TodosWidget: React.FC<IPropsPanels> = ({ kanbanDataPanels }) => {
     if (isActiveTask && isOverAColumn) {
       setTasks((ts) => {
         const activeIndex = ts.findIndex((t) => t.id === activeId);
-        ts[activeIndex].panel_id === overId;
+        const obj2 = { ...ts[activeIndex] };
+        obj2.panel_id = overId as number;
+        ts[activeIndex] = obj2;
         return arrayMove(ts, activeIndex, activeIndex);
       });
     }

@@ -57,6 +57,7 @@ const RightMenu = () => {
         infoData: {
           description: refDescription.current?.value,
           title: refTitle.current?.value,
+          panel_id: task!.panel_id,
         },
       });
     }
