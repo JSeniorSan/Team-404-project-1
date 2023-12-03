@@ -9,7 +9,7 @@ import Form from "shared/ui/form/Form";
 import { SubmitHandler } from "react-hook-form";
 import { todoApi } from "shared/api/todoQueryApi/TodoServise";
 
-const FormCard: React.FC<ITodoTask> = ({ ...props }) => {
+const FormCard: React.FC<ITodoTask> = ({ columnId, ...props }) => {
   const dispatch = useAppDispatch();
   const modalStatus = useSelector(modalWindowSelector);
   const [createTodo] = todoApi.useCreateTaskMutation();
@@ -21,8 +21,8 @@ const FormCard: React.FC<ITodoTask> = ({ ...props }) => {
 
   const onSubmit: SubmitHandler<IFormData> = async (data) => {
     const createNewObjectData = {
-      infoData: data,
-      id: `${props.columnId}`,
+      ...data,
+      panel_id: columnId,
     };
     await createTodo(createNewObjectData);
     dispatch(switchModalWindow(false));

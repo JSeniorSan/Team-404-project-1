@@ -16,9 +16,10 @@ export interface ITodoPost {
   panel_id: number;
 }
 
-export interface ITaskData {
-  infoData: ITodoPost;
-  id: string | undefined;
+export interface IChangeTask {
+  title: string;
+  description: string;
+  taskId: number;
 }
 
 export interface IAuthNewUser {
@@ -47,6 +48,7 @@ export interface IWorkspaceData {
   hex: string;
   panels: IPanel[];
   members: IMembers[];
+  panels_order: string;
 }
 
 export interface IMembers {

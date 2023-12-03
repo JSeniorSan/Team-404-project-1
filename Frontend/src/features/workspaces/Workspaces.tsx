@@ -16,7 +16,7 @@ const Workspaces = () => {
     { isFetching: isWorkspacesFetching, data: allWorkspaces, isError: errWork },
   ] = todoApi.useLazyGetAllWorkspacesQuery();
   useEffect(() => {
-    getWorkspaces("");
+    getWorkspaces(null);
     console.log(allWorkspaces);
 
     if (allWorkspaces?.length !== 0 && typeof allWorkspaces !== "undefined") {
@@ -24,11 +24,14 @@ const Workspaces = () => {
     }
   }, [getWorkspaces, template, dispatch, allWorkspaces]);
   console.log("all workspaces", allWorkspaces);
+  console.log("err", errWork);
+  console.log("fetching", isWorkspacesFetching);
 
   return (
     <div className="spaces">
       <CreateNew />
       {errWork && <p>error</p>}
+      {isWorkspacesFetching && <p>LOADING</p>}
       {!isWorkspacesFetching && (
         <ul className="spaces__list">
           {allWorkspaces?.map((workspace) => {

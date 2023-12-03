@@ -48,18 +48,16 @@ const RightMenu = () => {
   // const newDate = f.format(dat);
   // console.log(newDate);
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     if (taskId && refDescription.current && refTitle.current) {
-      changeTask({
-        id: taskId.toString(),
-        infoData: {
-          description: refDescription.current?.value,
-          title: refTitle.current?.value,
-          panel_id: task!.panel_id,
-        },
-      });
+      const changeData = {
+        description: refDescription.current?.value,
+        title: refTitle.current?.value,
+        taskId: taskId,
+      };
+      await changeTask(changeData);
     }
   };
 

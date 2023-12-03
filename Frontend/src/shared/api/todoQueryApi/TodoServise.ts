@@ -1,12 +1,13 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import {
   IAuthNewUser,
+  IChangeTask,
   INewWorkspacePost,
   IPanel,
   IPanelData,
   IResponseAuth,
-  ITaskData,
   ITodo,
+  ITodoPost,
   IWorkspaceData,
 } from "./todoInterfaces";
 
@@ -32,11 +33,11 @@ export const todoApi = createApi({
       }),
       providesTags: () => ["Post", "Delete"],
     }),
-    createTask: build.mutation<ITodo, ITaskData>({
+    createTask: build.mutation<ITodo, ITodoPost>({
       query: (obj) => ({
-        url: `/task/${obj.id}`,
+        url: `/task/${obj.panel_id}`,
         method: "POST",
-        body: obj.infoData,
+        body: { title: obj.title, description: obj.description },
       }),
       invalidatesTags: ["NewTask"],
     }),
@@ -97,7 +98,7 @@ export const todoApi = createApi({
       }),
       invalidatesTags: ["NewWorkspace"],
     }),
-    getAllWorkspaces: build.query<IWorkspaceData[], string>({
+    getAllWorkspaces: build.query<IWorkspaceData[], null>({
       query: () => ({
         url: "/workspace/",
       }),
@@ -137,13 +138,24 @@ export const todoApi = createApi({
         url: `/task/${id}`,
       }),
     }),
-    changeTask: build.mutation<ITodo, ITaskData>({
+    changeTask: build.mutation<ITodo, IChangeTask>({
       query: (data) => ({
-        url: `/task/${data.id}`,
+        url: `/task/${data.taskId}`,
         method: "PATCH",
-        body: data.infoData,
+        body: {
+          title: data.title,
+          description: data.description,
+        },
       }),
       invalidatesTags: ["NewTask"],
     }),
+    // changePanelTask: build.mutation<ITodo, ITaskData>({
+    //   query: (data) => ({
+    //     url: `/task/${data.id}`,
+    //     method: "PATCH",
+    //     body: data.infoData,
+    //   }),
+    //   invalidatesTags: ["NewTask"],
+    // }),
   }),
 });
