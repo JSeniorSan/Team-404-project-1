@@ -19,6 +19,12 @@ class WorkspaceService:
     async def read_workspace(self, workspace_id: int) -> Workspace:
         result = await self.workspace_repo.read_one(workspace_id)
         workspace = WorkspaceInDb.model_validate(result, from_attributes=True)
+
+        if workspace.panels_order is not None:
+            order = [str(i) for i in workspace.panels_order.split(', ')]
+            panels_order = {key: i for i, key in enumerate(order)}
+            workspace.panels.sort(key=lambda x: panels_order[str(x.id)])
+
         return workspace
 
     async def read_all_workspaces(self, user_id: uuid.UUID) -> list[Workspace]:

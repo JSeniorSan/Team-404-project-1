@@ -19,6 +19,7 @@ class Workspace(Base):
     id: Mapped[int] = mapped_column(primary_key=True)
     name: Mapped[str] = mapped_column(String(100), nullable=False)
     hex: Mapped[str] = mapped_column(String(40), nullable=True)
-    panels: Mapped[list[Panel]] = relationship(back_populates="workspace", lazy='selectin', cascade="all, delete")
     creator_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("user.id"))
+    panels_order: Mapped[str] = mapped_column(nullable=True, default=None)
+    panels: Mapped[list[Panel]] = relationship(back_populates="workspace", lazy='selectin', cascade="all, delete")
     members: Mapped[list["User"]] = relationship(back_populates="workspaces", lazy='selectin', cascade="all, delete", secondary=workspace_members)

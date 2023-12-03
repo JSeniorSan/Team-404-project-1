@@ -16,6 +16,7 @@ class WorkspaceInDb(WorkspaceBase):
     creator_id: uuid.UUID
     panels: list[PanelInDb]
     members: list[UserSimple]
+    panels_order: str | None
 
 class WorkspaceCreate(WorkspaceBase):
     pass

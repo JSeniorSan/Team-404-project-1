@@ -1,10 +1,10 @@
 from datetime import datetime
-from pydantic import BaseModel, ConfigDict
+from pydantic import BaseModel, ConfigDict, Field
 
 
 class TaskBase(BaseModel):
     title: str
-    description: str | None
+    description: str | None = None
 
     model_config = ConfigDict(from_attributes=True)
 
@@ -22,4 +22,5 @@ class TaskCreate(TaskBase):
 
 
 class TaskUpdate(TaskBase):
-    panel_id: int
+    title: str | None = None
+    panel_id: int | None = None

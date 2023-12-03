@@ -23,7 +23,7 @@ class TaskService:
         return task
 
     async def update_task(self, new_data: TaskUpdate, task_id: int) -> Task:
-        new_data_dict = new_data.model_dump()
+        new_data_dict = new_data.model_dump(exclude_unset=True)
         task = await self.task_repo.update_one(new_data_dict, task_id)
         return task
 
