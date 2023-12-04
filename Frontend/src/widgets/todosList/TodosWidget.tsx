@@ -26,15 +26,11 @@ export interface IPropsPanels {
 }
 
 const TodosWidget: React.FC<IPropsPanels> = ({ kanbanDataPanels }) => {
-  console.log("panels", kanbanDataPanels);
-
   const [colums, setColums] = useState<IPanel[]>(kanbanDataPanels);
   const tasksInPanels = kanbanDataPanels.map((panel) => panel.tasks);
   const todos = tasksInPanels?.flat();
-  console.log("todos", todos);
 
   const [tasks, setTasks] = useState<ITodo[]>(todos);
-  console.log("tasks", tasks);
 
   const [activePanel, setActivePanel] = useState<IPanel | null>(null);
   const [activeTask, setActiveTask] = useState<ITodo | null>(null);
@@ -160,8 +156,13 @@ const TodosWidget: React.FC<IPropsPanels> = ({ kanbanDataPanels }) => {
                 tasks={tasks.filter((ts) => ts.panel_id === activePanel.id)}
               />
             )}
-            {activeTask && (
+            {activeTask && viewType === "Board" && (
               <CardUi task={activeTask} widgets={true}>
+                {activeTask.description}
+              </CardUi>
+            )}
+            {activeTask && viewType === "List" && (
+              <CardUi task={activeTask} widgets={false}>
                 {activeTask.description}
               </CardUi>
             )}

@@ -47,7 +47,12 @@ const CardUi: React.FC<ICard> = ({ children, task, widgets }) => {
       <div
         ref={setNodeRef}
         style={style}
-        className="w-60 h-[206.13px] border-2 border-blue-100 rounded-lg pt-5 gap-2 relative flex-shrink-0 flex-grow-0 bg-slate-100 "
+        className={cn({
+          ["w-60 h-[206.13px] border-2 border-blue-100 rounded-lg pt-5 gap-2 relative flex-shrink-0 flex-grow-0 bg-slate-100 "]:
+            widgets,
+          ["w-full h-[80px] border-2 border-blue-100 rounded-lg pt-5 gap-2 relative flex-shrink-0 flex-grow-0 bg-slate-100 "]:
+            !widgets,
+        })}
       />
     );
   }

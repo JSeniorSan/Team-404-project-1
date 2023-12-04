@@ -46,16 +46,17 @@ const PanelsList: React.FC<IPanelList> = ({ panel, type, tasks }) => {
           className="border w-[250px] min-h-full h-fit opacity-90 rounded-lg mr-5 border-blue-200 flex-shrink-0 flex-grow-0 bg-slate-50"
         ></div>
       );
-    } else {
-      return (
-        <Template
-          ref={setNodeRef}
-          style={style}
-          className="w-[calc(100vw-400px)] border ml-12 flex-shrink-0 flex-grow-0 rounded-lg"
-        ></Template>
-      );
     }
   }
+  // } else {
+  //   return (
+  //     <Template
+  //       ref={setNodeRef}
+  //       style={style}
+  //       className="w-[calc(100vw-400px)] border ml-12 flex-shrink-0 flex-grow-0 rounded-lg h-fit"
+  //     ></Template>
+  //   );
+  // }
 
   return (
     <Template
