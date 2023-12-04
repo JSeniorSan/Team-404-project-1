@@ -6,7 +6,7 @@ export interface IMenuProps {
   menu: boolean;
   panelId: number;
 }
-const PanelFeaturesCard: React.FC<IMenuProps> = ({ menu, panelId }) => {
+const PanelModalCard: React.FC<IMenuProps> = ({ menu, panelId }) => {
   const [deletePanel] = todoApi.useDeletePanelMutation();
 
   const handleDeletePanel = async () => {
@@ -22,4 +22,4 @@ const PanelFeaturesCard: React.FC<IMenuProps> = ({ menu, panelId }) => {
   );
 };
 
-export default PanelFeaturesCard;
+export default PanelModalCard;

@@ -1,11 +1,10 @@
 import Template from "entities/Template/ui/Template";
-import Panel from "./Panel";
-import ListSection from "./ListSection";
-import BoardSection from "./BoardSection";
+import Panel from "features/panel/Panel";
+import ListSection from "../../sections/ListSection";
+import BoardSection from "../../sections/BoardSection";
 import cn from "classnames";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
-
 import { IPanel, ITodo } from "shared/api/todoQueryApi/todoInterfaces";
 
 export interface IPanelList {
@@ -15,8 +14,6 @@ export interface IPanelList {
 }
 
 const PanelsList: React.FC<IPanelList> = ({ panel, type, tasks }) => {
-  console.log("list tasks", tasks);
-
   const {
     setNodeRef,
     transform,
@@ -38,32 +35,24 @@ const PanelsList: React.FC<IPanelList> = ({ panel, type, tasks }) => {
   };
 
   if (isDragging) {
-    if (type === "Board") {
-      return (
-        <div
-          ref={setNodeRef}
-          style={style}
-          className="border w-[250px] min-h-full h-fit opacity-90 rounded-lg mr-5 border-blue-200 flex-shrink-0 flex-grow-0 bg-slate-50"
-        ></div>
-      );
-    }
+    return (
+      <div
+        ref={setNodeRef}
+        style={style}
+        className={cn({
+          ["border w-[250px] min-h-full h-fit opacity-90 rounded-lg mr-5 border-blue-200 flex-shrink-0 flex-grow-0 bg-slate-50"]:
+            type === "Board",
+        })}
+      />
+    );
   }
-  // } else {
-  //   return (
-  //     <Template
-  //       ref={setNodeRef}
-  //       style={style}
-  //       className="w-[calc(100vw-400px)] border ml-12 flex-shrink-0 flex-grow-0 rounded-lg h-fit"
-  //     ></Template>
-  //   );
-  // }
 
   return (
     <Template
       ref={setNodeRef}
       style={style}
       className={cn({
-        ["w-[250px] min-h-full h-fit backdrop-blur-md opacity-90 rounded-lg mr-5"]:
+        ["w-[250px] min-h-full h-full backdrop-blur-md opacity-90 rounded-lg mr-5"]:
           type === "Board",
         ["w-[calc(100vw-400px)]  ml-12 flex-shrink-0 flex-grow-0"]:
           type === "List",
@@ -82,7 +71,7 @@ const PanelsList: React.FC<IPanelList> = ({ panel, type, tasks }) => {
         {...attributes}
         {...listeners}
       />
-      {type === "List" && <ListSection list={tasks} />}
+      {type === "List" && <ListSection list={tasks} panelId={panel.id} />}
       {type === "Board" && <BoardSection list={tasks} panelId={panel.id} />}
     </Template>
   );

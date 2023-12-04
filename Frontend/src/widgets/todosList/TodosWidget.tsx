@@ -3,124 +3,36 @@ import { useSelector } from "react-redux";
 import { selectView } from "shared/api/view/viewSliceSelector";
 import cn from "classnames";
 import "./index.scss";
-import {
-  DndContext,
-  DragEndEvent,
-  DragOverEvent,
-  DragOverlay,
-  DragStartEvent,
-  PointerSensor,
-  useSensor,
-  useSensors,
-} from "@dnd-kit/core";
 import { useMemo, useState } from "react";
-import PanelsList from "./ui/PanelsList";
-import { SortableContext, arrayMove } from "@dnd-kit/sortable";
-
-import { createPortal } from "react-dom";
 import { IPanel, ITodo } from "shared/api/todoQueryApi/todoInterfaces";
-import CardUi from "entities/card/ui/CardUi";
+import PanelSortableContext from "./ui/portalAndSortable/PanelSortableContext";
+import TodosDndContext from "./ui/TodosDndContext";
+import PortalDragOverlay from "./ui/portalAndSortable/PortalDragOverlay";
 
 export interface IPropsPanels {
   kanbanDataPanels: IPanel[];
 }
 
 const TodosWidget: React.FC<IPropsPanels> = ({ kanbanDataPanels }) => {
-  const [colums, setColums] = useState<IPanel[]>(kanbanDataPanels);
   const tasksInPanels = kanbanDataPanels.map((panel) => panel.tasks);
   const todos = tasksInPanels?.flat();
-
+  const [colums, setColums] = useState<IPanel[]>(kanbanDataPanels);
   const [tasks, setTasks] = useState<ITodo[]>(todos);
-
   const [activePanel, setActivePanel] = useState<IPanel | null>(null);
   const [activeTask, setActiveTask] = useState<ITodo | null>(null);
+
   const columsId = useMemo(() => colums.map((col) => col.id), [colums]);
   const viewType = useSelector(selectView);
 
-  function onDragStart(event: DragStartEvent) {
-    if (event.active.data.current?.type === "Column") {
-      setActivePanel(event.active.data.current?.panel);
-    }
-    if (event.active.data.current?.type === "Task") {
-      setActiveTask(event.active.data.current?.task);
-    }
-  }
-
-  function onDragEnd(event: DragEndEvent) {
-    setActivePanel(null);
-    setActiveTask(null);
-
-    const { over, active } = event;
-    if (!over) return;
-    const activeColumnId = active.id;
-    const overColumnId = over?.id;
-
-    if (activeColumnId === overColumnId) return;
-
-    setColums((colums) => {
-      const activeColumnIndex = colums.findIndex(
-        (col) => col.id === activeColumnId
-      );
-      const overColumnIndex = colums.findIndex(
-        (col) => col.id === overColumnId
-      );
-
-      return arrayMove(colums, activeColumnIndex, overColumnIndex);
-    });
-  }
-
-  function onDragOver(event: DragOverEvent) {
-    const { over, active } = event;
-    const activeId = active?.id;
-    const overId = over?.id;
-    if (!over) return;
-    if (activeId === overId) return;
-    if (!activeTask) return;
-
-    const isActiveTask = event.active?.data.current?.type === "Task";
-    const isOverTask = event.over?.data.current?.type === "Task";
-
-    // I'm drag over task
-    if (isActiveTask && isOverTask) {
-      setTasks((ts) => {
-        const activeIndex = ts.findIndex((t) => t.id === activeId);
-        const overIndex = ts.findIndex((t) => t.id === overId);
-        const obj1 = { ...ts[activeIndex] };
-        obj1.panel_id = ts[overIndex].panel_id;
-        ts[activeIndex] = obj1;
-        return arrayMove(ts, activeIndex, overIndex);
-      });
-    }
-
-    const isOverAColumn = over?.data.current?.type === "Column";
-
-    // I'm drag over column
-    if (isActiveTask && isOverAColumn) {
-      setTasks((ts) => {
-        const activeIndex = ts.findIndex((t) => t.id === activeId);
-        const obj2 = { ...ts[activeIndex] };
-        obj2.panel_id = overId as number;
-        ts[activeIndex] = obj2;
-        return arrayMove(ts, activeIndex, activeIndex);
-      });
-    }
-  }
-
-  const sensors = useSensors(
-    useSensor(PointerSensor, {
-      activationConstraint: {
-        distance: 5,
-      },
-    })
-  );
-
   return (
     <div className="flex flex-col gap-5 h-full mb-3">
-      <DndContext
-        sensors={sensors}
-        onDragStart={onDragStart}
-        onDragEnd={onDragEnd}
-        onDragOver={onDragOver}
+      <TodosDndContext
+        activeTask={activeTask}
+        setActivePanel={setActivePanel}
+        setActiveTask={setActiveTask}
+        setTasks={setTasks}
+        setColums={setColums}
+        todos={todos}
       >
         <div
           className={cn({
@@ -128,48 +40,21 @@ const TodosWidget: React.FC<IPropsPanels> = ({ kanbanDataPanels }) => {
             ["boardPanelsFormat"]: viewType === "Board",
           })}
         >
-          <SortableContext items={columsId}>
-            {colums &&
-              colums.map((panel) => {
-                const filt = tasks.filter((ts) => {
-                  return ts.panel_id == panel.id;
-                });
-
-                return (
-                  <PanelsList
-                    panel={panel}
-                    type={viewType}
-                    key={panel.id}
-                    tasks={filt}
-                  />
-                );
-              })}
-          </SortableContext>
+          <PanelSortableContext
+            columsId={columsId}
+            colums={colums}
+            tasks={tasks}
+            viewType={viewType}
+          />
           <RightMenu />
         </div>
-        {createPortal(
-          <DragOverlay>
-            {activePanel && (
-              <PanelsList
-                panel={activePanel}
-                type={viewType}
-                tasks={tasks.filter((ts) => ts.panel_id === activePanel.id)}
-              />
-            )}
-            {activeTask && viewType === "Board" && (
-              <CardUi task={activeTask} widgets={true}>
-                {activeTask.description}
-              </CardUi>
-            )}
-            {activeTask && viewType === "List" && (
-              <CardUi task={activeTask} widgets={false}>
-                {activeTask.description}
-              </CardUi>
-            )}
-          </DragOverlay>,
-          document.body
-        )}
-      </DndContext>
+        <PortalDragOverlay
+          activePanel={activePanel}
+          activeTask={activeTask}
+          tasks={tasks}
+          viewType={viewType}
+        />
+      </TodosDndContext>
     </div>
   );
 };
