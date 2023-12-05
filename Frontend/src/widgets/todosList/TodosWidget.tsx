@@ -27,12 +27,12 @@ const TodosWidget: React.FC<IPropsPanels> = ({ kanbanDataPanels }) => {
   return (
     <div className="flex flex-col gap-5 h-full mb-3">
       <TodosDndContext
+        todos={todos}
+        setColums={setColums}
         activeTask={activeTask}
         setActivePanel={setActivePanel}
         setActiveTask={setActiveTask}
         setTasks={setTasks}
-        setColums={setColums}
-        todos={todos}
       >
         <div
           className={cn({

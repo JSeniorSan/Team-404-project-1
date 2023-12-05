@@ -21,7 +21,7 @@ const NewTask: React.FC<newTaskProps> = ({ columnId }) => {
   }
   return (
     <div
-      className="flex gap-2 items-center p-2 border rounded-lg w-full cursor-pointer bg-stone-200"
+      className="flex gap-2 items-center p-2 border rounded-lg w-full cursor-pointer hover:bg-slate-100 hover:shadow-md"
       onClick={createHandler}
     >
       <Plus />

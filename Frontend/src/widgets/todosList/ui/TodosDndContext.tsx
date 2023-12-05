@@ -34,7 +34,7 @@ const TodosDndContext: React.FC<IDndContext> = ({
   const sensors = useSensors(
     useSensor(PointerSensor, {
       activationConstraint: {
-        distance: 5,
+        distance: 2,
       },
     })
   );
@@ -84,18 +84,6 @@ const TodosDndContext: React.FC<IDndContext> = ({
     const isOverTask = over?.data.current?.type === "Task";
     const isOverAColumn = over?.data.current?.type === "Column";
 
-    // I'm drag over a task
-    if (isActiveTask && isOverTask) {
-      setTasks((ts) => {
-        const activeIndex = ts.findIndex((t) => t.id === activeId);
-        const overIndex = ts.findIndex((t) => t.id === overId);
-        const obj1 = { ...ts[activeIndex] };
-        obj1.panel_id = ts[overIndex].panel_id;
-        ts[activeIndex] = obj1;
-        return arrayMove(ts, activeIndex, overIndex);
-      });
-    }
-
     // I'm drag over a column
     if (isActiveTask && isOverAColumn) {
       setTasks((ts) => {
@@ -103,10 +91,29 @@ const TodosDndContext: React.FC<IDndContext> = ({
         const obj2 = { ...ts[activeIndex] };
         obj2.panel_id = overId as number;
         console.log("over", overId);
-        console.log("overColumn", isOverAColumn);
 
         ts[activeIndex] = obj2;
         return arrayMove(ts, activeIndex, activeIndex);
+      });
+    }
+
+    // I'm drag over a task
+    if (isActiveTask && isOverTask) {
+      setTasks((ts) => {
+        const activeIndex = ts.findIndex((t) => t.id === activeId);
+        const overIndex = ts.findIndex((t) => t.id === overId);
+        if (ts[activeIndex].panel_id !== ts[overIndex].panel_id) {
+          const obj1 = { ...ts[activeIndex] };
+          obj1.panel_id = ts[overIndex].panel_id;
+          ts[activeIndex] = obj1;
+
+          // вырезать позонно элементы и соединить с переносом старого значения вперед
+        }
+
+        console.log(activeIndex, overIndex, active);
+        console.log(arrayMove(ts, activeIndex, overIndex));
+
+        return arrayMove(ts, activeIndex, overIndex);
       });
     }
   }
