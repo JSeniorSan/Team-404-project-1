@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import { useAppDispatch } from "shared/api/redux-hooks";
+import { useAppDispatch } from "shared/hooks/redux-hooks";
 import { IFormData, ITodoTask } from "./formTask.interfaces";
 import "./index.scss";
 import cn from "classnames";

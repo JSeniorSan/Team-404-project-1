@@ -1,4 +1,4 @@
-import { useAppDispatch } from "shared/api/redux-hooks";
+import { useAppDispatch } from "shared/hooks/redux-hooks";
 import { todoApi } from "shared/api/todoQueryApi/TodoServise";
 import { IWorkspaceData } from "shared/api/todoQueryApi/todoInterfaces";
 import { addWorkspace, setEmpty } from "shared/api/user/UserSlice";

@@ -18,13 +18,7 @@ const UserSlice = createSlice({
       state.currentUser = action.payload;
     },
     deleteCurrentUser: (state) => {
-      state.currentUser = {
-        username: "",
-        email: "",
-        is_active: true,
-        is_superuser: false,
-        is_verified: false,
-      };
+      state.currentUser = {};
     },
     addWorkspace: (state, action: PayloadAction<number>) => {
       state.currentUserWorkspace.id = action.payload;

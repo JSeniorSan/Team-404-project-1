@@ -1,7 +1,7 @@
 import { DetailedHTMLProps, HTMLAttributes } from "react";
 import cn from "classnames";
 import "./index.scss";
-import { useAppDispatch } from "shared/api/redux-hooks";
+import { useAppDispatch } from "shared/hooks/redux-hooks";
 import { useNavigate } from "react-router";
 import { switchWidget } from "shared/api/view/ViewSlice";
 export interface ITodosMode

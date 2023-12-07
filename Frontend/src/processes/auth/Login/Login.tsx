@@ -1,33 +1,51 @@
 import { useForm, SubmitHandler } from "react-hook-form";
 import Page from "shared/ui/p/Page";
 import Btn from "shared/ui/btns/Btn";
-import useLogin from "shared/hooks/useLogin";
-import { useAppDispatch } from "shared/api/redux-hooks";
-import { deleteCurrentUser } from "shared/api/user/UserSlice";
+import { todoApi } from "shared/api/todoQueryApi/TodoServise";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { useAppDispatch } from "shared/hooks/redux-hooks";
+import { saveUser } from "shared/api/user/UserSlice";
+
 export interface IInputs {
   username: string;
   password: string;
 }
 
 const Login: React.FC = () => {
+  const navigate = useNavigate();
   const dispatch = useAppDispatch();
+  const [login, { isError: errorLogin, isSuccess: succsessLogin }] =
+    todoApi.useLoginMutation();
 
+  const [getMeQuery, { data: meData, isSuccess: getMeDone }] =
+    todoApi.useLazyGetMeQuery();
+
+  useEffect(() => {
+    if (meData) {
+      dispatch(saveUser(meData));
+    }
+
+    if (succsessLogin && getMeDone) {
+      navigate("/dashboard/home", { replace: true });
+      console.log("done");
+    }
+  }, [succsessLogin, navigate, getMeQuery, dispatch, meData, getMeDone]);
   const {
     handleSubmit,
     register,
     formState: { errors },
   } = useForm<IInputs>();
-  const { getMe, login, errorLogin, errorMe } = useLogin();
 
   const onSubmit: SubmitHandler<IInputs> = async (data) => {
     try {
       await login(
         `grant_type=&username=${data.username}&password=${data.password}&scope=&client_id=&client_secret=`
       );
-      await getMe("");
+      await getMeQuery(null);
     } catch (err) {
       if (err instanceof Error) {
-        dispatch(deleteCurrentUser());
+        console.log("error", err.message);
       }
     }
   };
@@ -55,7 +73,6 @@ const Login: React.FC = () => {
         aria-invalid={errors.username ? "true" : "false"}
       />
 
-      {errorMe && <p className="text-red-500">Некорректно введен пароль</p>}
       {errors.password?.type === "validate" && (
         <p className="text-red-500">nope</p>
       )}

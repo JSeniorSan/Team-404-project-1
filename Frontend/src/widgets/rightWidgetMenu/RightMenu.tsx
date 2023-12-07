@@ -2,7 +2,7 @@ import cn from "classnames";
 import "./index.scss";
 import { useSelector } from "react-redux";
 import { selectMenuIsOpen, selectMenuTodoId } from "./model/MenuSliceSelectors";
-import { useAppDispatch } from "shared/api/redux-hooks";
+import { useAppDispatch } from "shared/hooks/redux-hooks";
 import { switchState } from "./model/MenuSlice";
 import { AnimatePresence, motion } from "framer-motion";
 import Close from "shared/ui/close/Close";

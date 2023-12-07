@@ -1,6 +1,6 @@
 import { DeleteIcon } from "@chakra-ui/icons";
 import { switchState } from "widgets/rightWidgetMenu/model/MenuSlice";
-import { useAppDispatch } from "shared/api/redux-hooks";
+import { useAppDispatch } from "shared/hooks/redux-hooks";
 import { todoApi } from "shared/api/todoQueryApi/TodoServise";
 
 const Delete = ({ taskId }: { taskId: number }) => {

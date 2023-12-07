@@ -2,7 +2,7 @@ import TodosMode from "shared/ui/todosMode/TodosMode";
 import cn from "classnames";
 import { useSelector } from "react-redux";
 import { selectView } from "shared/api/view/viewSliceSelector";
-import { useAppDispatch } from "shared/api/redux-hooks";
+import { useAppDispatch } from "shared/hooks/redux-hooks";
 import { useNavigate } from "react-router-dom";
 import { switchWidget } from "shared/api/view/ViewSlice";
 import ListLogo from "shared/asset/fatrows.svg?react";

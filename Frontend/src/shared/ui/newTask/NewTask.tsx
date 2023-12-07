@@ -1,6 +1,6 @@
 import Plus from "shared/asset/Plus.svg?react";
 import Page from "../p/Page";
-import { useAppDispatch } from "shared/api/redux-hooks";
+import { useAppDispatch } from "shared/hooks/redux-hooks";
 import { useSelector } from "react-redux";
 import { modalWindowSelector } from "shared/api/modal/modalSelectors";
 import { switchModalWindow } from "shared/api/modal/modalSlice";

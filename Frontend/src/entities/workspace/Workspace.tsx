@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { useAppDispatch } from "shared/api/redux-hooks";
+import { useAppDispatch } from "shared/hooks/redux-hooks";
 import { addWorkspace } from "shared/api/user/UserSlice";
 import { switchWidget } from "shared/api/view/ViewSlice";
 import { selectView } from "shared/api/view/viewSliceSelector";

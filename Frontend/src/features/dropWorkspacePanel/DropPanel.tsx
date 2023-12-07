@@ -5,7 +5,7 @@ import { useRef, useState } from "react";
 import { motion } from "framer-motion";
 import Input from "../../shared/ui/input/Input";
 import cn from "classnames";
-import { useAppDispatch } from "shared/api/redux-hooks";
+import { useAppDispatch } from "shared/hooks/redux-hooks";
 import { addWorkspace, setEmpty } from "shared/api/user/UserSlice";
 import { useSelector } from "react-redux";
 import { selectMaxId } from "shared/api/user/userSelectors";

@@ -4,7 +4,7 @@ import CreateNew from "../createNewWorkspace/CreateNew";
 import { useSelector } from "react-redux";
 import { selectView } from "shared/api/view/viewSliceSelector";
 import Workspace from "../../entities/workspace/Workspace";
-import { useAppDispatch } from "shared/api/redux-hooks";
+import { useAppDispatch } from "shared/hooks/redux-hooks";
 import { setMaxId } from "shared/api/user/UserSlice";
 
 const Workspaces = () => {

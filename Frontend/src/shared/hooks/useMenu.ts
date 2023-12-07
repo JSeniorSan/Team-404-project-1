@@ -2,7 +2,7 @@ import { switchState } from "widgets/rightWidgetMenu/model/MenuSlice";
 import { selectMenuIsOpen } from "widgets/rightWidgetMenu/model/MenuSliceSelectors";
 import { useState } from "react";
 import { useSelector } from "react-redux";
-import { useAppDispatch } from "shared/api/redux-hooks";
+import { useAppDispatch } from "shared/hooks/redux-hooks";
 
 const useMenu = () => {
   const [id, setId] = useState<number>(0);

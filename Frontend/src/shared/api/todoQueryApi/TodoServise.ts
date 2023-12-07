@@ -49,7 +49,7 @@ export const todoApi = createApi({
         body: user,
       }),
     }),
-    getMe: build.query<IResponseAuth, string>({
+    getMe: build.query<IResponseAuth, null>({
       query: () => ({
         url: `/users/me`,
       }),
