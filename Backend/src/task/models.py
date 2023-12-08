@@ -10,6 +10,7 @@ class Task(Base):
     id: Mapped[int] = mapped_column(primary_key=True)
     title: Mapped[str] = mapped_column(String(100), nullable=False)
     description: Mapped[str | None] = mapped_column(String(1000), default=None, nullable=True)
+    task_position: Mapped[int] = mapped_column(nullable=True)
     created_at: Mapped[DateTime] = mapped_column(DateTime, default=func.now(), nullable=False)
     updated_at: Mapped[datetime | None] = mapped_column(default=func.now(), onupdate=func.now(), nullable=True)
     panel_id: Mapped[int] = mapped_column(ForeignKey("panels.id", ondelete="CASCADE"))

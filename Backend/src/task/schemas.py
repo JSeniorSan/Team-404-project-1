@@ -14,6 +14,7 @@ class TaskInDb(TaskBase):
     created_at: datetime | None
     updated_at: datetime | None
     panel_id: int
+    task_position: int | None
 
     
 
@@ -24,3 +25,4 @@ class TaskCreate(TaskBase):
 class TaskUpdate(TaskBase):
     title: str | None = None
     panel_id: int | None = None
+    task_position: int | None = None

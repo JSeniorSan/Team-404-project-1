@@ -12,10 +12,12 @@ class PanelInDb(PanelBase):
     id: int
     workspace_id: int
     tasks: list[TaskInDb]
+    panel_position: int | None
 
 class PanelCreate(PanelBase):
     pass
 
 
 class PanelUpdate(PanelBase):
-    pass
+    name: str | None = None
+    panel_position: int | None = None

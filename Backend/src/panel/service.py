@@ -24,7 +24,7 @@ class PanelService:
         return panel
     
     async def update_panel(self, new_data: PanelUpdate, panel_id: int) -> Panel:
-        new_data_dict = new_data.model_dump()
+        new_data_dict = new_data.model_dump(exclude_unset=True)
         panel = await self.panel_repo.update_one(new_data_dict, panel_id)
         return panel
     
