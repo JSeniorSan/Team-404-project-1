@@ -28,7 +28,6 @@ const Login: React.FC = () => {
 
     if (succsessLogin && getMeDone) {
       navigate("/dashboard/home", { replace: true });
-      console.log("done");
     }
   }, [succsessLogin, navigate, getMeQuery, dispatch, meData, getMeDone]);
   const {

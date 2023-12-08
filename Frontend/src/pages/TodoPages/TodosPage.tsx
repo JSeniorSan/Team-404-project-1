@@ -31,7 +31,6 @@ function TodosPage() {
       navigate("/account");
     }
   }, [getKanban, workspaceId, navigate, currentUser, kanbanData]);
-  console.log("data", kanbanData);
 
   return (
     <>

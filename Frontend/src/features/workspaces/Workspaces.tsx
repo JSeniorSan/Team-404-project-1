@@ -17,15 +17,11 @@ const Workspaces = () => {
   ] = todoApi.useLazyGetAllWorkspacesQuery();
   useEffect(() => {
     getWorkspaces(null);
-    console.log(allWorkspaces);
 
     if (allWorkspaces?.length !== 0 && typeof allWorkspaces !== "undefined") {
       dispatch(setMaxId(allWorkspaces[allWorkspaces.length - 1].id));
     }
   }, [getWorkspaces, template, dispatch, allWorkspaces]);
-  console.log("all workspaces", allWorkspaces);
-  console.log("err", errWork);
-  console.log("fetching", isWorkspacesFetching);
 
   return (
     <div className="spaces">

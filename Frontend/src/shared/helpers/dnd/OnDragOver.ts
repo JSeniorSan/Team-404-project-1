@@ -51,6 +51,10 @@ function onDragOver(
         const interval = copyArray.slice(activeIndex + 1, overIndex);
         const endArray = copyArray.slice(overIndex);
         const cuttedTodo = copyArray.slice(activeIndex, activeIndex + 1);
+        console.log(
+          "new arr",
+          startArray.concat(interval, cuttedTodo, endArray)
+        );
 
         return startArray.concat(interval, cuttedTodo, endArray);
       } else if (
