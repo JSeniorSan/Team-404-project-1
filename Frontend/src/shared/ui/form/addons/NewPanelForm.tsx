@@ -29,7 +29,6 @@ const NewPanelForm: React.FC<ISavePanel> = ({ inputForm }) => {
 
   return (
     <motion.form
-      animate={{ transition: { delay: 2 } }}
       onSubmit={handleSavePanel}
       className={cn({
         ["hidden"]: !inputForm,

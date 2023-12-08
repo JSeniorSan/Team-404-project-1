@@ -73,7 +73,8 @@ const Workspace: React.FC<IModuleWorkspace> = ({
     <li
       onClick={handleClick}
       className={cn("flex w-full relative", {
-        ["bg-slate-100"]: state === true,
+        ["bg-slate-100"]:
+          state === true && (template === "Board" || template === "List"),
       })}
       onMouseLeave={handleLeaveMouse}
     >

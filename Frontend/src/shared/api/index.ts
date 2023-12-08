@@ -5,6 +5,7 @@ import userReducer from "./user/UserSlice";
 import viewReducer from "./view/ViewSlice";
 import menuReducer from "widgets/rightWidgetMenu/model/MenuSlice";
 import modalWindowColumnIdReducer from "pages/TodoPages/model/ModalWindowSlice";
+import navPanelStateReducer from "shared/api/navPanelState/NavPanelStateSlice";
 import {
   persistStore,
   persistReducer,
@@ -30,6 +31,7 @@ const rootReducer = combineReducers({
   viewReducer,
   menuReducer,
   modalWindowColumnIdReducer,
+  navPanelStateReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

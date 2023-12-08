@@ -27,7 +27,6 @@ const Workspaces = () => {
     <div className="spaces">
       <CreateNew />
       {errWork && <p>error</p>}
-      {isWorkspacesFetching && <p>LOADING</p>}
       {!isWorkspacesFetching && (
         <ul className="spaces__list">
           {allWorkspaces?.map((workspace) => {
