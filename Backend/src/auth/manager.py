@@ -8,7 +8,6 @@ from src.auth.schemas import UserCreate
 from src.config import settings
 from src.auth.models import User
 from src.auth.common_passwords.list_of_passwords import passwords_list
-from sqlalchemy.ext.asyncio import AsyncSession
 from src.workspace.models import Workspace
 from src.panel.models import Panel
 from src.task.models import Task
@@ -51,28 +50,37 @@ class UserManager(UUIDIDMixin, BaseUserManager[User, uuid.UUID]):
         '''
         async with Session() as session:
 
-            workspace = Workspace(name="Привет, это твой первый проект!", creator_id=user.id)
+            workspace = Workspace(name="Привет, это твой первый проект!", creator_id=user.id, hex='GFHA48')
             session.add(workspace)
             await session.commit()
             await session.refresh(workspace)
 
-            panel_todo = Panel(name="Запланировано", workspace_id=workspace.id)
-            panel_in_progress = Panel(name="В работе", workspace_id=workspace.id)
-            panel_done = Panel(name="Выполнено", workspace_id=workspace.id)
+            panel_todo = Panel(name="Запланировано", workspace_id=workspace.id, panel_position=0)
+            panel_in_progress = Panel(name="В работе", workspace_id=workspace.id, panel_position=1)
+            panel_done = Panel(name="Выполнено", workspace_id=workspace.id, panel_position=2)
             session.add_all([panel_todo, panel_in_progress, panel_done])
             await session.commit()
             await session.refresh(panel_todo)
             await session.refresh(panel_in_progress)
             await session.refresh(panel_done)
 
-            task_todo = Task(title="Запланированная задача", panel_id=panel_todo.id, description="Это пример" \
-                                                                                                " запланированной задачи," \
-                                                                                                " можешь попробовать" \
-                                                                                                " отредактировать её.")
-            task_in_progress = Task(title="Эта задача в процессе", panel_id=panel_in_progress.id, description="Описание текущей задачи." \
-                                                                                                            " Её подробности.")
-            task_done = Task(title="А это задача уже выполнена", panel_id=panel_done.id, description="Эту задачу уже выполнили." \
-                                                                                                    " Можно оставить какие-то комментарии.")
+            task_todo = Task(title="Запланированная задача", 
+                             panel_id=panel_todo.id, 
+                             description="Это пример" \
+                                        " запланированной задачи," \
+                                        " можешь попробовать" \
+                                        " отредактировать её.",
+                             task_position=0)
+            task_in_progress = Task(title="Эта задача в процессе", 
+                                    panel_id=panel_in_progress.id, 
+                                    description="Описание текущей задачи." \
+                                               " Её подробности.",
+                                    task_position=0)
+            task_done = Task(title="А это задача уже выполнена", 
+                             panel_id=panel_done.id, 
+                             description="Эту задачу уже выполнили." \
+                                        " Можно оставить какие-то комментарии.",
+                             task_position=0)
             session.add_all([task_todo, task_in_progress, task_done])
             await session.commit()
 

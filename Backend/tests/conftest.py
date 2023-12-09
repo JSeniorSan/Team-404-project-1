@@ -1,33 +1,38 @@
-from src.database import Base, sync_engine, TestSession, Session
-from src.task.models import Task
-from src.panel.models import Panel
-from src.workspace.models import Workspace
-from src.auth.models import User, AccessToken
+import asyncio
+from src.database import Base, test_engine
+from src import my_models
 from src.config import settings
 import pytest
 import pytest_asyncio
 from httpx import AsyncClient
 from src.main import app
-from typing import AsyncIterator
-from sqlalchemy.ext.asyncio import AsyncSession
+from typing import AsyncGenerator
+from fastapi.testclient import TestClient
 
-
-@pytest.fixture(autouse=True, scope="session")
-def setup_db():
-    assert settings.MODE == "TEST"
-    Base.metadata.drop_all(sync_engine)
-    Base.metadata.create_all(sync_engine)
-    yield None
-    Base.metadata.drop_all(sync_engine)
     
+@pytest_asyncio.fixture(autouse=True, scope='session')
+async def prepare_database():
+    assert settings.MODE == 'TEST'
+    async with test_engine.begin() as conn:
+        await conn.run_sync(Base.metadata.drop_all)
+        await conn.run_sync(Base.metadata.create_all)
+    yield
+    # async with test_engine.begin() as conn:
+    #     await conn.run_sync(Base.metadata.drop_all)
 
-@pytest_asyncio.fixture
-async def client():
-    async with AsyncClient(app=app, base_url="http://localhost") as client:
-        yield client
+
+@pytest.fixture(scope='session')
+def event_loop(request):
+    """Create an instance of the default event loop for each test case."""
+    loop = asyncio.get_event_loop_policy().new_event_loop()
+    yield loop
+    loop.close()
 
 
-@pytest_asyncio.fixture
-async def session() -> AsyncIterator[AsyncSession]:
-    async with Session() as session:
-        yield session
+client = TestClient(app)
+
+
+@pytest_asyncio.fixture(scope="session")
+async def ac() -> AsyncGenerator[AsyncClient, None]:
+    async with AsyncClient(app=app, base_url="http://localhost:8000") as ac:
+        yield ac
