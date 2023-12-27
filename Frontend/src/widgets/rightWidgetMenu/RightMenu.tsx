@@ -6,12 +6,14 @@ import { useAppDispatch } from "shared/hooks/redux-hooks";
 import { switchState } from "./model/MenuSlice";
 import { AnimatePresence, motion } from "framer-motion";
 import Close from "shared/ui/close/Close";
-import Btn from "shared/ui/btns/Btn";
+
 import { todoApi } from "shared/api/todoQueryApi/TodoServise";
 import { useEffect, useState, useRef } from "react";
 import Delete from "shared/ui/delete/Delete";
-import { Input } from "@chakra-ui/react";
+
 import { EditIcon, CalendarIcon } from "@chakra-ui/icons";
+import { Input } from "@chakra-ui/react";
+import Btn from "shared/ui/btns/Btn";
 
 // import { format, parseISO } from "date-fns";
 
@@ -25,7 +27,7 @@ const RightMenu = () => {
   const refTitle = useRef<HTMLInputElement>(null);
   const refDescription = useRef<HTMLInputElement>(null);
   const [changeTask] = todoApi.useChangeTaskMutation();
-  const [state, setState] = useState<boolean>(false);
+  const [changeForm, setChangeForm] = useState<boolean>(false);
   const dispatch = useAppDispatch();
   const menuState = useSelector(selectMenuIsOpen);
   const taskId = useSelector(selectMenuTodoId);
@@ -62,7 +64,7 @@ const RightMenu = () => {
   };
 
   const handleChangeClick = () => {
-    setState(!state);
+    setChangeForm(!changeForm);
   };
 
   return (
@@ -76,14 +78,14 @@ const RightMenu = () => {
         >
           <Close onClick={handleClick} />
           <div className="flex items-center flex-col h-full p-5 justify-between">
-            {!state && (
+            {!changeForm && (
               <div className=" w-full flex flex-col ">
                 <form
-                  className="flex items-start flex-col gap-4 p-5 h-fit border mt-10 w-full rounded"
+                  className="flex items-start flex-col gap-4 p-5 h-fit border-2 mt-10 w-full rounded border-indigo-300"
                   onSubmit={handleSubmit}
                 >
                   <EditIcon
-                    className=" text-slate-200 cursor-pointer hover:text-red-200"
+                    className=" text-slate-200 cursor-pointer hover:text-red-200 hover:scale-150"
                     onClick={handleChangeClick}
                   />
                   <div>Заголовок</div>
@@ -93,22 +95,22 @@ const RightMenu = () => {
                     {task?.description}
                   </div>
                 </form>
-                <div className="flex items-start p-5 h-fit border mt-3 w-full rounded ">
+                <div className="flex items-start p-5 h-fit border-2 mt-3 w-full rounded border-indigo-300">
                   <div className="flex items-center gap-3 cursor-pointer">
                     <CalendarIcon />
                     Calendar
                   </div>
                 </div>
-                <div className="flex items-start p-5 h-fit border mt-3 w-full rounded ">
+                <div className="flex items-start p-5 h-fit border-2 mt-3 w-full rounded border-indigo-300">
                   <div className="flex items-center gap-3 cursor-pointer">
                     Теги
                   </div>
                 </div>
               </div>
             )}
-            {state && (
+            {changeForm && (
               <form
-                className="flex items-start flex-col gap-4 p-5 h-fit border mt-10 w-full rounded ml-5"
+                className="flex items-start flex-col gap-4 p-5 h-fit border border-blue-800 mt-10 w-full rounded ml-5"
                 onSubmit={handleSubmit}
               >
                 <EditIcon

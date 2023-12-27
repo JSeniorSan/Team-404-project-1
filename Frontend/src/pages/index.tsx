@@ -41,7 +41,7 @@ export const Routing = () => {
           />
         </Route>
         <Route
-          path="kanban/"
+          path="board/*"
           element={
             <AuthHocPrivat>
               <TodosPage />

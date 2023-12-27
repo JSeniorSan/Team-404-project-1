@@ -5,8 +5,6 @@ import "./index.scss";
 import useMenu from "shared/hooks/useMenu";
 import { motion } from "framer-motion";
 import { switchState } from "widgets/rightWidgetMenu/model/MenuSlice";
-import { useSelector } from "react-redux";
-import { selectView } from "shared/api/view/viewSliceSelector";
 import Page from "shared/ui/p/Page";
 import CalendarIcon from "shared/asset/calendar.svg?react";
 import AvatarIcon from "shared/asset/Group 3.svg?react";
@@ -14,10 +12,11 @@ import MessageIcon from "shared/asset/Chat.svg?react";
 import LinkIcon from "shared/asset/link-2.svg?react";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
+import { useLastPathname } from "shared/helpers/location/Location";
 
 const CardUi: React.FC<ICard> = ({ children, task, widgets }) => {
   const { dispatch } = useMenu();
-  const viewType = useSelector(selectView);
+  const pathname = useLastPathname();
   const handleSideMenu = () => {
     dispatch(switchState({ isOpen: true, todoId: task.id }));
   };
@@ -60,8 +59,8 @@ const CardUi: React.FC<ICard> = ({ children, task, widgets }) => {
   return (
     <motion.div
       className={cn({
-        ["cardList"]: viewType === "List",
-        ["cardBoard"]: viewType === "Board",
+        ["cardList"]: pathname === "list",
+        ["cardBoard"]: pathname === "board",
       })}
       onClick={handleSideMenu}
       transition={{ duration: 0.1 }}

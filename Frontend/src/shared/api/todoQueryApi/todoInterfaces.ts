@@ -5,6 +5,7 @@ export interface ITodo {
   updated_at: Date;
   created_at: Date;
   panel_id: number;
+  task_position: number | null;
 }
 
 export interface IPost {
@@ -48,7 +49,6 @@ export interface IWorkspaceData {
   hex: string;
   panels: IPanel[];
   members: IMembers[];
-  panels_order: string;
 }
 
 export interface IMembers {
@@ -67,6 +67,7 @@ export interface IPanel {
   id: number;
   workspace_id: number;
   tasks: ITodo[];
+  panel_position: number | null;
 }
 
 export interface IPanelTitle {

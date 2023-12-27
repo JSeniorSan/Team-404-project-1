@@ -41,7 +41,7 @@ const PanelsList: React.FC<IPanelList> = ({ panel, type, tasks }) => {
         style={style}
         className={cn({
           ["border w-[250px] min-h-full h-fit opacity-90 rounded-lg mr-5 border-blue-200 flex-shrink-0 flex-grow-0 bg-slate-50"]:
-            type === "Board",
+            type === "board",
         })}
       />
     );
@@ -53,17 +53,17 @@ const PanelsList: React.FC<IPanelList> = ({ panel, type, tasks }) => {
       style={style}
       className={cn({
         ["w-[250px] min-h-full h-full backdrop-blur-md opacity-90 rounded-lg mr-5"]:
-          type === "Board",
+          type === "board",
         ["w-[calc(100vw-400px)]  ml-12 flex-shrink-0 flex-grow-0"]:
-          type === "List",
+          type === "list",
       })}
     >
       <Panel
         className={cn({
           ["flex justify-between pb-5 border-b-2 border-blue-200 rounded-sm items-center relative w-[250px] cursor-grab"]:
-            type === "Board",
+            type === "board",
           ["w-[calc(100vw-400px)] flex relative justify-between gap-3 min-w-full border-blue-200 border-b-2 cursor-grab rounded-sm pb-5 flex-shrink-0 flex-grow-0"]:
-            type === "List",
+            type === "list",
         })}
         panelTitle={panel.name}
         todosCount={tasks.length}
@@ -71,8 +71,8 @@ const PanelsList: React.FC<IPanelList> = ({ panel, type, tasks }) => {
         {...attributes}
         {...listeners}
       />
-      {type === "List" && <ListSection list={tasks} panelId={panel.id} />}
-      {type === "Board" && <BoardSection list={tasks} panelId={panel.id} />}
+      {type === "list" && <ListSection list={tasks} panelId={panel.id} />}
+      {type === "board" && <BoardSection list={tasks} panelId={panel.id} />}
     </Template>
   );
 };

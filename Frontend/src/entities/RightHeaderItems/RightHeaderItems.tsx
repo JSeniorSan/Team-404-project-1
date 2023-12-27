@@ -15,7 +15,6 @@ const RightHeaderItems = () => {
   return (
     <div className="flex gap-4 items-center">
       <InputLeftElem placeholder="Search..." type="search" elem={<Glass />} />
-
       <span>
         <Message />
       </span>
@@ -25,7 +24,7 @@ const RightHeaderItems = () => {
       <span className="relative cursor-pointer">
         <UserIcon
           onClick={handleUserMenu}
-          className="hover:border-green-400 border rounded-full"
+          className="hover:border-indigo-400 border rounded-full hover:scale-125"
         />
         <UserMenu menu={userMenu} />
       </span>

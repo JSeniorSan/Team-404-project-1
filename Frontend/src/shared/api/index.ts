@@ -2,7 +2,6 @@ import { configureStore, combineReducers } from "@reduxjs/toolkit";
 import { todoApi } from "./todoQueryApi/TodoServise";
 import todoReduser from "./modal/modalSlice";
 import userReducer from "./user/UserSlice";
-import viewReducer from "./view/ViewSlice";
 import menuReducer from "widgets/rightWidgetMenu/model/MenuSlice";
 import modalWindowColumnIdReducer from "pages/TodoPages/model/ModalWindowSlice";
 import navPanelStateReducer from "shared/api/navPanelState/NavPanelStateSlice";
@@ -28,7 +27,6 @@ const rootReducer = combineReducers({
   [todoApi.reducerPath]: todoApi.reducer,
   todoReduser,
   userReducer,
-  viewReducer,
   menuReducer,
   modalWindowColumnIdReducer,
   navPanelStateReducer,

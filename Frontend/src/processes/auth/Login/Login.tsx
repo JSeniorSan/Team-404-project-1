@@ -6,7 +6,6 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch } from "shared/hooks/redux-hooks";
 import { saveUser } from "shared/api/user/UserSlice";
-import { switchWidget } from "shared/api/view/ViewSlice";
 
 export interface IInputs {
   username: string;
@@ -29,8 +28,6 @@ const Login: React.FC = () => {
 
     if (succsessLogin && getMeDone) {
       navigate("/dashboard/home", { replace: true });
-
-      dispatch(switchWidget("home"));
     }
   }, [succsessLogin, navigate, getMeQuery, dispatch, meData, getMeDone]);
   const {

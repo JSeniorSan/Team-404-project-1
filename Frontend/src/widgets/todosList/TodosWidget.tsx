@@ -1,6 +1,4 @@
 import RightMenu from "widgets/rightWidgetMenu/RightMenu";
-import { useSelector } from "react-redux";
-import { selectView } from "shared/api/view/viewSliceSelector";
 import cn from "classnames";
 import "./index.scss";
 import { useMemo, useState } from "react";
@@ -8,6 +6,7 @@ import { IPanel, ITodo } from "shared/api/todoQueryApi/todoInterfaces";
 import PanelSortableContext from "./ui/portalAndSortable/PanelSortableContext";
 import TodosDndContext from "./ui/TodosDndContext";
 import PortalDragOverlay from "./ui/portalAndSortable/PortalDragOverlay";
+import { useLastPathname } from "shared/helpers/location/Location";
 
 export interface IPropsPanels {
   kanbanDataPanels: IPanel[];
@@ -22,7 +21,8 @@ const TodosWidget: React.FC<IPropsPanels> = ({ kanbanDataPanels }) => {
   const [activeTask, setActiveTask] = useState<ITodo | null>(null);
 
   const columsId = useMemo(() => colums.map((col) => col.id), [colums]);
-  const viewType = useSelector(selectView);
+
+  const pathname = useLastPathname();
 
   return (
     <div className="flex flex-col gap-5 h-full mb-3">
@@ -36,15 +36,15 @@ const TodosWidget: React.FC<IPropsPanels> = ({ kanbanDataPanels }) => {
       >
         <div
           className={cn({
-            ["listPanelsFormat"]: viewType === "List",
-            ["boardPanelsFormat"]: viewType === "Board",
+            ["listPanelsFormat"]: pathname === "list",
+            ["boardPanelsFormat"]: pathname === "board",
           })}
         >
           <PanelSortableContext
             columsId={columsId}
             colums={colums}
             tasks={tasks}
-            viewType={viewType}
+            viewType={pathname}
           />
           <RightMenu />
         </div>
@@ -52,7 +52,7 @@ const TodosWidget: React.FC<IPropsPanels> = ({ kanbanDataPanels }) => {
           activePanel={activePanel}
           activeTask={activeTask}
           tasks={tasks}
-          viewType={viewType}
+          viewType={pathname}
         />
       </TodosDndContext>
     </div>

@@ -31,7 +31,7 @@ const PortalDragOverlay: React.FC<IPortalDragOverlay> = ({
           {activeTask && (
             <CardUi
               task={activeTask}
-              widgets={viewType === "Board" ? true : false}
+              widgets={viewType === "board" ? true : false}
             >
               {activeTask.description}
             </CardUi>

@@ -3,5 +3,5 @@
 }
 
 .menuActive {
-  @apply w-1/5 fixed h-screen  flex flex-col top-0 right-0  z-20 bg-slate-400 opacity-90 backdrop-blur-lg;
+  @apply w-1/5 fixed h-screen  flex flex-col top-0 right-0  z-20 bg-gradient-to-t from-pink-200  via-indigo-200 via-40% to-sky-200;
 }

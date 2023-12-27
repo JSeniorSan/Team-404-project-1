@@ -2,8 +2,6 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch } from "shared/hooks/redux-hooks";
 import { addWorkspace } from "shared/api/user/UserSlice";
-import { switchWidget } from "shared/api/view/ViewSlice";
-import { selectView } from "shared/api/view/viewSliceSelector";
 import Page from "shared/ui/p/Page";
 import Dots from "shared/asset/tabler_dots.svg?react";
 import cn from "classnames";
@@ -12,6 +10,7 @@ import { selectWorkspaceData } from "shared/api/user/userSelectors";
 import { switchState } from "widgets/rightWidgetMenu/model/MenuSlice";
 import WorkspaceFeatures from "shared/ui/miniMenu/addons/WorkspaceDropMenu/WorkspaceDropMenu";
 import { IWorkspaceData } from "shared/api/todoQueryApi/todoInterfaces";
+import { useLastPathname } from "shared/helpers/location/Location";
 
 export interface IModuleWorkspace {
   id: number;
@@ -28,9 +27,9 @@ const Workspace: React.FC<IModuleWorkspace> = ({
 }) => {
   const [state, setState] = useState<boolean>(false);
   const [stateDots, setStateDots] = useState<boolean>(false);
+  const pathname = useLastPathname();
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const template = useSelector(selectView);
   const getId = useSelector(selectWorkspaceData);
 
   const handleClickDots = (event: React.MouseEvent) => {
@@ -51,11 +50,10 @@ const Workspace: React.FC<IModuleWorkspace> = ({
     dispatch(addWorkspace(id));
     dispatch(switchState({ todoId: null, isOpen: false }));
 
-    if (template === "Board") {
-      navigate(`/dashboard/kanban/${optimizationString}`);
+    if (pathname === "board") {
+      navigate(`/dashboard/board/${optimizationString}`);
     } else {
       navigate(`/dashboard/list/${optimizationString}`);
-      dispatch(switchWidget("List"));
     }
   };
 
@@ -74,7 +72,7 @@ const Workspace: React.FC<IModuleWorkspace> = ({
       onClick={handleClick}
       className={cn("flex w-full relative", {
         ["bg-slate-100"]:
-          state === true && (template === "Board" || template === "List"),
+          state === true && (pathname === "board" || pathname === "list"),
       })}
       onMouseLeave={handleLeaveMouse}
     >
