@@ -52,6 +52,7 @@ const Workspace: React.FC<IModuleWorkspace> = ({
 
     if (pathname === "board") {
       navigate(`/dashboard/board/${optimizationString}`);
+      console.log("redirect");
     } else {
       navigate(`/dashboard/list/${optimizationString}`);
     }

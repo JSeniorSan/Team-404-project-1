@@ -9,6 +9,8 @@ import { useAppDispatch } from "shared/hooks/redux-hooks";
 import { addWorkspace, setEmpty } from "shared/api/user/UserSlice";
 import { useSelector } from "react-redux";
 import { selectMaxId } from "shared/api/user/userSelectors";
+import { useNavigate } from "react-router-dom";
+import { useLastPathname } from "shared/helpers/location/Location";
 
 const sidebarAimation = {
   initial: { opacity: 0, x: 100 },
@@ -25,6 +27,8 @@ export interface IDropPanel {
 }
 
 const DropPanel: React.FC<IDropPanel> = ({ setNewWorkspace }) => {
+  const navigate = useNavigate();
+  const pathname = useLastPathname();
   const dispatch = useAppDispatch();
   const maxId = useSelector(selectMaxId);
   const [color, setColor] = useState<string>("#aabbcc");
@@ -37,6 +41,7 @@ const DropPanel: React.FC<IDropPanel> = ({ setNewWorkspace }) => {
       setNewWorkspace(false);
       dispatch(addWorkspace(maxId + 1));
       dispatch(setEmpty(false));
+      navigate(`/dashboard/${pathname}/${ref.current?.value}`);
     }
   };
 

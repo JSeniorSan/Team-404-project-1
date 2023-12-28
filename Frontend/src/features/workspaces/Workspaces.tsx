@@ -12,22 +12,11 @@ const Workspaces = () => {
     todoApi.useLazyGetAllWorkspacesQuery();
 
   useEffect(() => {
-    getWorkspaces(undefined);
-
-    console.log("fetching", isFetching);
-
-    // async function getWorkspace() {
-    //   const fetchingData = await fetch("http://127.0.0.1:8000/workspace/");
-    //   const data = await fetchingData.json();
-    //   return data;
-    // }
-    // const info = getWorkspace();
-    // console.log(info);
-
+    getWorkspaces("");
     if (allWorkspaces?.length !== 0 && typeof allWorkspaces !== "undefined") {
       dispatch(setMaxId(allWorkspaces[allWorkspaces.length - 1].id));
     }
-  }, [allWorkspaces]);
+  }, [allWorkspaces, dispatch, getWorkspaces]);
 
   return (
     <div className="spaces">

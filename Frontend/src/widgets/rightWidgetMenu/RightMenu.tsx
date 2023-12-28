@@ -6,16 +6,12 @@ import { useAppDispatch } from "shared/hooks/redux-hooks";
 import { switchState } from "./model/MenuSlice";
 import { AnimatePresence, motion } from "framer-motion";
 import Close from "shared/ui/close/Close";
-
 import { todoApi } from "shared/api/todoQueryApi/TodoServise";
 import { useEffect, useState, useRef } from "react";
 import Delete from "shared/ui/delete/Delete";
-
 import { EditIcon, CalendarIcon } from "@chakra-ui/icons";
 import { Input } from "@chakra-ui/react";
 import Btn from "shared/ui/btns/Btn";
-
-// import { format, parseISO } from "date-fns";
 
 const menuAnimation = {
   initial: { opacity: 0, x: 100 },
@@ -42,13 +38,7 @@ const RightMenu = () => {
     }
   }, [taskId, getTask]);
 
-  // const dat = new Date(`${task?.created_at}`);
-  // const f = new Intl.DateTimeFormat("en-US", {
-  //   dateStyle: "medium",
-  //   timeStyle: "short",
-  // });
-  // const newDate = f.format(dat);
-  // console.log(newDate);
+  const formater = new Intl.DateTimeFormat("en-US", { dateStyle: "long" });
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -137,7 +127,13 @@ const RightMenu = () => {
               </form>
             )}
             <div className="flex items-baseline p-5 h-fit  mt-3 w-full rounded justify-between">
-              <div className="text-base">{`Created at `}</div>
+              <div className="text-base">
+                {task
+                  ? `Created at ${formater.format(
+                      new Date(String(task.created_at).substring(0, 10))
+                    )}`
+                  : ""}
+              </div>
               {taskId && <Delete taskId={taskId} />}
             </div>
           </div>
