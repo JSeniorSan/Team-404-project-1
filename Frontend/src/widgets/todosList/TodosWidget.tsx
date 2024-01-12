@@ -21,6 +21,7 @@ const TodosWidget: React.FC<IPropsPanels> = ({ kanbanDataPanels }) => {
   const [activeTask, setActiveTask] = useState<ITodo | null>(null);
   const columsId = useMemo(() => colums.map((col) => col.id), [colums]);
   const pathname = useLastPathname();
+  console.log("todo", todos);
 
   return (
     <div className="flex flex-col gap-5 h-full mb-3">
