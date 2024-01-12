@@ -19,9 +19,7 @@ const TodosWidget: React.FC<IPropsPanels> = ({ kanbanDataPanels }) => {
   const [tasks, setTasks] = useState<ITodo[]>(todos);
   const [activePanel, setActivePanel] = useState<IPanel | null>(null);
   const [activeTask, setActiveTask] = useState<ITodo | null>(null);
-
   const columsId = useMemo(() => colums.map((col) => col.id), [colums]);
-
   const pathname = useLastPathname();
 
   return (
