@@ -20,6 +20,8 @@ const PanelSortableContext: React.FC<IPanelSortableContex> = ({
       {colums &&
         colums.map((panel) => {
           const filtering = tasks.filter((ts) => {
+            console.log("panel", panel);
+
             return ts.panel_id == panel.id;
           });
 

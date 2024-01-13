@@ -6,6 +6,7 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch } from "shared/hooks/redux-hooks";
 import { saveUser } from "shared/api/user/UserSlice";
+import { FormControl, Input } from "@chakra-ui/react";
 
 export interface IInputs {
   username: string;
@@ -54,10 +55,10 @@ const Login: React.FC = () => {
       className="flex flex-col gap-4 justify-center rounded-l-3xl p-10 pr-32"
       onSubmit={handleSubmit(onSubmit)}
     >
-      <div className="text-5xl font-bold">Sign in</div>
-      <div className="h-16 p-3">Login logo</div>
-      <Page size="14px" color="black" weight="500">
-        or use our email password
+      <div className="text-5xl font-bold text-white">Sign in</div>
+
+      <Page size="14px" color="white" weight="500">
+        or use your email password
       </Page>
       {errors.username?.type === "required" && (
         <p className="text-red-500">Требуется ввести Email</p>
@@ -65,27 +66,32 @@ const Login: React.FC = () => {
       {errorLogin && !errors.username && (
         <p className="text-red-500">Некорректно введен Email или пароль</p>
       )}
-      <input
-        placeholder="Email"
-        type="text"
-        {...register("username", { required: true })}
-        aria-invalid={errors.username ? "true" : "false"}
-      />
+      <FormControl isRequired>
+        <Input
+          className="placeholder-white"
+          id="username"
+          placeholder="Email"
+          color="black"
+          {...register("username")}
+        />
+      </FormControl>
 
       {errors.password?.type === "validate" && (
         <p className="text-red-500">nope</p>
       )}
-      <input
-        placeholder="Password"
-        type="text"
-        {...register("password", { required: "Требуется ввести пароль" })}
-        aria-invalid={errors.password ? "true" : "false"}
-      />
-
-      <Page size="14px" color="black" weight="500">
+      <FormControl isRequired>
+        <Input
+          className="placeholder-white "
+          id="Password"
+          placeholder="Password"
+          color="black"
+          {...register("password")}
+        />
+      </FormControl>
+      <Page size="14px" color="white" weight="500">
         Forget your password?
       </Page>
-      <Btn color="black" type="activity">
+      <Btn color="white" type="activity">
         Sign In
       </Btn>
     </form>

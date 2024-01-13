@@ -24,7 +24,7 @@ const RightHeaderItems = () => {
       <span className="relative cursor-pointer">
         <UserIcon
           onClick={handleUserMenu}
-          className="hover:border-indigo-400 border rounded-full hover:scale-125"
+          className="hover:border-blue-400 border rounded-full hover:scale-125"
         />
         <UserMenu menu={userMenu} />
       </span>

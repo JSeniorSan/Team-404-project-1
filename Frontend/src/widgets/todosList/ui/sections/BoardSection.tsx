@@ -7,6 +7,8 @@ export interface IBoardSection extends IListSection {
 }
 
 const BoardSection: React.FC<IBoardSection> = ({ list, panelId }) => {
+  console.log("list", list);
+
   return (
     <section className="flex h-fit items-center flex-col gap-3 ">
       <NewTask columnId={panelId} />

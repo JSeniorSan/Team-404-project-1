@@ -12,10 +12,12 @@ const useRegister = (): IRegisterHook => {
 
   const isSucessRegister = (value: boolean) => {
     if (value) {
+      console.log("registration");
+
       navigate("/account");
       setStatus("");
     } else {
-      setStatus("Форма ввода заполнена не корректно");
+      setStatus("");
     }
   };
 

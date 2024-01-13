@@ -5,7 +5,7 @@ import { data } from "./LeftHeaderItems.data";
 
 const LeftHeaderItems = () => {
   const pathname = useLastPathname();
-  console.log("path", pathname);
+
   return (
     <div className="flex gap-4 items-center">
       {data.map((elem) => {

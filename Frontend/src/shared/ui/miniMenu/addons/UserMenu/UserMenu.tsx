@@ -6,7 +6,7 @@ import { useAppDispatch } from "shared/hooks/redux-hooks";
 // import { useSelector } from "react-redux";
 // import { selectUser } from "shared/api/user/userSelectors";
 import { todoApi } from "shared/api/todoQueryApi/TodoServise";
-import { deleteCurrentUser } from "shared/api/user/UserSlice";
+import { deleteCurrentUser, setEmpty } from "shared/api/user/UserSlice";
 import { useNavigate } from "react-router-dom";
 
 export interface IUserMenu {
@@ -22,6 +22,7 @@ const UserMenu: React.FC<IUserMenu> = ({ menu }) => {
 
   const onClick = async () => {
     dispatch(deleteCurrentUser());
+    dispatch(setEmpty(true));
     await logout(null);
 
     navigate("/account", { replace: true });

@@ -3,7 +3,7 @@ import { todoApi } from "shared/api/todoQueryApi/TodoServise";
 import CreateNew from "../createNewWorkspace/CreateNew";
 import Workspace from "../../entities/workspace/Workspace";
 import { useAppDispatch } from "shared/hooks/redux-hooks";
-import { setMaxId } from "shared/api/user/UserSlice";
+import { setEmpty, setMaxId } from "shared/api/user/UserSlice";
 
 const Workspaces = () => {
   const dispatch = useAppDispatch();
@@ -18,12 +18,16 @@ const Workspaces = () => {
     }
   }, [allWorkspaces, dispatch, getWorkspaces]);
 
+  function handleClick() {
+    dispatch(setEmpty(false));
+  }
+
   return (
     <div className="spaces">
       <CreateNew />
       {errWork && <p>error</p>}
       {!isFetching && (
-        <ul className="spaces__list">
+        <ul className="spaces__list" onClick={handleClick}>
           {allWorkspaces?.map((workspace) => {
             return (
               <Workspace
