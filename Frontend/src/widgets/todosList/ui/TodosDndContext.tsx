@@ -21,6 +21,7 @@ export interface IDndContext {
   setActiveTask: SetActiveState<ITodo>;
   setColums: (value: SetStateType<IPanel[]>) => void;
   setTasks: (value: SetStateType<ITodo[]>) => void;
+
   activeTask: ITodo | null;
   todos: ITodo[];
 }
@@ -30,6 +31,7 @@ const TodosDndContext: React.FC<IDndContext> = ({
   setActivePanel,
   setActiveTask,
   activeTask,
+
   setColums,
   setTasks,
 }) => {

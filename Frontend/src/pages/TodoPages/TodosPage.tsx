@@ -38,7 +38,10 @@ function TodosPage() {
       {!isEmpty && !isKanbanFetch && !!kanbanData && (
         <div className="todoPage">
           <PageTitle kanbanDataName={kanbanData.name} />
-          <TodosWidget kanbanDataPanels={kanbanData.panels} />
+          <TodosWidget
+            kanbanDataPanels={kanbanData.panels}
+            workspaceId={workspaceId}
+          />
           <NewPanel />
           <FormCard columnId={selectColumnModalId} />
         </div>

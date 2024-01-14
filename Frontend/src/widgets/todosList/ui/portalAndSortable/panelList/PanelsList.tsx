@@ -14,6 +14,8 @@ export interface IPanelList {
 }
 
 const PanelsList: React.FC<IPanelList> = ({ panel, type, tasks }) => {
+  console.log("next try", tasks);
+
   const {
     setNodeRef,
     transform,

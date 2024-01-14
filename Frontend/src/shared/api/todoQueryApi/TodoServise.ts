@@ -9,6 +9,7 @@ import {
   ITodo,
   ITodoPost,
   IWorkspaceData,
+  IWorkspacePatchData,
 } from "./todoInterfaces";
 
 const URL = "http://127.0.0.1:8000";
@@ -157,5 +158,14 @@ export const todoApi = createApi({
     //   }),
     //   invalidatesTags: ["NewTask"],
     // }),
+    patchPanelsPositions: build.mutation<IWorkspaceData, IWorkspacePatchData>({
+      query: (data) => ({
+        url: `/workspace/${data.workspaceId}/update_panels_order`,
+        method: "PATCH",
+        body: {
+          panels: data.panels,
+        },
+      }),
+    }),
   }),
 });
