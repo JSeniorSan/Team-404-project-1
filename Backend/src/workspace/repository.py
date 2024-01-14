@@ -1,12 +1,14 @@
 from typing import Any
 import uuid
-from sqlalchemy import insert, select
+from sqlalchemy import insert, select, update
 from sqlalchemy.orm import selectinload, joinedload
-from src.workspace.schemas import WorkspaceInDb
+from src.workspace.schemas import WorkspaceInDb, WorkspaceUpdatePanelsOrder
 from src.auth.models import User
 from src.workspace.models import Workspace, workspace_members
 from utils.repository import SQLAlchemyRespository
 from src.database import Session
+from src.panel.models import Panel
+from src.task.models import Task
 
 
 class WorkspaceRepository(SQLAlchemyRespository[Workspace]):
@@ -61,5 +63,33 @@ class WorkspaceRepository(SQLAlchemyRespository[Workspace]):
             )
             result = await session.execute(query)
             return result.scalar_one()
+        
+    async def update_panels_order(self, workspace_id: int, data: WorkspaceUpdatePanelsOrder) -> Workspace:
+        async with Session() as session:
+            panel_number = 0
+            for panel in data.panels:
+                stmt = (
+                    update(Panel)
+                    .where(Panel.id==panel.id)
+                    .values(panel_position=panel_number)
+                )
+                await session.execute(stmt)
+                panel_number += 1
+
+                task_number = 0
+                for task in panel.tasks:
+                    stmt = (
+                        update(Task)
+                        .where(Task.id==task.id)
+                        .values(panel_id=panel.id, task_position=task_number)
+                    )
+                    await session.execute(stmt)
+                    task_number += 1
+
+            await session.commit()
+            query = select(self.model).where(self.model.id==workspace_id)
+            result = await session.execute(query)
+            return result.scalar_one()
+
 
 workspace_repository = WorkspaceRepository(Workspace)

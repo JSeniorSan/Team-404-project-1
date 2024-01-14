@@ -23,3 +23,9 @@ class WorkspaceCreate(WorkspaceBase):
 
 class WorkspaceUpdate(WorkspaceBase):
     pass
+
+
+class WorkspaceUpdatePanelsOrder(BaseModel):
+    panels: list[PanelInDb]
+
+    model_config = ConfigDict(from_attributes=True)
