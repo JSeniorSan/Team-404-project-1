@@ -5,6 +5,7 @@ import {
   INewWorkspacePost,
   IPanel,
   IPanelData,
+  IPatchTasksData,
   IResponseAuth,
   ITodo,
   ITodoPost,
@@ -164,6 +165,15 @@ export const todoApi = createApi({
         method: "PATCH",
         body: {
           panels: data.panels,
+        },
+      }),
+    }),
+    patchTasksPositions: build.mutation<IPanel, IPatchTasksData>({
+      query: (data) => ({
+        url: `/panel/${data.panel_id}/update_tasks_order`,
+        method: "PATCH",
+        body: {
+          tasks: data.tasks,
         },
       }),
     }),

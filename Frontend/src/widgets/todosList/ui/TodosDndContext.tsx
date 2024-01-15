@@ -7,7 +7,11 @@ import {
   useSensor,
   useSensors,
 } from "@dnd-kit/core";
-import { IPanel, ITodo } from "shared/api/todoQueryApi/todoInterfaces";
+import {
+  IPanel,
+  IPatchTasksData,
+  ITodo,
+} from "shared/api/todoQueryApi/todoInterfaces";
 import onDragEnd from "shared/helpers/dnd/OnDragEnd";
 import onDragOver from "shared/helpers/dnd/OnDragOver";
 import onDragStart from "shared/helpers/dnd/OnDragStart";
@@ -21,7 +25,8 @@ export interface IDndContext {
   setActiveTask: SetActiveState<ITodo>;
   setColums: (value: SetStateType<IPanel[]>) => void;
   setTasks: (value: SetStateType<ITodo[]>) => void;
-
+  patchTasks: (value: IPatchTasksData) => void;
+  tasks: ITodo[];
   activeTask: ITodo | null;
   todos: ITodo[];
 }
@@ -30,8 +35,9 @@ const TodosDndContext: React.FC<IDndContext> = ({
   children,
   setActivePanel,
   setActiveTask,
+  patchTasks,
   activeTask,
-
+  tasks,
   setColums,
   setTasks,
 }) => {
@@ -52,7 +58,14 @@ const TodosDndContext: React.FC<IDndContext> = ({
   }
 
   function dndOnDragEnd(event: DragEndEvent) {
-    onDragEnd(event, setActivePanel, setActiveTask, setColums);
+    onDragEnd(
+      event,
+      setActivePanel,
+      setActiveTask,
+      setColums,
+      tasks,
+      patchTasks
+    );
   }
 
   return (
