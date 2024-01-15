@@ -44,9 +44,8 @@ class WorkspaceService:
         workspace = await self.workspace_repo.update_one(new_data_dict, workspace_id)
         return workspace
     
-    async def update_panels_order(self, workspace_id: int, data: WorkspaceUpdatePanelsOrder) -> Workspace:
-        workspace = await self.workspace_repo.update_panels_order(workspace_id, data)
-        return workspace
+    async def update_panels_order(self, workspace_id: int, data: WorkspaceUpdatePanelsOrder) -> None:
+        await self.workspace_repo.update_panels_order(workspace_id, data)
     
     async def add_new_member_to_workspace(self, workspace_id: int, new_member_id: uuid.UUID) -> Workspace:
         workspace = await self.workspace_repo.add_new_member_to_workspace(workspace_id, new_member_id)

@@ -64,7 +64,7 @@ class WorkspaceRepository(SQLAlchemyRespository[Workspace]):
             result = await session.execute(query)
             return result.scalar_one()
         
-    async def update_panels_order(self, workspace_id: int, data: WorkspaceUpdatePanelsOrder) -> Workspace:
+    async def update_panels_order(self, workspace_id: int, data: WorkspaceUpdatePanelsOrder) -> None:
         async with Session() as session:
             panel_number = 0
             for panel in data.panels:
@@ -87,9 +87,9 @@ class WorkspaceRepository(SQLAlchemyRespository[Workspace]):
                     task_number += 1
 
             await session.commit()
-            query = select(self.model).where(self.model.id==workspace_id)
-            result = await session.execute(query)
-            return result.scalar_one()
+            # query = select(self.model).where(self.model.id==workspace_id)
+            # result = await session.execute(query)
+            # return result.scalar_one()
 
 
 workspace_repository = WorkspaceRepository(Workspace)

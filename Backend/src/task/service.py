@@ -1,5 +1,5 @@
 from src.task.models import Task
-from src.task.schemas import TaskCreate, TaskUpdate
+from src.task.schemas import TaskCreate, TaskMoveBetweenPanels, TaskUpdate
 from src.task.repository import TaskRepository, task_repository
 
 
@@ -26,6 +26,10 @@ class TaskService:
         new_data_dict = new_data.model_dump(exclude_unset=True)
         task = await self.task_repo.update_one(new_data_dict, task_id)
         return task
+
+    async def move_tasks_between_panels(self, data: TaskMoveBetweenPanels):
+        tasks = data.tasks
+        await self.task_repo.move_tasks_between_panels(tasks)
 
 
 task_service = TaskService(task_repository)

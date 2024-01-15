@@ -28,8 +28,8 @@ class PanelService:
         panel = await self.panel_repo.update_one(new_data_dict, panel_id)
         return panel
     
-    async def update_tasks_order(self, panel_id: int, data: PanelUpdateTasksOrder) -> Panel:
-        panel = await self.panel_repo.update_tasks_order(panel_id, data)
-        return panel
+    async def update_tasks_order(self, panel_id: int, data: PanelUpdateTasksOrder) -> None:
+        await self.panel_repo.update_tasks_order(panel_id, data)
+        
 
 panel_service = PanelService(panel_repository)

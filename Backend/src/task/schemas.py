@@ -17,7 +17,6 @@ class TaskInDb(TaskBase):
     task_position: int | None
 
     
-
 class TaskCreate(TaskBase):
     pass
 
@@ -26,3 +25,9 @@ class TaskUpdate(TaskBase):
     title: str | None = None
     panel_id: int | None = None
     task_position: int | None = None
+
+
+class TaskMoveBetweenPanels(BaseModel):
+    tasks: list[TaskInDb]
+    
+    model_config = ConfigDict(from_attributes=True)

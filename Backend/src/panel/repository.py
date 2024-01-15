@@ -19,7 +19,7 @@ class PanelRepository(SQLAlchemyRespository[Panel]):
             result = await session.execute(query)
             return result.scalar_one()
 
-    async def update_tasks_order(self, panel_id: int, data: PanelUpdateTasksOrder) -> Panel:
+    async def update_tasks_order(self, panel_id: int, data: PanelUpdateTasksOrder) -> None:
         async with Session() as session:
             task_number = 0
             for task in data.tasks:
@@ -32,9 +32,9 @@ class PanelRepository(SQLAlchemyRespository[Panel]):
                 task_number += 1
 
             await session.commit()
-            query = select(Panel).where(Panel.id==panel_id)
-            result = await session.execute(query)
-            return result.scalar_one()
+            # query = select(Panel).where(Panel.id==panel_id)
+            # result = await session.execute(query)
+            # return result.scalar_one()
 
 
 panel_repository = PanelRepository(Panel)

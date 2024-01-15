@@ -1,6 +1,6 @@
 from typing import Any
-from fastapi import Depends, APIRouter
-from src.task.schemas import TaskInDb, TaskCreate, TaskUpdate
+from fastapi import Depends, APIRouter, status
+from src.task.schemas import TaskInDb, TaskCreate, TaskMoveBetweenPanels, TaskUpdate
 from src.auth.config import fastapi_users
 from src.task.service import task_service
 
@@ -50,3 +50,8 @@ async def update_task(task_id: int, new_data: TaskUpdate) -> Any:
     '''
     task = await task_service.update_task(new_data, task_id)
     return task
+
+
+@router.patch("/move_tasks_between_panels", status_code=status.HTTP_200_OK)
+async def move_tasks_between_panels(data: TaskMoveBetweenPanels) -> None:
+    await task_service.move_tasks_between_panels(data)
