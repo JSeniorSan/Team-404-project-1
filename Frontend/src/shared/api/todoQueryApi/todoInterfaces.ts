@@ -83,3 +83,8 @@ export interface IWorkspacePatchData {
   workspaceId: number;
   panels: IPanel[];
 }
+
+export interface IPatchTasksData {
+  panel_id: number;
+  tasks: ITodo[];
+}

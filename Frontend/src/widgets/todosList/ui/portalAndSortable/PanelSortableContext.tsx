@@ -16,7 +16,7 @@ const PanelSortableContext: React.FC<IPanelSortableContex> = ({
   viewType,
   tasks,
 }) => {
-  console.log("colums", columsId);
+  console.log("colums", tasks);
 
   filterTasks(colums);
 
@@ -27,7 +27,7 @@ const PanelSortableContext: React.FC<IPanelSortableContex> = ({
           const filtering = tasks.filter((ts) => {
             return ts.panel_id == panel.id;
           });
-          console.log("panel", filtering);
+          console.log("filtering", filtering);
 
           return (
             <PanelsList
