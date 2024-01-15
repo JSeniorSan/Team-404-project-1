@@ -78,3 +78,8 @@ export interface IPanelData {
   id: number;
   titleData: IPanelTitle;
 }
+
+export interface IWorkspacePatchData {
+  workspaceId: number;
+  panels: IPanel[];
+}
