@@ -1,5 +1,5 @@
 from src.panel.models import Panel
-from src.panel.schemas import PanelCreate, PanelInDb, PanelUpdate
+from src.panel.schemas import PanelCreate, PanelInDb, PanelUpdate, PanelUpdateTasksOrder
 from src.panel.repository import PanelRepository, panel_repository
 
 
@@ -28,5 +28,8 @@ class PanelService:
         panel = await self.panel_repo.update_one(new_data_dict, panel_id)
         return panel
     
+    async def update_tasks_order(self, panel_id: int, data: PanelUpdateTasksOrder) -> Panel:
+        panel = await self.panel_repo.update_tasks_order(panel_id, data)
+        return panel
 
 panel_service = PanelService(panel_repository)

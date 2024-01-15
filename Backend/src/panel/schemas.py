@@ -21,3 +21,9 @@ class PanelCreate(PanelBase):
 class PanelUpdate(PanelBase):
     name: str | None = None
     panel_position: int | None = None
+
+
+class PanelUpdateTasksOrder(BaseModel):
+    tasks: list[TaskInDb]
+
+    model_config = ConfigDict(from_attributes=True)

@@ -1,6 +1,6 @@
 from typing import Any
 from fastapi import APIRouter, Depends
-from src.panel.schemas import PanelCreate, PanelInDb, PanelUpdate
+from src.panel.schemas import PanelCreate, PanelInDb, PanelUpdate, PanelUpdateTasksOrder
 from src.auth.config import fastapi_users
 from src.panel.service import panel_service
 
@@ -47,4 +47,10 @@ async def update_panel(new_data: PanelUpdate, panel_id: int) -> Any:
     Update **panel** by ID.
     '''
     panel = await panel_service.update_panel(new_data, panel_id)
+    return panel
+
+
+@router.patch("/{panel_id}/update_tasks_order", response_model=PanelInDb)
+async def update_tasks_order(new_data: PanelUpdateTasksOrder, panel_id: int) -> Any:
+    panel = await panel_service.update_tasks_order(panel_id, new_data)
     return panel
