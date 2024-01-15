@@ -7,12 +7,14 @@ import {
   useSensor,
   useSensors,
 } from "@dnd-kit/core";
+import { arrayMove } from "@dnd-kit/sortable";
+import { todoApi } from "shared/api/todoQueryApi/TodoServise";
 import {
   IPanel,
-  IPatchTasksData,
+  // IPatchTasksData,
   ITodo,
 } from "shared/api/todoQueryApi/todoInterfaces";
-import onDragEnd from "shared/helpers/dnd/OnDragEnd";
+// import onDragEnd from "shared/helpers/dnd/OnDragEnd";
 import onDragOver from "shared/helpers/dnd/OnDragOver";
 import onDragStart from "shared/helpers/dnd/OnDragStart";
 
@@ -25,7 +27,7 @@ export interface IDndContext {
   setActiveTask: SetActiveState<ITodo>;
   setColums: (value: SetStateType<IPanel[]>) => void;
   setTasks: (value: SetStateType<ITodo[]>) => void;
-  patchTasks: (value: IPatchTasksData) => void;
+  // patchTasks: any;
   tasks: ITodo[];
   activeTask: ITodo | null;
   todos: ITodo[];
@@ -35,16 +37,18 @@ const TodosDndContext: React.FC<IDndContext> = ({
   children,
   setActivePanel,
   setActiveTask,
-  patchTasks,
+  // patchTasks,
   activeTask,
   tasks,
   setColums,
   setTasks,
 }) => {
+  const [patchTasks] = todoApi.usePatchTasksPositionsMutation();
+
   const sensors = useSensors(
     useSensor(PointerSensor, {
       activationConstraint: {
-        distance: 2,
+        distance: 5,
       },
     })
   );
@@ -58,14 +62,43 @@ const TodosDndContext: React.FC<IDndContext> = ({
   }
 
   function dndOnDragEnd(event: DragEndEvent) {
-    onDragEnd(
-      event,
-      setActivePanel,
-      setActiveTask,
-      setColums,
-      tasks,
-      patchTasks
-    );
+    function onDragEnd(
+      event: DragEndEvent,
+      setActivePanel: SetActiveState<IPanel>,
+      setActiveTask: SetActiveState<ITodo>,
+      setColums: (value: SetStateType<IPanel[]>) => void,
+      tasks: ITodo[]
+    ) {
+      const { over, active } = event;
+      if (!over) return;
+      setActivePanel(null);
+      setActiveTask(null);
+
+      const activeColumnId = active.id;
+      const overColumnId = over?.id;
+
+      // if (activeColumnId === overColumnId) return;
+
+      setColums((colums) => {
+        const activeColumnIndex = colums.findIndex(
+          (col) => col.id === activeColumnId
+        );
+        const overColumnIndex = colums.findIndex(
+          (col) => col.id === overColumnId
+        );
+
+        return arrayMove(colums, activeColumnIndex, overColumnIndex);
+      });
+      console.log(tasks);
+      async function patchTasksFn() {
+        await patchTasks({
+          tasks: tasks,
+        });
+      }
+      patchTasksFn();
+    }
+
+    onDragEnd(event, setActivePanel, setActiveTask, setColums, tasks);
   }
 
   return (

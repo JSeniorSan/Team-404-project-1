@@ -100,7 +100,7 @@ export const todoApi = createApi({
       }),
       invalidatesTags: ["NewWorkspace"],
     }),
-    getAllWorkspaces: build.query<IWorkspaceData[], string>({
+    getAllWorkspaces: build.query<IWorkspaceData[], null>({
       query: () => ({
         url: "/workspace/",
       }),
@@ -151,14 +151,7 @@ export const todoApi = createApi({
       }),
       invalidatesTags: ["NewTask"],
     }),
-    // changePanelTask: build.mutation<ITodo, ITaskData>({
-    //   query: (data) => ({
-    //     url: `/task/${data.id}`,
-    //     method: "PATCH",
-    //     body: data.infoData,
-    //   }),
-    //   invalidatesTags: ["NewTask"],
-    // }),
+
     patchPanelsPositions: build.mutation<IWorkspaceData, IWorkspacePatchData>({
       query: (data) => ({
         url: `/workspace/${data.workspaceId}/update_panels_order`,
@@ -168,9 +161,9 @@ export const todoApi = createApi({
         },
       }),
     }),
-    patchTasksPositions: build.mutation<IPanel, IPatchTasksData>({
+    patchTasksPositions: build.mutation<string, IPatchTasksData>({
       query: (data) => ({
-        url: `/panel/${data.panel_id}/update_tasks_order`,
+        url: "/task/move_tasks_between_panels",
         method: "PATCH",
         body: {
           tasks: data.tasks,

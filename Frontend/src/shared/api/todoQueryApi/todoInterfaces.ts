@@ -5,7 +5,7 @@ export interface ITodo {
   updated_at: Date;
   created_at: Date;
   panel_id: number;
-  task_position: number | null;
+  task_position: number;
 }
 
 export interface IPost {
@@ -85,6 +85,5 @@ export interface IWorkspacePatchData {
 }
 
 export interface IPatchTasksData {
-  panel_id: number;
   tasks: ITodo[];
 }

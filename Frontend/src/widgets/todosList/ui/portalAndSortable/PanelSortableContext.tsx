@@ -1,7 +1,6 @@
 import { SortableContext } from "@dnd-kit/sortable";
 import PanelsList from "./panelList/PanelsList";
 import { IPanel, ITodo } from "shared/api/todoQueryApi/todoInterfaces";
-import { filterTasks } from "shared/helpers/filterTasks/filterTasks";
 
 export interface IPanelSortableContex {
   columsId: number[];
@@ -16,10 +15,6 @@ const PanelSortableContext: React.FC<IPanelSortableContex> = ({
   viewType,
   tasks,
 }) => {
-  console.log("colums", tasks);
-
-  filterTasks(colums);
-
   return (
     <SortableContext items={columsId}>
       {colums &&
@@ -27,7 +22,6 @@ const PanelSortableContext: React.FC<IPanelSortableContex> = ({
           const filtering = tasks.filter((ts) => {
             return ts.panel_id == panel.id;
           });
-          console.log("filtering", filtering);
 
           return (
             <PanelsList
