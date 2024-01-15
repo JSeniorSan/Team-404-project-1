@@ -26,7 +26,7 @@ class PanelRepository(SQLAlchemyRespository[Panel]):
                 stmt = (
                     update(Task)
                     .where(Task.id==task.id)
-                    .values(task_position=task_number)
+                    .values(task_position=task_number, panel_id=panel_id)
                 )
                 await session.execute(stmt)
                 task_number += 1
