@@ -3,13 +3,14 @@ from src.task.schemas import TaskInDb
 from src.task.models import Task
 from utils.repository import SQLAlchemyRespository
 from src.database import Session
-from fastapi import status
+from loguru import logger
 
 
 class TaskRepository(SQLAlchemyRespository[Task]):
     
     async def move_tasks_between_panels(self, tasks: list[TaskInDb]) -> None:
         async with Session() as session:
+            logger.debug(tasks)
             task_number = 0
             for task in tasks:
                 stmt = (
