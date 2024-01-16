@@ -43,6 +43,11 @@ async def delete_one_task(task_id: int) -> Any:
     return task
 
 
+@router.patch("/move_tasks_between_panels", status_code=status.HTTP_200_OK)
+async def move_tasks_between_panels(data: TaskMoveBetweenPanels) -> None:
+    await task_service.move_tasks_between_panels(data)
+
+
 @router.patch("/{task_id}", response_model=TaskInDb)
 async def update_task(task_id: int, new_data: TaskUpdate) -> Any:
     '''
@@ -50,8 +55,3 @@ async def update_task(task_id: int, new_data: TaskUpdate) -> Any:
     '''
     task = await task_service.update_task(new_data, task_id)
     return task
-
-
-@router.patch("/move_tasks_between_panels", status_code=status.HTTP_200_OK)
-async def move_tasks_between_panels(data: TaskMoveBetweenPanels) -> None:
-    await task_service.move_tasks_between_panels(data)

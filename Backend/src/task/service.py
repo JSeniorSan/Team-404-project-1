@@ -27,7 +27,7 @@ class TaskService:
         task = await self.task_repo.update_one(new_data_dict, task_id)
         return task
 
-    async def move_tasks_between_panels(self, data: TaskMoveBetweenPanels):
+    async def move_tasks_between_panels(self, data: TaskMoveBetweenPanels) -> None:
         tasks = data.tasks
         await self.task_repo.move_tasks_between_panels(tasks)
 

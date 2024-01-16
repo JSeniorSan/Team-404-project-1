@@ -8,7 +8,7 @@ from fastapi import status
 
 class TaskRepository(SQLAlchemyRespository[Task]):
     
-    async def move_tasks_between_panels(tasks: list[TaskInDb]) -> None:
+    async def move_tasks_between_panels(self, tasks: list[TaskInDb]) -> None:
         async with Session() as session:
             task_number = 0
             for task in tasks:
@@ -20,5 +20,6 @@ class TaskRepository(SQLAlchemyRespository[Task]):
                 await session.execute(stmt)
                 task_number += 1
             await session.commit()
+
 
 task_repository = TaskRepository(Task)
