@@ -66,13 +66,13 @@ class WorkspaceRepository(SQLAlchemyRespository[Workspace]):
             result = await session.execute(query)
             return result.scalar_one()
         
-    async def update_panels_order_and_move_tasks(self, panels: list[PanelInDb], tasks: list[TaskInDb]) -> None:
+    async def update_panels_order_and_move_tasks(self, panels: list[int], tasks: list[TaskInDb]) -> None:
         async with Session() as session:
             panel_number = 0
-            for panel in panels:
+            for panel_id in panels:
                 stmt = (
                     update(Panel)
-                    .where(Panel.id==panel.id)
+                    .where(Panel.id==panel_id)
                     .values(panel_position=panel_number)
                 )
                 await session.execute(stmt)

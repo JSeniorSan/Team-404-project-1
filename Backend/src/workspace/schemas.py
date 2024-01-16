@@ -33,7 +33,7 @@ class WorkspaceUpdatePanelsOrder(BaseModel):
 
 
 class UpdatePanelsOrderAndMoveTasks(BaseModel):
-    panels: list[PanelInDb]
+    panels: list[int]
     tasks: list[TaskInDb]
 
     model_config = ConfigDict(from_attributes=True)

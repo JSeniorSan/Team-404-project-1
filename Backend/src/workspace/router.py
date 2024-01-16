@@ -52,9 +52,11 @@ async def get_workspace(workspace_id: int) -> Any:
     workspace = await workspace_service.read_workspace(workspace_id)
     return workspace
 
+
 @router.patch("/update_panels_order_and_move_tasks", status_code=status.HTTP_200_OK)
 async def update_panels_order_and_move_tasks(new_data: UpdatePanelsOrderAndMoveTasks) -> None:
     await workspace_service.update_panels_order_and_move_tasks(new_data)
+
 
 @router.patch("/{workspace_id}", response_model=WorkspaceInDb)
 async def update_workspace(workspace_id: int, new_data: WorkspaceUpdate) -> Any:
@@ -63,8 +65,6 @@ async def update_workspace(workspace_id: int, new_data: WorkspaceUpdate) -> Any:
     '''
     workspace = await workspace_service.update_workspace(new_data, workspace_id)
     return workspace
-
-
 
 
 @router.patch("/{workspace_id}/add_new_member", response_model=WorkspaceInDb)

@@ -50,6 +50,6 @@ async def update_panel(new_data: PanelUpdate, panel_id: int) -> Any:
     return panel
 
 
-@router.patch("/{panel_id}/update_tasks_order", status_code=status.HTTP_200_OK)
+@router.patch("/{panel_id}/update_tasks_order", status_code=status.HTTP_200_OK, deprecated=True)
 async def update_tasks_order(new_data: PanelUpdateTasksOrder, panel_id: int) -> None:
     await panel_service.update_tasks_order(panel_id, new_data)
