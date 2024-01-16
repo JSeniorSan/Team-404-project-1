@@ -5,16 +5,7 @@ import userReducer from "./user/UserSlice";
 import menuReducer from "widgets/rightWidgetMenu/model/MenuSlice";
 import modalWindowColumnIdReducer from "pages/TodoPages/model/ModalWindowSlice";
 import navPanelStateReducer from "shared/api/navPanelState/NavPanelStateSlice";
-import {
-  persistStore,
-  persistReducer,
-  FLUSH,
-  REHYDRATE,
-  PAUSE,
-  PERSIST,
-  PURGE,
-  REGISTER,
-} from "redux-persist";
+import { persistStore, persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 
 const persistConfig = {
@@ -38,9 +29,8 @@ export const store = configureStore({
   reducer: persistedReducer,
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
-      serializableCheck: {
-        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
-      },
+      immutableCheck: false,
+      serializableCheck: false,
     }).concat(todoApi.middleware),
   devTools: true,
 });

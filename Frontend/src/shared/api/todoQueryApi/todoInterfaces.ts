@@ -80,8 +80,8 @@ export interface IPanelData {
 }
 
 export interface IWorkspacePatchData {
-  workspaceId: number;
-  panels: IPanel[];
+  panels: number[];
+  tasks: ITodo[];
 }
 
 export interface IPatchTasksData {

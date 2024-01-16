@@ -7,7 +7,7 @@ import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import { IPanel, ITodo } from "shared/api/todoQueryApi/todoInterfaces";
 import React from "react";
-import DraggingEmpty from "./ui/DraggingEmpty";
+// import DraggingEmpty from "./ui/DraggingEmpty";
 
 export interface IPanelList {
   panel: IPanel;
@@ -37,7 +37,16 @@ const PanelsList: React.FC<IPanelList> = ({ panel, type, tasks }) => {
   };
 
   if (isDragging) {
-    return <DraggingEmpty setNodeRef={setNodeRef} type={type} />;
+    return (
+      <div
+        ref={setNodeRef}
+        className={cn({
+          ["border w-[250px] min-h-full h-fit opacity-90 rounded-lg mr-5 border-blue-200 flex-shrink-0 flex-grow-0 bg-slate-50"]:
+            type === "board",
+        })}
+        style={style}
+      />
+    );
   }
 
   return (

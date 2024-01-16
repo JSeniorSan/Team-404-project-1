@@ -12,7 +12,7 @@ const Workspaces = () => {
     todoApi.useLazyGetAllWorkspacesQuery();
 
   useEffect(() => {
-    getWorkspaces(null);
+    getWorkspaces("");
     if (allWorkspaces?.length !== 0 && typeof allWorkspaces !== "undefined") {
       dispatch(setMaxId(allWorkspaces[allWorkspaces.length - 1].id));
     }

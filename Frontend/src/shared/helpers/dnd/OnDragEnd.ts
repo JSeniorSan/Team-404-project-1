@@ -1,10 +1,6 @@
 import { DragEndEvent } from "@dnd-kit/core";
 import { arrayMove } from "@dnd-kit/sortable";
-import {
-  IPanel,
-  // IPatchTasksData,
-  ITodo,
-} from "shared/api/todoQueryApi/todoInterfaces";
+import { IPanel, ITodo } from "shared/api/todoQueryApi/todoInterfaces";
 
 type SetStateType<T> = (prevState: T) => T;
 type SetActiveState<T> = (value: T | null) => void;
@@ -14,8 +10,7 @@ function onDragEnd(
   setActivePanel: SetActiveState<IPanel>,
   setActiveTask: SetActiveState<ITodo>,
   setColums: (value: SetStateType<IPanel[]>) => void,
-  tasks: ITodo[]
-  // patchTasks: any
+  patchTasksFn: (cols: IPanel[]) => void
 ) {
   const { over, active } = event;
   if (!over) return;
@@ -33,15 +28,11 @@ function onDragEnd(
     );
     const overColumnIndex = colums.findIndex((col) => col.id === overColumnId);
 
-    return arrayMove(colums, activeColumnIndex, overColumnIndex);
+    const cols = arrayMove(colums, activeColumnIndex, overColumnIndex);
+    patchTasksFn(cols);
+
+    return cols;
   });
-  console.log(tasks);
-  //   async function patchTasksFn() {
-  //     await patchTasks({
-  //       tasks: tasks,
-  //     });
-  //   }
-  //   patchTasksFn();
 }
 
 export default onDragEnd;

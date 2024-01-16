@@ -5,7 +5,7 @@ import {
   INewWorkspacePost,
   IPanel,
   IPanelData,
-  IPatchTasksData,
+  // IPatchTasksData,
   IResponseAuth,
   ITodo,
   ITodoPost,
@@ -100,7 +100,7 @@ export const todoApi = createApi({
       }),
       invalidatesTags: ["NewWorkspace"],
     }),
-    getAllWorkspaces: build.query<IWorkspaceData[], null>({
+    getAllWorkspaces: build.query<IWorkspaceData[], string>({
       query: () => ({
         url: "/workspace/",
       }),
@@ -152,23 +152,24 @@ export const todoApi = createApi({
       invalidatesTags: ["NewTask"],
     }),
 
-    patchPanelsPositions: build.mutation<IWorkspaceData, IWorkspacePatchData>({
+    patchPanelsPositions: build.mutation<null, IWorkspacePatchData>({
       query: (data) => ({
-        url: `/workspace/${data.workspaceId}/update_panels_order`,
+        url: `/workspace/update_panels_order_and_move_tasks`,
         method: "PATCH",
         body: {
           panels: data.panels,
-        },
-      }),
-    }),
-    patchTasksPositions: build.mutation<string, IPatchTasksData>({
-      query: (data) => ({
-        url: "/task/move_tasks_between_panels",
-        method: "PATCH",
-        body: {
           tasks: data.tasks,
         },
       }),
     }),
+    // patchTasksPositions: build.mutation<string, IPatchTasksData>({
+    //   query: (data) => ({
+    //     url: "/task/move_tasks_between_panels",
+    //     method: "PATCH",
+    //     body: {
+    //       tasks: data.tasks,
+    //     },
+    //   }),
+    // }),
   }),
 });
