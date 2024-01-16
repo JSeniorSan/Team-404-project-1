@@ -1,7 +1,7 @@
 import uuid
 from src.auth.models import User
 from src.workspace.models import Workspace
-from src.workspace.schemas import WorkspaceCreate, WorkspaceUpdate, WorkspaceInDb, WorkspaceUpdatePanelsOrder
+from src.workspace.schemas import UpdatePanelsOrderAndMoveTasks, WorkspaceCreate, WorkspaceUpdate, WorkspaceInDb, WorkspaceUpdatePanelsOrder
 from src.workspace.repository import WorkspaceRepository, workspace_repository
 
 
@@ -44,8 +44,9 @@ class WorkspaceService:
         workspace = await self.workspace_repo.update_one(new_data_dict, workspace_id)
         return workspace
     
-    async def update_panels_order(self, workspace_id: int, data: WorkspaceUpdatePanelsOrder) -> None:
-        await self.workspace_repo.update_panels_order(workspace_id, data)
+    async def update_panels_order_and_move_tasks(self, data: UpdatePanelsOrderAndMoveTasks) -> None:
+        panels, tasks = data.panels, data.tasks
+        await self.workspace_repo.update_panels_order_and_move_tasks(panels, tasks)
     
     async def add_new_member_to_workspace(self, workspace_id: int, new_member_id: uuid.UUID) -> Workspace:
         workspace = await self.workspace_repo.add_new_member_to_workspace(workspace_id, new_member_id)

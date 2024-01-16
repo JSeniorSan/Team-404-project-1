@@ -2,6 +2,8 @@ from typing import Any
 import uuid
 from sqlalchemy import insert, select, update
 from sqlalchemy.orm import selectinload, joinedload
+from src.panel.schemas import PanelInDb
+from src.task.schemas import TaskInDb
 from src.workspace.schemas import WorkspaceInDb, WorkspaceUpdatePanelsOrder
 from src.auth.models import User
 from src.workspace.models import Workspace, workspace_members
@@ -64,10 +66,10 @@ class WorkspaceRepository(SQLAlchemyRespository[Workspace]):
             result = await session.execute(query)
             return result.scalar_one()
         
-    async def update_panels_order(self, workspace_id: int, data: WorkspaceUpdatePanelsOrder) -> None:
+    async def update_panels_order_and_move_tasks(self, panels: list[PanelInDb], tasks: list[TaskInDb]) -> None:
         async with Session() as session:
             panel_number = 0
-            for panel in data.panels:
+            for panel in panels:
                 stmt = (
                     update(Panel)
                     .where(Panel.id==panel.id)
@@ -76,15 +78,15 @@ class WorkspaceRepository(SQLAlchemyRespository[Workspace]):
                 await session.execute(stmt)
                 panel_number += 1
 
-                task_number = 0
-                for task in panel.tasks:
-                    stmt = (
-                        update(Task)
-                        .where(Task.id==task.id)
-                        .values(panel_id=panel.id, task_position=task_number)
-                    )
-                    await session.execute(stmt)
-                    task_number += 1
+            task_number = 0
+            for task in tasks:
+                stmt = (
+                    update(Task)
+                    .where(Task.id==task.id)
+                    .values(panel_id=task.panel_id, task_position=task_number)
+                )
+                await session.execute(stmt)
+                task_number += 1
 
             await session.commit()
             # query = select(self.model).where(self.model.id==workspace_id)

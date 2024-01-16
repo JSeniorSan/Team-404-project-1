@@ -1,5 +1,6 @@
 import uuid
 from pydantic import BaseModel, ConfigDict
+from src.task.schemas import TaskInDb
 from src.auth.schemas import UserSimple
 from src.panel.schemas import PanelInDb
 
@@ -27,5 +28,12 @@ class WorkspaceUpdate(WorkspaceBase):
 
 class WorkspaceUpdatePanelsOrder(BaseModel):
     panels: list[PanelInDb]
+
+    model_config = ConfigDict(from_attributes=True)
+
+
+class UpdatePanelsOrderAndMoveTasks(BaseModel):
+    panels: list[PanelInDb]
+    tasks: list[TaskInDb]
 
     model_config = ConfigDict(from_attributes=True)

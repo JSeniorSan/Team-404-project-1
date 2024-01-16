@@ -2,7 +2,7 @@ from typing import Any
 import uuid
 from fastapi import APIRouter, Body, Depends, Query, status
 from src.auth.models import User
-from src.workspace.schemas import WorkspaceCreate, WorkspaceInDb, WorkspaceUpdate, WorkspaceUpdatePanelsOrder
+from src.workspace.schemas import UpdatePanelsOrderAndMoveTasks, WorkspaceCreate, WorkspaceInDb, WorkspaceUpdate, WorkspaceUpdatePanelsOrder
 from src.auth.config import fastapi_users
 from src.workspace.service import workspace_service
 
@@ -62,6 +62,11 @@ async def update_workspace(workspace_id: int, new_data: WorkspaceUpdate) -> Any:
     return workspace
 
 
+@router.patch("/update_panels_order_and_move_tasks", status_code=status.HTTP_200_OK)
+async def update_panels_order_and_move_tasks(new_data: UpdatePanelsOrderAndMoveTasks) -> None:
+    await workspace_service.update_panels_order_and_move_tasks(new_data)
+
+
 @router.patch("/{workspace_id}/add_new_member", response_model=WorkspaceInDb)
 async def add_new_member_to_workspace(workspace_id: int, new_member_id: uuid.UUID) -> Any:
     '''
@@ -69,9 +74,3 @@ async def add_new_member_to_workspace(workspace_id: int, new_member_id: uuid.UUI
     '''
     workspace = await workspace_service.add_new_member_to_workspace(workspace_id, new_member_id)
     return workspace
-
-
-@router.patch("/{workspace_id}/update_panels_order", status_code=status.HTTP_200_OK)
-async def update_panels_order(workspace_id: int, new_data: WorkspaceUpdatePanelsOrder) -> None:
-    await workspace_service.update_panels_order(workspace_id, new_data)
-
