@@ -3,7 +3,7 @@
   background-color: rgba(0, 0, 0, 0.404);
 
   .modalWrapper__form {
-    @apply flex flex-col gap-4 p-10  w-3/6 h-4/6 rounded-md;
+    @apply flex flex-col gap-4 p-10 lg:w-3/6 lg:h-4/6 rounded-md w-3/4;
     background-color: rgba(255, 252, 252, 0.89);
     color: rgb(0, 0, 0);
 

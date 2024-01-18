@@ -16,7 +16,7 @@ const NewPanel = () => {
     <div className="fixed right-10 bottom-5 flex gap-2 items-center ">
       <div className="flex flex-col gap-3 ">
         <NewPanelForm inputForm={inputFormStatus} />
-        <Btn type="newTodo" onClick={createHandler}>
+        <Btn type="newPanel" onClick={createHandler}>
           <Page color="white" size="14px" weight="700">
             <div className="flex gap-2 items-center">
               <Plus />

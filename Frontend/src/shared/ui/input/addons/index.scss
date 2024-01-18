@@ -1,7 +1,6 @@
 .InputLeftElem {
-  @apply text-black border;
-  display: flex;
-  width: 173px;
+  @apply text-black border sm:w-44 hidden sm:flex;
+
   height: auto;
   padding: 0px 12px;
   align-items: center;

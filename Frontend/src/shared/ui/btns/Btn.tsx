@@ -6,8 +6,8 @@ export interface IBtn
     HTMLAttributes<HTMLButtonElement>,
     HTMLButtonElement
   > {
-  type?: "activity" | "newTodo" | "submit";
-  color?: "black" | "white";
+  type?: "activity" | "newPanel" | "submit" | "greenNewPanel";
+  color?: "black" | "white" | "green";
   children: React.ReactNode;
 }
 
@@ -22,7 +22,8 @@ const Btn: React.FC<IBtn> = ({
     <button
       className={cn("btn", className, {
         ["activityBtn"]: type === "activity",
-        ["newTodo"]: type === "newTodo",
+        ["newPanel"]: type === "newPanel",
+        ["greenNewPanel"]: type === "greenNewPanel",
         ["darkText"]: color === "black",
         ["lightText"]: color === "white",
         ["submit"]: type === "submit",

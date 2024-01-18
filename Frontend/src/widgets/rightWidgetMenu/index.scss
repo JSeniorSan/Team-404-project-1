@@ -3,5 +3,5 @@
 }
 
 .menuActive {
-  @apply w-1/5 fixed h-screen  flex flex-col top-0 right-0  z-20 bg-gradient-to-t from-slate-50  via-indigo-100 via-40% to-sky-100 backdrop-blur-md;
+  @apply lg:w-1/5 md:w-2/5 w-full z-[51] fixed h-screen  flex flex-col top-0 right-0 bg-gradient-to-t from-slate-50  via-indigo-100 via-40% to-sky-100 backdrop-blur-md;
 }

@@ -3,5 +3,5 @@
 }
 
 .boardPanelsFormat {
-  @apply flex gap-4 pl-12 flex-wrap h-fit;
+  @apply flex gap-4 md:pl-12 flex-wrap md:h-fit pl-16;
 }

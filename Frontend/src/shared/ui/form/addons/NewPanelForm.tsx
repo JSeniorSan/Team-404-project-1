@@ -35,8 +35,14 @@ const NewPanelForm: React.FC<ISavePanel> = ({ inputForm }) => {
         ["flex gap-3"]: inputForm,
       })}
     >
-      <Input placeholder="Panel title" type="text" variant="input" ref={ref} />
-      <Btn type="newTodo" color="white">
+      <Input
+        placeholder="Panel title"
+        type="text"
+        variant="input"
+        ref={ref}
+        className="bg-white rounded-lg border-2 pl-3"
+      />
+      <Btn type="newPanel" color="white">
         Submit
       </Btn>
     </motion.form>

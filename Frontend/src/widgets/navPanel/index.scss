@@ -1,5 +1,5 @@
 .navPanel {
-  @apply h-screen grid bg-white;
+  @apply h-screen md:grid bg-white transition-all;
 
   grid-template-rows: 88px 232px auto;
   width: 250px;

@@ -49,7 +49,7 @@ const PanelsList: React.FC<IPanelList> = ({ panel, type, tasks }) => {
       className={cn({
         ["w-[250px] min-h-fit backdrop-blur-md opacity-90 rounded-lg mr-5 shrink-0"]:
           type === "board",
-        ["w-[calc(100vw-400px)]  ml-12 flex-shrink-0 flex-grow-0"]:
+        ["lg:w-[calc(100vw-400px)] w-3/4 ml-12 flex-shrink-0 flex-grow-0"]:
           type === "list",
       })}
     >
@@ -57,7 +57,7 @@ const PanelsList: React.FC<IPanelList> = ({ panel, type, tasks }) => {
         className={cn({
           ["flex justify-between pb-5 border-b-2 border-blue-200 rounded-sm items-center relative w-[250px] cursor-grab"]:
             type === "board",
-          ["w-[calc(100vw-400px)] flex relative justify-between gap-3 min-w-full border-blue-200 border-b-2 cursor-grab rounded-sm pb-5 flex-shrink-0 flex-grow-0"]:
+          ["lg:w-[calc(100vw-400px)] w-full flex relative justify-between gap-3 min-w-full border-blue-200 border-b-2 cursor-grab rounded-sm pb-5 flex-shrink-0 flex-grow-0"]:
             type === "list",
         })}
         panelTitle={panel.name}

@@ -6,13 +6,31 @@ import MainTitle from "../../shared/ui/mainTitle/MainTitle";
 import NavElements from "../../entities/NavElements/NavElements";
 import Worspaces from "../../features/workspaces/Workspaces";
 import ThemeSwitcher from "../../features/themeSwitcher/ThemeSwitcher";
+import { CloseIcon } from "@chakra-ui/icons";
 
 export interface INavPanel
-  extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> {}
+  extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
+  isHide: boolean;
+  setIsHide: (value: boolean) => void;
+}
 
-const NavPanel: React.FC<INavPanel> = ({ className, ...props }) => {
+const NavPanel: React.FC<INavPanel> = ({
+  isHide,
+  setIsHide,
+  className,
+  ...props
+}) => {
   return (
-    <aside className={cn("navPanel", className)} {...props}>
+    <aside
+      className={cn("navPanel", className, {
+        ["hidden"]: isHide === true,
+        ["block w-full h-screen"]: isHide === false,
+      })}
+      {...props}
+    >
+      <div className="md:hidden">
+        <CloseIcon onClick={() => setIsHide(true)} />
+      </div>
       <MainTitle title="Kanban" />
       <NavElements />
       <Worspaces />

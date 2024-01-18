@@ -6,7 +6,7 @@
   @apply border rounded-md p-3 px-4;
 }
 
-.newTodo {
+.newPanel {
   display: inline-flex;
   height: 48px;
   padding: 0px 22px;
@@ -16,6 +16,11 @@
   flex-shrink: 0;
   border-radius: 1000px;
   background: #306bff;
+}
+
+.greenNewPanel {
+  @extend .newPanel;
+  @apply bg-green-400;
 }
 
 .darkText {
