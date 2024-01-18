@@ -13,7 +13,7 @@ const RightHeaderItems = () => {
     setUserMenu(!userMenu);
   };
   return (
-    <div className="flex gap-4 items-center">
+    <div className="flex gap-4 items-center z-0">
       <InputLeftElem placeholder="Search..." type="search" elem={<Glass />} />
       <span>
         <Message />

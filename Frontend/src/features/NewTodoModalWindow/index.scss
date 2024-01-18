@@ -1,5 +1,5 @@
 .modalWrapper {
-  @apply backdrop-blur-sm w-full h-screen fixed opacity-0 top-0 left-0 flex justify-center items-center pointer-events-none transition-all;
+  @apply backdrop-blur-sm w-full h-screen fixed opacity-0 top-0 left-0 flex justify-center items-center pointer-events-none transition-all z-50;
   background-color: rgba(0, 0, 0, 0.404);
 
   .modalWrapper__form {
