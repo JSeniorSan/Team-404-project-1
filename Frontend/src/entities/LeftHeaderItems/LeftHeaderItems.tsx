@@ -7,7 +7,7 @@ const LeftHeaderItems = () => {
   const pathname = useLastPathname();
 
   return (
-    <div className="flex gap-4 items-center">
+    <div className="lg:flex lg:gap-4 lg:items-center hidden">
       {data.map((elem) => {
         return (
           <TodosMode

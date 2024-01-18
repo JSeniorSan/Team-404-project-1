@@ -2,13 +2,6 @@ import { SortableContext } from "@dnd-kit/sortable";
 import PanelsList from "./panelList/PanelsList";
 import { IPanel, ITodo } from "shared/api/todoQueryApi/todoInterfaces";
 
-export interface IPanelSortableContex {
-  columsId: number[];
-  colums: IPanel[];
-  viewType: string;
-  tasks: ITodo[];
-}
-
 const PanelSortableContext: React.FC<IPanelSortableContex> = ({
   columsId,
   colums,
@@ -37,3 +30,10 @@ const PanelSortableContext: React.FC<IPanelSortableContex> = ({
 };
 
 export default PanelSortableContext;
+
+export interface IPanelSortableContex {
+  columsId: number[];
+  colums: IPanel[];
+  viewType: string;
+  tasks: ITodo[];
+}

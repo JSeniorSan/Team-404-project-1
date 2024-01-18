@@ -20,7 +20,7 @@ const PageTitle: React.FC<IProps> = ({ kanbanDataName }) => {
       <Page color="gray" size="12px" weight="500">
         {`Workspace / ${kanbanDataName} / ${pathArray}`}
       </Page>
-      <div className="flex justify-between mt-4">
+      <div className="mt-4 flex flex-col md:flex-row md:justify-between ">
         <Page color="black" size="40px" weight="700">
           {kanbanDataName}
         </Page>

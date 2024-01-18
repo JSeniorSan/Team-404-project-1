@@ -1,5 +1,5 @@
 .header {
-  @apply w-full px-5 flex justify-between items-center;
+  @apply w-full px-5 flex flex-col justify-center  z-50 h-fit lg:flex items-center lg:justify-between lg:flex-row;
   height: 88px;
   background-color: var(--base);
   border-bottom: 1px solid var(--lineColor);

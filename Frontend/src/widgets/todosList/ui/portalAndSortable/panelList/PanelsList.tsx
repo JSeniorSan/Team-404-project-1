@@ -7,13 +7,6 @@ import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import { IPanel, ITodo } from "shared/api/todoQueryApi/todoInterfaces";
 import React from "react";
-// import DraggingEmpty from "./ui/DraggingEmpty";
-
-export interface IPanelList {
-  panel: IPanel;
-  type: string;
-  tasks: ITodo[];
-}
 
 const PanelsList: React.FC<IPanelList> = ({ panel, type, tasks }) => {
   const {
@@ -41,7 +34,7 @@ const PanelsList: React.FC<IPanelList> = ({ panel, type, tasks }) => {
       <div
         ref={setNodeRef}
         className={cn({
-          ["border w-[250px] min-h-full h-fit opacity-90 rounded-lg mr-5 border-blue-200 flex-shrink-0 flex-grow-0 bg-slate-50"]:
+          ["border w-[250px] min-h-fit opacity-90 rounded-lg mr-5 border-blue-200 flex-shrink-0 flex-grow-0 bg-slate-50"]:
             type === "board",
         })}
         style={style}
@@ -54,7 +47,7 @@ const PanelsList: React.FC<IPanelList> = ({ panel, type, tasks }) => {
       ref={setNodeRef}
       style={style}
       className={cn({
-        ["w-[250px] min-h-full h-full backdrop-blur-md opacity-90 rounded-lg mr-5"]:
+        ["w-[250px] min-h-fit backdrop-blur-md opacity-90 rounded-lg mr-5 shrink-0"]:
           type === "board",
         ["w-[calc(100vw-400px)]  ml-12 flex-shrink-0 flex-grow-0"]:
           type === "list",
@@ -79,3 +72,9 @@ const PanelsList: React.FC<IPanelList> = ({ panel, type, tasks }) => {
   );
 };
 export default PanelsList;
+
+export interface IPanelList {
+  panel: IPanel;
+  type: string;
+  tasks: ITodo[];
+}
