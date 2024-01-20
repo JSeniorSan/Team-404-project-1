@@ -5,7 +5,7 @@ import Workspace from "../../entities/workspace/Workspace";
 import { useAppDispatch } from "shared/hooks/redux-hooks";
 import { setEmpty, setMaxId } from "shared/api/user/UserSlice";
 
-const Workspaces = () => {
+const Workspaces = ({ setIsHide }: { setIsHide: (value: boolean) => void }) => {
   const dispatch = useAppDispatch();
 
   const [getWorkspaces, { isFetching, data: allWorkspaces, isError: errWork }] =
@@ -36,6 +36,7 @@ const Workspaces = () => {
                 key={workspace.id}
                 color={workspace.hex}
                 allWorkspaces={allWorkspaces}
+                setIsHide={setIsHide}
               />
             );
           })}

@@ -3,11 +3,15 @@ import cn from "classnames";
 import { data } from "./NavElement.data";
 import { useLastPathname } from "shared/helpers/location/Location";
 
-const NavElements = () => {
+const NavElements = ({
+  setIsHide,
+}: {
+  setIsHide: (value: boolean) => void;
+}) => {
   const pathname = useLastPathname();
 
   return (
-    <div className="navig">
+    <div className="navig" onClick={() => setIsHide(true)}>
       {data.map((elem) => {
         return (
           <TodosMode

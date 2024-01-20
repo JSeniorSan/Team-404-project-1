@@ -12,7 +12,7 @@ import { selectUser } from "shared/api/user/userSelectors";
 import { ArrowRightIcon } from "@chakra-ui/icons";
 
 const Layout = () => {
-  const [isHide, setIsHide] = useState<boolean>(false);
+  const [isHide, setIsHide] = useState<boolean>(true);
   const [getMeQuery, { data: meData, isSuccess: getMeDone, isError: meError }] =
     todoApi.useLazyGetMeQuery();
   const dispatch = useAppDispatch();

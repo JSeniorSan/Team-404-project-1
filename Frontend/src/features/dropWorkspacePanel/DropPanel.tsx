@@ -48,7 +48,7 @@ const DropPanel: React.FC<IDropPanel> = ({ setNewWorkspace }) => {
   return (
     <motion.div
       className={cn(
-        "absolute left-60 z-30 bg-slate-100 p-7 flex flex-col gap-7 rounded-md backdrop-blur-md opacity-10 shadow-md "
+        "absolute md:left-60 z-30 bg-slate-100 p-7 flex flex-col gap-7 rounded-md backdrop-blur-md opacity-10 shadow-md left-5 bottom-20"
       )}
       {...sidebarAimation}
     >

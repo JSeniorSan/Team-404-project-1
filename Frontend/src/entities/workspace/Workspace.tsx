@@ -17,6 +17,7 @@ export interface IModuleWorkspace {
   name: string;
   color: string;
   allWorkspaces: IWorkspaceData[];
+  setIsHide: (value: boolean) => void;
 }
 
 const Workspace: React.FC<IModuleWorkspace> = ({
@@ -24,6 +25,7 @@ const Workspace: React.FC<IModuleWorkspace> = ({
   name,
   color,
   allWorkspaces,
+  setIsHide,
 }) => {
   const [state, setState] = useState<boolean>(false);
   const [stateDots, setStateDots] = useState<boolean>(false);
@@ -60,6 +62,7 @@ const Workspace: React.FC<IModuleWorkspace> = ({
 
   function handleClick() {
     handleClickToWorkspace(id, name);
+    setIsHide(true);
   }
 
   function handleLeaveMouse() {

@@ -28,12 +28,12 @@ const NavPanel: React.FC<INavPanel> = ({
       })}
       {...props}
     >
-      <div className="md:hidden">
+      <div className="md:hidden w-fit">
         <CloseIcon onClick={() => setIsHide(true)} />
       </div>
       <MainTitle title="Kanban" />
-      <NavElements />
-      <Worspaces />
+      <NavElements setIsHide={setIsHide} />
+      <Worspaces setIsHide={setIsHide} />
       <ThemeSwitcher />
     </aside>
   );
