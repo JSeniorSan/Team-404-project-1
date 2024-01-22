@@ -10,7 +10,7 @@ export interface IListSection {
 
 const ListSection: React.FC<IListSection> = ({ list, panelId }) => {
   return (
-    <section className="flex flex-col gap-4">
+    <section className="flex flex-col gap-4 pb-20 p-3">
       <NewTask columnId={panelId} />
       <SortableContext items={list}>
         {list.map((task) => {

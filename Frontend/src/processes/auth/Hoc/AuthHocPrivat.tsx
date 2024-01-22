@@ -8,9 +8,9 @@ export interface IAuthHoc {
 }
 
 const AuthHocPrivat: React.FC<IAuthHoc> = ({ children }) => {
-  const selectUserStor = useSelector(selectUser);
+  const selectUserStore = useSelector(selectUser);
   const location = useLocation();
-  if (!Object.keys(selectUserStor).length) {
+  if (Object.keys(selectUserStore).length === 0) {
     return <Navigate to="/account" state={{ from: location }} replace />;
   }
   return children;

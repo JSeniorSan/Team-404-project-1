@@ -11,7 +11,7 @@ export interface IBoardSection extends IListSection {
 const BoardSection: React.FC<IBoardSection> = React.memo(
   ({ list, panelId }) => {
     return (
-      <section className="flex h-fit items-center flex-col gap-3 ">
+      <section className="flex h-fit items-center flex-col gap-3 p-2">
         <NewTask columnId={panelId} />
         <SortableContext items={list}>
           {list.map((task) => {
