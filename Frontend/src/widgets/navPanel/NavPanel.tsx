@@ -6,7 +6,8 @@ import MainTitle from "../../shared/ui/mainTitle/MainTitle";
 import NavElements from "../../entities/NavElements/NavElements";
 import Worspaces from "../../features/workspaces/Workspaces";
 import ThemeSwitcher from "../../features/themeSwitcher/ThemeSwitcher";
-import { CloseIcon } from "@chakra-ui/icons";
+// import { CloseIcon } from "@chakra-ui/icons";
+import Close from "shared/ui/close/Close";
 
 export interface INavPanel
   extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
@@ -29,7 +30,7 @@ const NavPanel: React.FC<INavPanel> = ({
       {...props}
     >
       <div className="md:hidden w-fit">
-        <CloseIcon onClick={() => setIsHide(true)} />
+        <Close onClick={() => setIsHide(true)} />
       </div>
       <MainTitle title="Kanban" />
       <NavElements setIsHide={setIsHide} />

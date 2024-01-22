@@ -26,10 +26,16 @@ function TodosPage() {
     todoApi.useLazyGetKanbanQuery();
 
   useEffect(() => {
+    const abortFetch = new AbortController();
+
     getKanban(workspaceId);
     if (!Object.keys(currentUser).length) {
       navigate("/account");
     }
+
+    return () => {
+      abortFetch.abort();
+    };
   }, [getKanban, workspaceId, navigate, currentUser, kanbanData]);
 
   return (

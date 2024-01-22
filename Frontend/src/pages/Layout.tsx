@@ -19,10 +19,7 @@ const Layout = () => {
 
   const systemUser = useSelector(selectUser);
   useEffect(() => {
-    async function getMeFn() {
-      await getMeQuery(null);
-    }
-    getMeFn();
+    getMeQuery(null);
   }, [getMeQuery, dispatch, meData, getMeDone]);
 
   if (meError && systemUser) {
