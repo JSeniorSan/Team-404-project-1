@@ -12,7 +12,7 @@ const Workspaces = ({ setIsHide }: { setIsHide: (value: boolean) => void }) => {
     todoApi.useLazyGetAllWorkspacesQuery();
 
   useEffect(() => {
-    getWorkspaces("");
+    getWorkspaces(null);
     if (allWorkspaces?.length !== 0 && typeof allWorkspaces !== "undefined") {
       dispatch(setMaxId(allWorkspaces[allWorkspaces.length - 1].id));
     }

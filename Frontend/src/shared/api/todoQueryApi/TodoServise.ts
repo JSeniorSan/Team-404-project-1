@@ -100,7 +100,7 @@ export const todoApi = createApi({
       }),
       invalidatesTags: ["NewWorkspace"],
     }),
-    getAllWorkspaces: build.query<IWorkspaceData[], string>({
+    getAllWorkspaces: build.query<IWorkspaceData[], null>({
       query: () => ({
         url: "/workspace/",
       }),

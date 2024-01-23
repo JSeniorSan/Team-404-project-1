@@ -33,7 +33,7 @@ export interface IResponseAuth {
   is_active: boolean;
   is_superuser: boolean;
   is_verified: boolean;
-  id?: string;
+  id: string;
   email: string;
   username: string;
 }

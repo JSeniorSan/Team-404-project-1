@@ -1,8 +1,27 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { IResponseAuth } from "../todoQueryApi/todoInterfaces";
 
-const initialState = {
-  currentUser: {},
+export type currentUserType = {
+  id: string;
+  email: string;
+  is_active: boolean;
+  is_superuser: boolean;
+  is_verified: boolean;
+  username: string;
+};
+export type userWorkspaceType = {
+  id: number;
+  empty: boolean;
+  maxId: number;
+};
+
+export type initStateType = {
+  currentUser: currentUserType;
+  currentUserWorkspace: userWorkspaceType;
+};
+
+const initialState: initStateType = {
+  currentUser: {} as currentUserType,
   currentUserWorkspace: {
     id: 1,
     empty: false,
@@ -18,7 +37,7 @@ const UserSlice = createSlice({
       state.currentUser = action.payload;
     },
     deleteCurrentUser: (state) => {
-      state.currentUser = {};
+      state.currentUser = {} as currentUserType;
     },
     addWorkspace: (state, action: PayloadAction<number>) => {
       state.currentUserWorkspace.id = action.payload;
