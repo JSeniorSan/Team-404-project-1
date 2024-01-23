@@ -40,7 +40,7 @@ const AuthForm = () => {
       <div className="flex justify-center items-center h-screen">
         <form
           onSubmit={handleSubmit(onSubmit)}
-          className="flex w-96 flex-col gap-3 p-10 bg-slate-800 rounded-lg backdrop-blur-md bg-opacity-90"
+          className="flex w-96 flex-col  gap-3 p-10 bg-slate-800 rounded-lg backdrop-blur-md bg-opacity-90"
         >
           <div className="text-5xl font-bold mb-5 bg-blue-400 p-4 rounded text-white flex justify-center">
             Sign Up

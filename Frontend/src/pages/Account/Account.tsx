@@ -9,7 +9,7 @@ const Account = () => {
   return (
     <AuthBg>
       <div className="w-full h-screen flex justify-center items-center">
-        <div className="flex rounded-3xl h-fit border w-fit shadow-lg shadow-green-100 bg-blue-300 backdrop-blur-md bg-opacity-70 border-none">
+        <div className="flex md:flex-row flex-col items-center rounded-3xl h-fit border md:w-fit shadow-lg shadow-green-100 bg-blue-300 backdrop-blur-md bg-opacity-70 border-none">
           <Login />
           <div className="register">
             <div className="text-white text-5xl font-bold">Hello, friend!</div>

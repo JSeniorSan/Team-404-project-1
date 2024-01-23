@@ -7,6 +7,7 @@ import AuthHocPrivat from "processes/auth/Hoc/AuthHocPrivat";
 import TodosPageList from "./TodoPages/TodosPage";
 import DashboardHome from "./DashboardHome/DashboardHome";
 import TodosPage from "./TodoPages/TodosPage";
+import CalendarPage from "./Calendar/Calendar";
 
 export const Routing = () => {
   return (
@@ -54,7 +55,7 @@ export const Routing = () => {
           path="calendar"
           element={
             <AuthHocPrivat>
-              <Home />
+              <CalendarPage />
             </AuthHocPrivat>
           }
         />
