@@ -1,10 +1,10 @@
 from typing import Any
 import uuid
-from fastapi import APIRouter, Body, Depends, Query, status
+from fastapi import APIRouter, Depends, WebSocket, WebSocketDisconnect, status
 from src.auth.models import User
-from src.workspace.schemas import UpdatePanelsOrderAndMoveTasks, WorkspaceCreate, WorkspaceInDb, WorkspaceUpdate, WorkspaceUpdatePanelsOrder
+from src.workspace.schemas import UpdatePanelsOrderAndMoveTasks, WorkspaceCreate, WorkspaceInDb, WorkspaceUpdate
 from src.auth.config import fastapi_users
-from src.workspace.service import workspace_service
+from src.workspace.service import workspace_service, manager
 
 
 current_user = fastapi_users.current_user()
@@ -15,6 +15,28 @@ router = APIRouter(
     tags=["Workspace"],
     dependencies=[Depends(current_user)]
 )
+
+
+# @router.get("/chat")
+# async def get():
+#     with open('src/workspace/chat.html', 'r') as html:
+#         return HTMLResponse(html.read())
+
+
+
+@router.websocket("/{workspace_id}")
+async def websocket_endpoint(
+    websocket: WebSocket, 
+    workspace_id: int,
+    user: User = Depends(current_user)
+):
+    await manager.connect(websocket)
+    try:
+        while True:
+            message = await websocket.receive_text()
+            await manager.broadcast(message, workspace_id, user.id)
+    except WebSocketDisconnect:
+        manager.disconnect(websocket)
 
 
 @router.post("/", response_model=WorkspaceInDb)
@@ -74,3 +96,5 @@ async def add_new_member_to_workspace(workspace_id: int, new_member_id: uuid.UUI
     '''
     workspace = await workspace_service.add_new_member_to_workspace(workspace_id, new_member_id)
     return workspace
+
+

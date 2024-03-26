@@ -26,12 +26,6 @@ class WorkspaceUpdate(WorkspaceBase):
     pass
 
 
-class WorkspaceUpdatePanelsOrder(BaseModel):
-    panels: list[PanelInDb]
-
-    model_config = ConfigDict(from_attributes=True)
-
-
 class UpdatePanelsOrderAndMoveTasks(BaseModel):
     panels: list[int]
     tasks: list[TaskInDb]

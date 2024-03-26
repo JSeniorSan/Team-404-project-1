@@ -21,6 +21,7 @@ class User(SQLAlchemyBaseUserTableUUID, Base):
     updated_at: Mapped[DateTime] = mapped_column(DateTime, server_default=func.now(), onupdate=func.now(), nullable=True)
     username: Mapped[str] = mapped_column(String(length=24), unique=True, nullable=False)
     workspaces: Mapped[list[Workspace]] = relationship()
+    messages: Mapped[list["Message"]] = relationship()
 
     def __repr__(self) -> str:
         return f"User: {self.email}"

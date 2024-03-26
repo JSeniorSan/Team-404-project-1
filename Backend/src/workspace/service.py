@@ -1,7 +1,9 @@
 import uuid
+
+from fastapi import WebSocket
 from src.auth.models import User
 from src.workspace.models import Workspace
-from src.workspace.schemas import UpdatePanelsOrderAndMoveTasks, WorkspaceCreate, WorkspaceUpdate, WorkspaceInDb, WorkspaceUpdatePanelsOrder
+from src.workspace.schemas import UpdatePanelsOrderAndMoveTasks, WorkspaceCreate, WorkspaceUpdate, WorkspaceInDb
 from src.workspace.repository import WorkspaceRepository, workspace_repository
 
 
@@ -54,3 +56,32 @@ class WorkspaceService:
     
 
 workspace_service = WorkspaceService(workspace_repository)
+
+
+class ConnectionManager:
+    def __init__(self, workspace_repo: WorkspaceRepository) -> None:
+        self.workspace_repo = workspace_repo
+        self.active_connections: list[WebSocket] = []
+
+    async def connect(self, websocket: WebSocket):
+        await websocket.accept()
+        self.active_connections.append(websocket)
+
+    def disconnect(self, websocket: WebSocket):
+        self.active_connections.remove(websocket)
+
+    async def send_personal_message(self, message: str, websocket: WebSocket):
+        await websocket.send_text(message)
+
+    async def broadcast(self, message: str, workspace_id: int, user_id: uuid.UUID):
+        message_dict = {
+            "content": message,
+            "workspace_id": workspace_id,
+            "user_id": user_id
+        }
+        message = await self.workspace_repo.add_message_to_workspace(message_dict)
+        for connection in self.active_connections:
+            await connection.send_text(message.content)
+
+
+manager = ConnectionManager(workspace_repository)

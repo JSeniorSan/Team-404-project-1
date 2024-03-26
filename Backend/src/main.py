@@ -1,4 +1,4 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, WebSocketDisconnect
 from fastapi.middleware.cors import CORSMiddleware
 from src.auth.config import auth_backend, fastapi_users
 from src.auth.schemas import UserRead, UserCreate, UserUpdate
@@ -42,4 +42,3 @@ app.add_middleware(
     allow_headers=["Content-Type", "Set-Cookie", "Access-Control-Allow-Headers", "Access-Control-Allow-Origin",
                    "Authorization"],
 )
-

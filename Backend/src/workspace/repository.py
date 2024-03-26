@@ -1,12 +1,11 @@
 from typing import Any
 import uuid
 from sqlalchemy import insert, select, update
-from sqlalchemy.orm import selectinload, joinedload
-from src.panel.schemas import PanelInDb
+from sqlalchemy.orm import selectinload
 from src.task.schemas import TaskInDb
-from src.workspace.schemas import WorkspaceInDb, WorkspaceUpdatePanelsOrder
+from src.workspace.schemas import WorkspaceInDb
 from src.auth.models import User
-from src.workspace.models import Workspace, workspace_members
+from src.workspace.models import Workspace, workspace_members, Message
 from utils.repository import SQLAlchemyRespository
 from src.database import Session
 from src.panel.models import Panel
@@ -93,5 +92,11 @@ class WorkspaceRepository(SQLAlchemyRespository[Workspace]):
             # result = await session.execute(query)
             # return result.scalar_one()
 
+    async def add_message_to_workspace(self, message_dict: dict) -> Message:
+        stmt = insert(Message).values(**message_dict).returning(Message)
+        async with Session() as session:
+            result = await session.execute(stmt)
+        message = result.scalar_one()
+        return message
 
 workspace_repository = WorkspaceRepository(Workspace)
