@@ -23,6 +23,7 @@ class Workspace(Base):
     creator_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("user.id"))
     panels: Mapped[list[Panel]] = relationship(back_populates="workspace", lazy='selectin', cascade="all, delete")
     members: Mapped[list["User"]] = relationship(back_populates="workspaces", lazy='selectin', cascade="all, delete", secondary=workspace_members)
+    messages: Mapped[list["Message"]] = relationship(back_populates="workspace", lazy='selectin', cascade="all, delete")
 
 
 class Message(Base):

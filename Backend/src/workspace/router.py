@@ -17,13 +17,6 @@ router = APIRouter(
 )
 
 
-# @router.get("/chat")
-# async def get():
-#     with open('src/workspace/chat.html', 'r') as html:
-#         return HTMLResponse(html.read())
-
-
-
 @router.websocket("/{workspace_id}")
 async def websocket_endpoint(
     websocket: WebSocket, 
@@ -34,7 +27,7 @@ async def websocket_endpoint(
     try:
         while True:
             message = await websocket.receive_text()
-            await manager.broadcast(message, workspace_id, user.id)
+            await manager.broadcast(message, workspace_id, user)
     except WebSocketDisconnect:
         manager.disconnect(websocket)
 

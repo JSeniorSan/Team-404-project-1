@@ -73,15 +73,20 @@ class ConnectionManager:
     async def send_personal_message(self, message: str, websocket: WebSocket):
         await websocket.send_text(message)
 
-    async def broadcast(self, message: str, workspace_id: int, user_id: uuid.UUID):
+    async def broadcast(self, message: str, workspace_id: int, user: User):
         message_dict = {
             "content": message,
             "workspace_id": workspace_id,
-            "user_id": user_id
+            "user_id": user.id
         }
         message = await self.workspace_repo.add_message_to_workspace(message_dict)
         for connection in self.active_connections:
-            await connection.send_text(message.content)
+            await connection.send_json(
+                {
+                    "message": message,
+                    "username": user.username
+                }
+            )
 
 
 manager = ConnectionManager(workspace_repository)
